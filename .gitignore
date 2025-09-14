@@ -40,8 +40,15 @@ proguard/
 captures/
 
 # IntelliJ
+.idea/*
+!.idea/codeStyles
+!.idea/inspectionProfiles
+!.idea/dictionaries
+!.idea/misc.xml
+!.idea/modules.xml
+!.idea/runConfigurations
 *.iml
-.idea/
+
 
 # For Mac users
 .DS_Store
