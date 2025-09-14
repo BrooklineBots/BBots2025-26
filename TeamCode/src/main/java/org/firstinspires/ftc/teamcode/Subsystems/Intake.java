@@ -9,6 +9,9 @@ public class Intake extends SubsystemBase {
   private final Motor leftIntakeMotor;
   private final Motor rightIntakeMotor;
 
+  private final int MAX_POWER = 1;
+  private final int MIN_POWER = -1;
+
   public Intake(final HardwareMap hwMap) {
     leftIntakeMotor = new Motor(hwMap, Constants.IntakeConstants.LEFT_INTAKE_ID);
     rightIntakeMotor = new Motor(hwMap, Constants.IntakeConstants.RIGHT_INTAKE_ID);
@@ -17,8 +20,10 @@ public class Intake extends SubsystemBase {
   }
 
   private void setPower(double power) {
-    leftIntakeMotor.set(power);
-    rightIntakeMotor.set(power);
+    if (power >= MIN_POWER && power <= MAX_POWER) {
+      leftIntakeMotor.set(power);
+      rightIntakeMotor.set(power);
+    }
   }
 
   public void intake() {

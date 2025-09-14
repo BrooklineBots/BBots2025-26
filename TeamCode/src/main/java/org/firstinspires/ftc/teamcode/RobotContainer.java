@@ -11,11 +11,14 @@ import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.AutoChooser;
+import org.firstinspires.ftc.teamcode.Commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
+import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
 public class RobotContainer {
   // Subsystems
+  private Drivetrain drive;
   private Intake intake;
 
   // Dependencies
@@ -56,8 +59,9 @@ public class RobotContainer {
 
   public void initializeSubsystems() {
     intake = new Intake(hardwareMap);
+    drive = new Drivetrain(hardwareMap);
     // Register subsystems with scheduler
-    CommandScheduler.getInstance().registerSubsystem(intake);
+    CommandScheduler.getInstance().registerSubsystem(intake, drive);
   }
 
   public void configureTeleOp() {
@@ -65,6 +69,7 @@ public class RobotContainer {
     initializeSubsystems();
 
     // Default commands
+    drive.setDefaultCommand(new DriveCommand(drive, gamepad1));
     intake.setDefaultCommand(new IntakeCommand(intake, gamepad1));
     // Button bindings
     configureButtonBindings();
