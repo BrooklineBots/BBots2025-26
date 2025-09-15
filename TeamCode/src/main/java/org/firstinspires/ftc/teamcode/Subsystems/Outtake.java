@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
 import com.seattlesolvers.solverslib.hardware.motors.Motor;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Constants;
 
 public class Outtake extends SubsystemBase {
@@ -12,18 +13,25 @@ public class Outtake extends SubsystemBase {
   private final int MAX_POWER = 1;
   private final int MIN_POWER = -1;
 
-  public Outtake(HardwareMap hwMap) {
+  private final Telemetry telemetry;
+
+  public Outtake(final HardwareMap hwMap, final Telemetry telemetry) {
     leftOuttakeMotor = new Motor(hwMap, Constants.OuttakeConstants.LEFT_OUTTAKE_ID);
     rightOuttakeMotor = new Motor(hwMap, Constants.OuttakeConstants.RIGHT_OUTTAKE_ID);
 
-    leftOuttakeMotor.setInverted(true);
+    this.telemetry = telemetry;
+    // leftOuttakeMotor.setInverted(true);
   }
 
-  public void setPower(double power) {
+  public void setPower(final double power) {
     if (power >= MIN_POWER && power <= MAX_POWER) {
       leftOuttakeMotor.set(power);
       rightOuttakeMotor.set(power);
     }
+  }
+
+  public double getPower() {
+    return leftOuttakeMotor.get();
   }
 
   public void shoot() {

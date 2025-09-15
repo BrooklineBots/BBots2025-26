@@ -16,10 +16,10 @@ public class Intake extends SubsystemBase {
     leftIntakeMotor = new Motor(hwMap, Constants.IntakeConstants.LEFT_INTAKE_ID);
     rightIntakeMotor = new Motor(hwMap, Constants.IntakeConstants.RIGHT_INTAKE_ID);
 
-    rightIntakeMotor.setInverted(true);
+    // rightIntakeMotor.setInverted(true);
   }
 
-  private void setPower(double power) {
+  private void setPower(final double power) {
     if (power >= MIN_POWER && power <= MAX_POWER) {
       leftIntakeMotor.set(power);
       rightIntakeMotor.set(power);

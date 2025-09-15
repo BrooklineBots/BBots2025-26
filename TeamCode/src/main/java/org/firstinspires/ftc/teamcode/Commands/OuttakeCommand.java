@@ -23,7 +23,7 @@ public class OuttakeCommand extends CommandBase {
     if (gamepad.isDown(GamepadKeys.Button.X)) {
       outtake.shoot();
     } else if (gamepad.isDown(GamepadKeys.Button.Y)) {
-      outtake.shoot();
+      outtake.stop();
     }
   }
 
