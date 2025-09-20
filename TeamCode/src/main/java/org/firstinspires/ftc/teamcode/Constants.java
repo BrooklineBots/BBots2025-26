@@ -14,7 +14,7 @@ public class Constants {
     public static final String LEFT_INTAKE_ID = "leftIntakeMotor";
     public static final String RIGHT_INTAKE_ID = "rightIntakeMotor";
 
-    public static final double INTAKE_POWER = 0.5;
+    public static final double INTAKE_POWER = 1;
   }
 
   public static class OuttakeConstants {
