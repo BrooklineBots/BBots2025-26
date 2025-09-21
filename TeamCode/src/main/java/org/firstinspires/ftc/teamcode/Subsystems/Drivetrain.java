@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
 import com.seattlesolvers.solverslib.drivebase.MecanumDrive;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
@@ -32,8 +34,8 @@ public class Drivetrain extends SubsystemBase {
     frontRightMotor = new Motor(hwMap, Constants.DriveConstants.FRONT_RIGHT_MOTOR_ID);
     backRightMotor = new Motor(hwMap, Constants.DriveConstants.BACK_RIGHT_MOTOR_ID);
 
-    frontLeftMotor.setInverted(true); // Invert this motor!
-    backLeftMotor.setInverted(true); // Invert this motor!
+    // frontLeftMotor.setInverted(true); // Invert this motor!
+    // backLeftMotor.setInverted(true); // Invert this motor!
 
     frontLeftMotor.setRunMode(
         Motor.RunMode
@@ -50,11 +52,11 @@ public class Drivetrain extends SubsystemBase {
 
     /* Old parameters settings */
     // Adjust the orientation parameters to match your robot
-    //    IMU.Parameters parameters =
-    //        new IMU.Parameters(
-    //            new RevHubOrientationOnRobot(
-    //                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
-    //                RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD));
+    final IMU.Parameters parameters =
+        new IMU.Parameters(
+            new RevHubOrientationOnRobot(
+                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
+                RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD));
 
     drive =
         new MecanumDrive(
@@ -88,7 +90,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void driveFieldCentric(final GamepadEx Controller) {
-    driveFieldCentric(-Controller.getLeftY(), Controller.getLeftX(), Controller.getRightX());
+    driveFieldCentric(-Controller.getLeftY(), -Controller.getLeftX(), -Controller.getRightX());
   }
 
   public void driveFieldCentric(final double forward, final double strafe, final double rotate) {

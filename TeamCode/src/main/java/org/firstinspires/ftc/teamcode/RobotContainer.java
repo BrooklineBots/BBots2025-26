@@ -6,20 +6,16 @@ import com.seattlesolvers.solverslib.command.CommandOpMode;
 import com.seattlesolvers.solverslib.command.CommandScheduler;
 import com.seattlesolvers.solverslib.command.InstantCommand;
 import com.seattlesolvers.solverslib.command.WaitUntilCommand;
-import com.seattlesolvers.solverslib.command.button.GamepadButton;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
-import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.AutoChooser;
-import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.OuttakeCommand;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake;
 
 public class RobotContainer {
   // Subsystems
   // private Drivetrain drive;
-  private Intake intake;
+  // private Intake intake;
   private Outtake outtake;
 
   // Dependencies
@@ -59,11 +55,11 @@ public class RobotContainer {
   }
 
   public void initializeSubsystems() {
-    intake = new Intake(hardwareMap);
+    // intake = new Intake(hardwareMap);
     // drive = new Drivetrain(hardwareMap);
     outtake = new Outtake(hardwareMap, telemetry);
     // Register subsystems with scheduler
-    CommandScheduler.getInstance().registerSubsystem(intake, outtake);
+    CommandScheduler.getInstance().registerSubsystem(outtake);
   }
 
   public void configureTeleOp() {
@@ -72,7 +68,7 @@ public class RobotContainer {
 
     // Default commands
     // drive.setDefaultCommand(new DriveCommand(drive, gamepad1));
-    intake.setDefaultCommand(new IntakeCommand(intake, gamepad1));
+    // intake.setDefaultCommand(new IntakeCommand(intake, gamepad1));
     outtake.setDefaultCommand(new OuttakeCommand(outtake, gamepad1));
     // Button bindings
     configureButtonBindings();
@@ -86,14 +82,14 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     // Gamepad 1 buttons
-    new GamepadButton(gamepad1, GamepadKeys.Button.A)
-        .whenActive(new IntakeCommand(intake, gamepad1));
-    new GamepadButton(gamepad1, GamepadKeys.Button.B)
-        .whenActive(new IntakeCommand(intake, gamepad1));
-    new GamepadButton(gamepad1, GamepadKeys.Button.X)
-        .whenActive(new OuttakeCommand(outtake, gamepad1));
-    new GamepadButton(gamepad1, GamepadKeys.Button.Y)
-        .whenActive(new OuttakeCommand(outtake, gamepad1));
+    //    new GamepadButton(gamepad1, GamepadKeys.Button.A)
+    //        .whenActive(new IntakeCommand(intake, gamepad1));
+    //    new GamepadButton(gamepad1, GamepadKeys.Button.B)
+    //        .whenActive(new IntakeCommand(intake, gamepad1));
+    //    new GamepadButton(gamepad1, GamepadKeys.Button.X)
+    //        .whenActive(new OuttakeCommand(outtake, gamepad1));
+    //    new GamepadButton(gamepad1, GamepadKeys.Button.Y)
+    //        .whenActive(new OuttakeCommand(outtake, gamepad1));
     // Gamepad 2 buttons
 
   }
@@ -117,7 +113,7 @@ public class RobotContainer {
 
   public void run() {
     // telemetry
-    telemetry.addData("Currently shooting", outtake.getPower());
+    // telemetry.addData("Currently shooting", outtake.getPower());
     telemetry.update();
 
     if (currentGameMode == gameMode.TeleOp) {

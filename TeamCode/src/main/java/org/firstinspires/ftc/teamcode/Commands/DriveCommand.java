@@ -46,7 +46,7 @@ public class DriveCommand extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return true; // What should we return here? Should this command always run? Or should it stop
+    return false; // What should we return here? Should this command always run? Or should it stop
     // when the gamepad is released?
   }
 }
