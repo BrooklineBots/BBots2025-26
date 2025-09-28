@@ -40,7 +40,7 @@ public class LimelightAprilTag extends OpMode {
             Pose3D botpose = llResult.getBotpose_MT2();
             telemetry.addData("Ty",llResult.getTy());
             telemetry.addData("Tx",llResult.getTx());
-            telemetry.addData()
+            telemetry.addData("Ta",llResult.getTa());
 
         }
 
