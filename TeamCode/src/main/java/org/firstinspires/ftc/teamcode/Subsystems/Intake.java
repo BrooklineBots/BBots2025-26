@@ -3,34 +3,41 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
 import com.seattlesolvers.solverslib.hardware.motors.Motor;
+import com.seattlesolvers.solverslib.hardware.motors.MotorEx;
 import org.firstinspires.ftc.teamcode.Constants;
 
 public class Intake extends SubsystemBase {
-  private final Motor leftIntakeMotor;
-  private final Motor rightIntakeMotor;
+  private final MotorEx leftIntakeMotor;
+  private final MotorEx rightIntakeMotor;
 
-  private final int MAX_POWER = 1;
-  private final int MIN_POWER = -1;
+  private final double MAX_VELOCITY = Constants.IntakeConstants.INTAKE_MAX_VELOCITY;
+  private final double MIN_VELOCITY = 0;
 
   public Intake(final HardwareMap hwMap) {
-    leftIntakeMotor = new Motor(hwMap, Constants.IntakeConstants.LEFT_INTAKE_ID);
-    rightIntakeMotor = new Motor(hwMap, Constants.IntakeConstants.RIGHT_INTAKE_ID);
+    leftIntakeMotor = new MotorEx(hwMap, Constants.IntakeConstants.LEFT_INTAKE_ID);
+    rightIntakeMotor = new MotorEx(hwMap, Constants.IntakeConstants.RIGHT_INTAKE_ID);
 
+    leftIntakeMotor.setRunMode(Motor.RunMode.VelocityControl);
+    rightIntakeMotor.setRunMode(Motor.RunMode.VelocityControl);
     // rightIntakeMotor.setInverted(true);
   }
 
-  private void setPower(final double power) {
-    if (power >= MIN_POWER && power <= MAX_POWER) {
-      leftIntakeMotor.set(power);
-      rightIntakeMotor.set(power);
+  private void setVelocity(final double velocity) {
+    if (velocity >= MIN_VELOCITY && velocity <= MAX_VELOCITY) {
+      leftIntakeMotor.setVelocity(velocity);
+      rightIntakeMotor.setVelocity(velocity);
     }
   }
 
+  public double getVelocity() {
+    return leftIntakeMotor.getVelocity();
+  }
+
   public void intake() {
-    setPower(Constants.IntakeConstants.INTAKE_POWER);
+    setVelocity(Constants.IntakeConstants.INTAKE_VELOCITY);
   }
 
   public void stop() {
-    setPower(0);
+    setVelocity(0);
   }
 }
