@@ -72,8 +72,8 @@ public class RobotContainer {
 
     // Default commands
     drive.setDefaultCommand(new DriveCommand(drive, gamepad1));
-    // intake.setDefaultCommand(new IntakeCommand(intake, gamepad1));
-    outtake.setDefaultCommand(new OuttakeCommand(outtake, gamepad1));
+    // intake.setDefaultCommand(new IntakeCommand(intake));
+    outtake.setDefaultCommand(new OuttakeCommand(outtake));
     // Button bindings
     configureButtonBindings();
   }
@@ -87,13 +87,12 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Gamepad 1 buttons
     //       new GamepadButton(gamepad1, GamepadKeys.Button.A)
-    //            .whenActive(new IntakeCommand(intake, gamepad1));
+    //            .whenActive(new IntakeCommand(intake));
     //        new GamepadButton(gamepad1, GamepadKeys.Button.B)
-    //            .whenActive(new IntakeCommand(intake, gamepad1));
-    new GamepadButton(gamepad1, GamepadKeys.Button.X)
-        .whenActive(new OuttakeCommand(outtake, gamepad1));
+    //            .whenActive(new InstantCommand(() -> intake.stop(), intake));
+    new GamepadButton(gamepad1, GamepadKeys.Button.X).whenActive(new OuttakeCommand(outtake));
     new GamepadButton(gamepad1, GamepadKeys.Button.Y)
-        .whenActive(new OuttakeCommand(outtake, gamepad1));
+        .whenActive(new InstantCommand(() -> outtake.stop(), outtake));
     // Gamepad 2 buttons
 
   }
