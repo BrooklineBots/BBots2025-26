@@ -91,7 +91,8 @@ public class RobotContainer {
   public void configureAuto() { // Note that I'm still working on this. It does not work yet.
     currentGameMode = gameMode.Auto;
     initializeSubsystems();
-    startAutoChooser();
+//    startAutoChooser();
+//    FIXME: Temporarily enter your sequential auto command here until the auto chooser is working
   }
 
   private void configureButtonBindings() {
