@@ -12,23 +12,17 @@ import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.AutoChooser;
 import org.firstinspires.ftc.teamcode.Commands.DriveCommand;
-import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.OuttakeCommand;
-import org.firstinspires.ftc.teamcode.Commands.StoreArtifactsCommand;
-import org.firstinspires.ftc.teamcode.Commands.TransferToStorageCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake;
-import org.firstinspires.ftc.teamcode.Subsystems.Storage;
 
 public class RobotContainer {
   // Subsystems
   private Drivetrain drive;
-  private Intake intake;
+  // private Intake intake;
   private Outtake outtake;
 
-  private Storage storage;
-
+  // private Storage storage;
 
   // Dependencies
   private final HardwareMap hardwareMap;
@@ -46,7 +40,8 @@ public class RobotContainer {
 
   public enum AutoMode { // Enum of all valid autonomous modes
     ExampleAuto,
-    DoNothingAuto;
+    DoNothingAuto,
+    PedroAutoTest;
   }
 
   public RobotContainer(
@@ -67,12 +62,12 @@ public class RobotContainer {
   }
 
   public void initializeSubsystems() {
-    intake = new Intake(hardwareMap);
+    // intake = new Intake(hardwareMap);
     drive = new Drivetrain(hardwareMap);
     outtake = new Outtake(hardwareMap, telemetry);
-    storage = new Storage(hardwareMap);
+    // storage = new Storage(hardwareMap);
     // Register subsystems with scheduler
-    CommandScheduler.getInstance().registerSubsystem(intake ,outtake, drive, storage);
+    CommandScheduler.getInstance().registerSubsystem(outtake, drive);
   }
 
   public void configureTeleOp() {
@@ -81,9 +76,9 @@ public class RobotContainer {
 
     // Default commands
     drive.setDefaultCommand(new DriveCommand(drive, gamepad1));
-    intake.setDefaultCommand(new IntakeCommand(intake));
+    // intake.setDefaultCommand(new IntakeCommand(intake));
     outtake.setDefaultCommand(new OuttakeCommand(outtake));
-    storage.setDefaultCommand(new StoreArtifactsCommand(storage));
+    // storage.setDefaultCommand(new StoreArtifactsCommand(storage));
     // Button bindings
     configureButtonBindings();
   }
@@ -96,14 +91,14 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     // Gamepad 1 buttons
-    new GamepadButton(gamepad1, GamepadKeys.Button.A)
-            .whenActive(new TransferToStorageCommand(intake,storage));
-    new GamepadButton(gamepad1, GamepadKeys.Button.B)
-                .whenActive(new InstantCommand(() -> intake.stop(), intake));
-    new GamepadButton(gamepad1,GamepadKeys.Button.DPAD_DOWN)
-            .whenActive(new InstantCommand(()-> storage.stop(), storage ));
-    new GamepadButton(gamepad1,GamepadKeys.Button.DPAD_UP)
-            .whenActive(new StoreArtifactsCommand(storage));
+    //    new GamepadButton(gamepad1, GamepadKeys.Button.A)
+    //        .whenActive(new TransferToStorageCommand(intake, storage));
+    //    new GamepadButton(gamepad1, GamepadKeys.Button.B)
+    //        .whenActive(new InstantCommand(() -> intake.stop(), intake));
+    //    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_DOWN)
+    //        .whenActive(new InstantCommand(() -> storage.stop(), storage));
+    //    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP)
+    //        .whenActive(new StoreArtifactsCommand(storage));
     new GamepadButton(gamepad1, GamepadKeys.Button.X).whenActive(new OuttakeCommand(outtake));
     new GamepadButton(gamepad1, GamepadKeys.Button.Y)
         .whenActive(new InstantCommand(() -> outtake.stop(), outtake));
