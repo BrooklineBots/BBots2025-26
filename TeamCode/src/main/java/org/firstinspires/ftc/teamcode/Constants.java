@@ -24,4 +24,10 @@ public class Constants {
 
     public static final double OUTTAKE_MAX_VELOCITY = -1620; // in RPM
   }
+
+  public static class StorageConstants {
+    public static final String STORAGE_SERVO = "storageServo";
+
+    public static final double STORAGE_POWER = 0.5;
+  }
 }
