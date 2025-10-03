@@ -19,7 +19,9 @@ public class Intake extends SubsystemBase {
 
     leftIntakeMotor.setRunMode(Motor.RunMode.VelocityControl);
     rightIntakeMotor.setRunMode(Motor.RunMode.VelocityControl);
-    // rightIntakeMotor.setInverted(true);
+
+    leftIntakeMotor.setInverted(true);
+    rightIntakeMotor.setInverted(true);
   }
 
   private void setVelocity(final double velocity) {

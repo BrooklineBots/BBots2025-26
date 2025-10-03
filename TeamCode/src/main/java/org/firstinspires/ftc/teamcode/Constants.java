@@ -14,15 +14,15 @@ public class Constants {
     public static final String LEFT_INTAKE_ID = "leftIntakeMotor";
     public static final String RIGHT_INTAKE_ID = "rightIntakeMotor";
 
-    public static final double INTAKE_VELOCITY = -170;
-    public static final double INTAKE_MAX_VELOCITY = -312; // in RPM
+    public static final double INTAKE_VELOCITY = 170;
+    public static final double INTAKE_MAX_VELOCITY = 312; // in RPM
   }
 
   public static class OuttakeConstants {
     public static final String LEFT_OUTTAKE_ID = "leftOuttakeMotor";
     public static final String RIGHT_OUTTAKE_ID = "rightOuttakeMotor";
 
-    public static final double OUTTAKE_MAX_VELOCITY = -1620; // in RPM
+    public static final double OUTTAKE_MAX_VELOCITY = 1620; // in RPM
   }
 
   public static class StorageConstants {
