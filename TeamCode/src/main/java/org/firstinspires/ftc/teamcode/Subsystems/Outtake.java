@@ -21,8 +21,8 @@ public class Outtake extends SubsystemBase {
 
     this.telemetry = telemetry;
     // leftOuttakeMotor.setInverted(true);
-    leftOuttakeMotor.setInverted(true);
-    rightOuttakeMotor.setInverted(true);
+    leftOuttakeMotor.setInverted(false);
+    rightOuttakeMotor.setInverted(false);
   }
 
   public void setVelocity(final double velocity) {
