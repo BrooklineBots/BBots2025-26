@@ -90,7 +90,6 @@ public class RobotContainer {
 
     // Schedule Auto Chooser
     CommandScheduler.getInstance().schedule(new AutoChooser(this, gamepad1, telemetry));
-//    FIXME: Temporarily enter your sequential auto command here until the auto chooser is working
   }
 
   private void configureButtonBindings() {
