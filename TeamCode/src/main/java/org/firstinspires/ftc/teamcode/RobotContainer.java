@@ -5,13 +5,11 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.CommandOpMode;
 import com.seattlesolvers.solverslib.command.CommandScheduler;
 import com.seattlesolvers.solverslib.command.InstantCommand;
-import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 import com.seattlesolvers.solverslib.command.button.GamepadButton;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.AutoChooser;
-import org.firstinspires.ftc.teamcode.Commands.AutoCommands.PedroAutoTest;
 import org.firstinspires.ftc.teamcode.Commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.Commands.OuttakeCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
@@ -78,7 +76,7 @@ public class RobotContainer {
     // Default commands
     drive.setDefaultCommand(new DriveCommand(drive, gamepad1));
     // intake.setDefaultCommand(new IntakeCommand(intake));
-//    outtake.setDefaultCommand(new OuttakeCommand(outtake));
+    //    outtake.setDefaultCommand(new OuttakeCommand(outtake));
     // storage.setDefaultCommand(new StoreArtifactsCommand(storage));
     // Button bindings
     configureButtonBindings();
@@ -106,7 +104,6 @@ public class RobotContainer {
     new GamepadButton(gamepad1, GamepadKeys.Button.Y)
         .whenActive(new InstantCommand(() -> outtake.stop(), outtake));
 
-
     // Gamepad 2 buttons
 
   }
@@ -115,13 +112,12 @@ public class RobotContainer {
     telemetry.addData("Starting Auto Mode", selectedAutoMode);
     telemetry.update();
 
-
     if (selectedAutoMode == AutoMode.ExampleAuto) {
       CommandScheduler.getInstance().schedule(new InstantCommand(() -> outtake.shoot()));
     } else if (selectedAutoMode == AutoMode.DoNothingAuto) {
       CommandScheduler.getInstance().schedule(new InstantCommand());
     } else if (selectedAutoMode == AutoMode.PedroAutoTest) {
-//      CommandScheduler.getInstance().schedule(new PedroAutoTest();
+      //      CommandScheduler.getInstance().schedule(new PedroAutoTest();
       CommandScheduler.getInstance().schedule(new InstantCommand());
 
     } else {

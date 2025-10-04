@@ -5,16 +5,16 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.seattlesolvers.solverslib.command.CommandOpMode;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.pedroCommand.FollowPathCommand;
-import com.seattlesolvers.solverslib.util.TelemetryData;
+import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 @Autonomous
-public class PedroAutoTest extends CommandOpMode {
+public class PedroAutoTest extends SequentialCommandGroup {
   private Follower follower;
-  TelemetryData telemetryData = new TelemetryData(telemetry);
+  // TelemetryData telemetryData = new TelemetryData(telemetry);
 
   // Poses
   private final Pose startPose = new Pose(50, 30, Math.toRadians(0));
@@ -40,32 +40,41 @@ public class PedroAutoTest extends CommandOpMode {
             .build();
   }
 
-  @Override
-  public void initialize() {
-    super.reset();
-
-    // Initialize follower
-    follower = Constants.createFollower(hardwareMap);
+  public PedroAutoTest(Drivetrain drive, HardwareMap hwMap) {
+    follower = Constants.createFollower(hwMap);
     follower.setStartingPose(startPose);
     buildPaths();
-
-    // Create the autonomous command sequence
-    final SequentialCommandGroup autonomousSequence =
-        new SequentialCommandGroup(
-            // Score preload
-            new FollowPathCommand(follower, pathLine1), new FollowPathCommand(follower, pathLine2));
-
-    // Schedule the autonomous sequence
-    schedule(autonomousSequence);
+    addCommands(
+        new FollowPathCommand(follower, pathLine1), new FollowPathCommand(follower, pathLine2));
   }
 
-  @Override
-  public void run() {
-    super.run();
+  //  @Override
+  //  public void initialize() {
+  //    super.reset();
+  //
+  //    // Initialize follower
+  //    follower = Constants.createFollower(hardwareMap);
+  //    follower.setStartingPose(startPose);
+  //    buildPaths();
+  //
+  //    // Create the autonomous command sequence
+  //    final SequentialCommandGroup autonomousSequence =
+  //        new SequentialCommandGroup(
+  //            // Score preload
+  //            new FollowPathCommand(follower, pathLine1), new FollowPathCommand(follower,
+  // pathLine2));
+  //
+  //    // Schedule the autonomous sequence
+  //    schedule(autonomousSequence);
+  //  }
 
-    telemetryData.addData("X", follower.getPose().getX());
-    telemetryData.addData("Y", follower.getPose().getY());
-    telemetryData.addData("Heading", follower.getPose().getHeading());
-    telemetryData.update();
-  }
+  //  @Override
+  //  public void run() {
+  //    super.run();
+  //
+  //    telemetryData.addData("X", follower.getPose().getX());
+  //    telemetryData.addData("Y", follower.getPose().getY());
+  //    telemetryData.addData("Heading", follower.getPose().getHeading());
+  //    telemetryData.update();
+  //  }
 }

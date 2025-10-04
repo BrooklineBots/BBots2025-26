@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Commands.AutoCommands;
 
 import com.seattlesolvers.solverslib.command.CommandBase;
-import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -17,7 +16,8 @@ public class AutoChooser extends CommandBase {
   private long lastButtonPressTime = 0;
   private final RobotContainer robotContainer;
 
-  public AutoChooser(final RobotContainer robotContainer, final GamepadEx gamepad, final Telemetry telemetry) {
+  public AutoChooser(
+      final RobotContainer robotContainer, final GamepadEx gamepad, final Telemetry telemetry) {
     this.robotContainer = robotContainer;
     this.gamepad = gamepad;
     this.telemetry = telemetry;
