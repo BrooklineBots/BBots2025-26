@@ -11,7 +11,7 @@ public class Intake extends SubsystemBase {
   private final MotorEx rightIntakeMotor;
 
   private final double MAX_VELOCITY = Constants.IntakeConstants.INTAKE_MAX_VELOCITY;
-  private final double MIN_VELOCITY = 0;
+  private final double MIN_VELOCITY = 1;
 
   public Intake(final HardwareMap hwMap) {
     leftIntakeMotor = new MotorEx(hwMap, Constants.IntakeConstants.LEFT_INTAKE_ID);
@@ -40,6 +40,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void stop() {
-    setVelocity(0);
+    leftIntakeMotor.stopMotor();
+    rightIntakeMotor.stopMotor();
   }
 }

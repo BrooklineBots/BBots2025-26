@@ -11,7 +11,7 @@ public class Outtake extends SubsystemBase {
   private final MotorEx rightOuttakeMotor;
 
   private final double MAX_VELOCITY = Constants.OuttakeConstants.OUTTAKE_MAX_VELOCITY;
-  private final double MIN_VELOCITY = 0;
+  private final double MIN_VELOCITY = 1;
 
   private final Telemetry telemetry;
 
@@ -41,6 +41,7 @@ public class Outtake extends SubsystemBase {
   }
 
   public void stop() {
-    setVelocity(0);
+    leftOuttakeMotor.stopMotor();
+    rightOuttakeMotor.stopMotor();
   }
 }
