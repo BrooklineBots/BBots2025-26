@@ -17,6 +17,8 @@ public class Drivetrain extends SubsystemBase {
   private final Motor frontRightMotor;
   private final Motor backRightMotor;
 
+  //  private final Follower follower;
+
   private final RevIMU revIMU;
 
   private double fieldHeadingOffset = 0.0; // in radians
@@ -33,6 +35,8 @@ public class Drivetrain extends SubsystemBase {
     backLeftMotor = new Motor(hwMap, Constants.DriveConstants.BACK_LEFT_MOTOR_ID);
     frontRightMotor = new Motor(hwMap, Constants.DriveConstants.FRONT_RIGHT_MOTOR_ID);
     backRightMotor = new Motor(hwMap, Constants.DriveConstants.BACK_RIGHT_MOTOR_ID);
+
+    //    follower = org.firstinspires.ftc.teamcode.pedroPathing.Constants.createFollower(hwMap);
 
     // frontLeftMotor.setInverted(true); // Invert this motor!
     // backLeftMotor.setInverted(true); // Invert this motor!
@@ -97,4 +101,8 @@ public class Drivetrain extends SubsystemBase {
 
     drive.driveFieldCentric(strafe, forward, rotate, revIMU.getRotation2d().getDegrees(), false);
   }
+
+  //  public Follower getFollower() {
+  //    return follower;
+  //  }
 }

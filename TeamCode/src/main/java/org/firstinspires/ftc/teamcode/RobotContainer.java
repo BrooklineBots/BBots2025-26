@@ -43,6 +43,8 @@ public class RobotContainer {
     PedroAutoTest;
   }
 
+  private AutoMode currentAuto;
+
   public RobotContainer(
       final HardwareMap hardwareMap,
       final Gamepad gamepad1,
@@ -117,7 +119,7 @@ public class RobotContainer {
     } else if (selectedAutoMode == AutoMode.DoNothingAuto) {
       CommandScheduler.getInstance().schedule(new InstantCommand());
     } else if (selectedAutoMode == AutoMode.PedroAutoTest) {
-      //      CommandScheduler.getInstance().schedule(new PedroAutoTest();
+      //       CommandScheduler.getInstance().schedule(new PedroAutoTest(drive));
       CommandScheduler.getInstance().schedule(new InstantCommand());
 
     } else {
@@ -135,5 +137,17 @@ public class RobotContainer {
       gamepad1.readButtons();
       gamepad2.readButtons();
     }
+    //    if (currentGameMode == gameMode.Auto) {
+    //      dashboardPoseTracker.update();
+    //      Drawing.drawPoseHistory(dashboardPoseTracker, "#4CAF50");
+    //      Drawing.drawRobot(robot.follower.getPose(), "#4CAF50");
+    //      Drawing.sendPacket();
+    //
+    //      // DO NOT REMOVE! Removing this will return stale data since bulk caching is on Manual
+    // mode
+    //      // Also only clearing the control hub to decrease loop times
+    //      // This means if we start reading both hubs (which we aren't) we need to clear both
+    //      robot.ControlHub.clearBulkCache();
+    //    }
   }
 }
