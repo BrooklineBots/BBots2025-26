@@ -1,6 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
 public class Constants {
+
+  public static class RobotConstants {
+    public static final double ROBOT_MASS = 0.0; // in kilograms
+    // pinpoint constants
+    public static final double FORWARD_POD_OFFSET = 0.0;
+    public static final double STRAFE_POD_OFFSET = 0.0;
+  }
+
   public static class DriveConstants {
     public static final String FRONT_LEFT_MOTOR_ID = "frontLeftMotor";
     public static final String FRONT_RIGHT_MOTOR_ID = "frontRightMotor";
@@ -22,7 +30,10 @@ public class Constants {
     public static final String LEFT_OUTTAKE_ID = "leftOuttakeMotor";
     public static final String RIGHT_OUTTAKE_ID = "rightOuttakeMotor";
 
-    public static final double OUTTAKE_MAX_VELOCITY = 11614; // in RPM
+    public static final double OUTTAKE_MAX_VELOCITY = 9400; // TODO:test max
+    // 10178.76; // in radians per minute
+
+    public static final double OUTTAKE_MOVEMENT_SPEED = 9300;
   }
 
   public static class StorageConstants {
