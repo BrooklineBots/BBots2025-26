@@ -4,7 +4,7 @@ import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.seattlesolvers.solverslib.command.CommandOpMode;
 import com.seattlesolvers.solverslib.util.TelemetryData;
-import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
+import org.firstinspires.ftc.teamcode.pedroPathing.PedroConstants;
 
 @TeleOp
 public class PedroTeleOpSample extends CommandOpMode {
@@ -13,7 +13,7 @@ public class PedroTeleOpSample extends CommandOpMode {
 
   @Override
   public void initialize() {
-    follower = Constants.createFollower(hardwareMap);
+    follower = PedroConstants.createFollower(hardwareMap);
     super.reset();
 
     follower.startTeleopDrive();

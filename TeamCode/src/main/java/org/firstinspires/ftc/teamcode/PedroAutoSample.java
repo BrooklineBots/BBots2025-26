@@ -12,7 +12,7 @@ import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.pedroCommand.FollowPathCommand;
 import com.seattlesolvers.solverslib.util.TelemetryData;
-import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
+import org.firstinspires.ftc.teamcode.pedroPathing.PedroConstants;
 
 @Autonomous
 public class PedroAutoSample extends CommandOpMode {
@@ -94,28 +94,28 @@ public class PedroAutoSample extends CommandOpMode {
   }
 
   // Mechanism commands - replace these with your actual subsystem commands
-  private InstantCommand openOuttakeClaw() {
+  private static InstantCommand openOuttakeClaw() {
     return new InstantCommand(
         () -> {
           // Example: outtakeSubsystem.openClaw();
         });
   }
 
-  private InstantCommand grabSample() {
+  private static InstantCommand grabSample() {
     return new InstantCommand(
         () -> {
           // Example: intakeSubsystem.grabSample();
         });
   }
 
-  private InstantCommand scoreSample() {
+  private static InstantCommand scoreSample() {
     return new InstantCommand(
         () -> {
           // Example: outtakeSubsystem.scoreSample();
         });
   }
 
-  private InstantCommand level1Ascent() {
+  private static InstantCommand level1Ascent() {
     return new InstantCommand(
         () -> {
           // Example: hangSubsystem.level1Ascent();
@@ -127,12 +127,12 @@ public class PedroAutoSample extends CommandOpMode {
     super.reset();
 
     // Initialize follower
-    follower = Constants.createFollower(hardwareMap);
+    follower = PedroConstants.createFollower(hardwareMap);
     follower.setStartingPose(startPose);
     buildPaths();
 
     // Create the autonomous command sequence
-    SequentialCommandGroup autonomousSequence =
+    final SequentialCommandGroup autonomousSequence =
         new SequentialCommandGroup(
             // Score preload
             new FollowPathCommand(follower, scorePreload),

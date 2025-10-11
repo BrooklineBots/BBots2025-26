@@ -16,9 +16,13 @@ import com.bylazar.field.Style;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
-import com.pedropathing.geometry.*;
-import com.pedropathing.math.*;
-import com.pedropathing.paths.*;
+import com.pedropathing.geometry.BezierCurve;
+import com.pedropathing.geometry.BezierLine;
+import com.pedropathing.geometry.Pose;
+import com.pedropathing.math.Vector;
+import com.pedropathing.paths.HeadingInterpolator;
+import com.pedropathing.paths.Path;
+import com.pedropathing.paths.PathChain;
 import com.pedropathing.telemetry.SelectableOpMode;
 import com.pedropathing.util.PoseHistory;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -88,10 +92,10 @@ public class Tuning extends SelectableOpMode {
   @Override
   public void onSelect() {
     if (follower == null) {
-      follower = Constants.createFollower(hardwareMap);
+      follower = PedroConstants.createFollower(hardwareMap);
       PanelsConfigurables.INSTANCE.refreshClass(this);
     } else {
-      follower = Constants.createFollower(hardwareMap);
+      follower = PedroConstants.createFollower(hardwareMap);
     }
 
     follower.setStartingPose(new Pose());
@@ -102,13 +106,13 @@ public class Tuning extends SelectableOpMode {
   }
 
   @Override
-  public void onLog(List<String> lines) {}
+  public void onLog(final List<String> lines) {}
 
   public static void drawCurrent() {
     try {
       Drawing.drawRobot(follower.getPose());
       Drawing.sendPacket();
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new RuntimeException("Drawing failed " + e);
     }
   }
@@ -424,14 +428,15 @@ class ForwardVelocityTuner extends OpMode {
       } else {
         follower.setTeleOpDrive(1, 0, 0, true);
         // double currentVelocity = Math.abs(follower.getVelocity().getXComponent());
-        double currentVelocity = Math.abs(follower.poseTracker.getLocalizer().getVelocity().getX());
+        final double currentVelocity =
+            Math.abs(follower.poseTracker.getLocalizer().getVelocity().getX());
         velocities.add(currentVelocity);
         velocities.remove(0);
       }
     } else {
       stopRobot();
       double average = 0;
-      for (double velocity : velocities) {
+      for (final double velocity : velocities) {
         average += velocity;
       }
       average /= velocities.size();
@@ -448,7 +453,7 @@ class ForwardVelocityTuner extends OpMode {
 
       if (gamepad1.aWasPressed()) {
         follower.setXVelocity(average);
-        String message = "XMovement: " + average;
+        final String message = "XMovement: " + average;
         changes.add(message);
       }
     }
@@ -531,14 +536,15 @@ class LateralVelocityTuner extends OpMode {
         stopRobot();
       } else {
         follower.setTeleOpDrive(0, 1, 0, true);
-        double currentVelocity = Math.abs(follower.getVelocity().dot(new Vector(1, Math.PI / 2)));
+        final double currentVelocity =
+            Math.abs(follower.getVelocity().dot(new Vector(1, Math.PI / 2)));
         velocities.add(currentVelocity);
         velocities.remove(0);
       }
     } else {
       stopRobot();
       double average = 0;
-      for (double velocity : velocities) {
+      for (final double velocity : velocities) {
         average += velocity;
       }
       average /= velocities.size();
@@ -550,7 +556,7 @@ class LateralVelocityTuner extends OpMode {
 
       if (gamepad1.aWasPressed()) {
         follower.setYVelocity(average);
-        String message = "YMovement: " + average;
+        final String message = "YMovement: " + average;
         changes.add(message);
       }
     }
@@ -624,7 +630,7 @@ class ForwardZeroPowerAccelerationTuner extends OpMode {
     follower.update();
     drawCurrentAndHistory();
 
-    Vector heading = new Vector(1.0, follower.getPose().getHeading());
+    final Vector heading = new Vector(1.0, follower.getPose().getHeading());
     if (!end) {
       if (!stopping) {
         if (follower.getVelocity().dot(heading) > VELOCITY) {
@@ -634,7 +640,7 @@ class ForwardZeroPowerAccelerationTuner extends OpMode {
           follower.setTeleOpDrive(0, 0, 0, true);
         }
       } else {
-        double currentVelocity = follower.getVelocity().dot(heading);
+        final double currentVelocity = follower.getVelocity().dot(heading);
         accelerations.add(
             (currentVelocity - previousVelocity)
                 / ((System.nanoTime() - previousTimeNano) / Math.pow(10.0, 9)));
@@ -646,7 +652,7 @@ class ForwardZeroPowerAccelerationTuner extends OpMode {
       }
     } else {
       double average = 0;
-      for (double acceleration : accelerations) {
+      for (final double acceleration : accelerations) {
         average += acceleration;
       }
       average /= accelerations.size();
@@ -659,7 +665,7 @@ class ForwardZeroPowerAccelerationTuner extends OpMode {
 
       if (gamepad1.aWasPressed()) {
         follower.getConstants().setForwardZeroPowerAcceleration(average);
-        String message = "Forward Zero Power Acceleration: " + average;
+        final String message = "Forward Zero Power Acceleration: " + average;
         changes.add(message);
       }
     }
@@ -731,7 +737,7 @@ class LateralZeroPowerAccelerationTuner extends OpMode {
     follower.update();
     drawCurrentAndHistory();
 
-    Vector heading = new Vector(1.0, follower.getPose().getHeading() - Math.PI / 2);
+    final Vector heading = new Vector(1.0, follower.getPose().getHeading() - Math.PI / 2);
     if (!end) {
       if (!stopping) {
         if (Math.abs(follower.getVelocity().dot(heading)) > VELOCITY) {
@@ -741,7 +747,7 @@ class LateralZeroPowerAccelerationTuner extends OpMode {
           follower.setTeleOpDrive(0, 0, 0, true);
         }
       } else {
-        double currentVelocity = Math.abs(follower.getVelocity().dot(heading));
+        final double currentVelocity = Math.abs(follower.getVelocity().dot(heading));
         accelerations.add(
             (currentVelocity - previousVelocity)
                 / ((System.nanoTime() - previousTimeNano) / Math.pow(10.0, 9)));
@@ -753,7 +759,7 @@ class LateralZeroPowerAccelerationTuner extends OpMode {
       }
     } else {
       double average = 0;
-      for (double acceleration : accelerations) {
+      for (final double acceleration : accelerations) {
         average += acceleration;
       }
       average /= accelerations.size();
@@ -766,7 +772,7 @@ class LateralZeroPowerAccelerationTuner extends OpMode {
 
       if (gamepad1.aWasPressed()) {
         follower.getConstants().setLateralZeroPowerAcceleration(average);
-        String message = "Lateral Zero Power Acceleration: " + average;
+        final String message = "Lateral Zero Power Acceleration: " + average;
         changes.add(message);
       }
     }
@@ -1221,6 +1227,7 @@ class Circle extends OpMode {
   public static double RADIUS = 10;
   private PathChain circle;
 
+  @Override
   public void start() {
     circle =
         follower
@@ -1303,10 +1310,10 @@ class Drawing {
    *
    * @param follower Pedro Follower instance.
    */
-  public static void drawDebug(Follower follower) {
+  public static void drawDebug(final Follower follower) {
     if (follower.getCurrentPath() != null) {
       drawPath(follower.getCurrentPath(), robotLook);
-      Pose closestPoint =
+      final Pose closestPoint =
           follower.getPointFromPath(follower.getCurrentPath().getClosestPointTValue());
       drawRobot(
           new Pose(
@@ -1330,7 +1337,7 @@ class Drawing {
    * @param pose the Pose to draw the robot at
    * @param style the parameters used to draw the robot with
    */
-  public static void drawRobot(Pose pose, Style style) {
+  public static void drawRobot(final Pose pose, final Style style) {
     if (pose == null
         || Double.isNaN(pose.getX())
         || Double.isNaN(pose.getY())
@@ -1342,10 +1349,12 @@ class Drawing {
     panelsField.moveCursor(pose.getX(), pose.getY());
     panelsField.circle(ROBOT_RADIUS);
 
-    Vector v = pose.getHeadingAsUnitVector();
+    final Vector v = pose.getHeadingAsUnitVector();
     v.setMagnitude(v.getMagnitude() * ROBOT_RADIUS);
-    double x1 = pose.getX() + v.getXComponent() / 2, y1 = pose.getY() + v.getYComponent() / 2;
-    double x2 = pose.getX() + v.getXComponent(), y2 = pose.getY() + v.getYComponent();
+    final double x1 = pose.getX() + v.getXComponent() / 2;
+    final double y1 = pose.getY() + v.getYComponent() / 2;
+    final double x2 = pose.getX() + v.getXComponent();
+    final double y2 = pose.getY() + v.getYComponent();
 
     panelsField.setStyle(style);
     panelsField.moveCursor(x1, y1);
@@ -1357,7 +1366,7 @@ class Drawing {
    *
    * @param pose the Pose to draw the robot at
    */
-  public static void drawRobot(Pose pose) {
+  public static void drawRobot(final Pose pose) {
     drawRobot(pose, robotLook);
   }
 
@@ -1367,8 +1376,8 @@ class Drawing {
    * @param path the Path to draw
    * @param style the parameters used to draw the Path with
    */
-  public static void drawPath(Path path, Style style) {
-    double[][] points = path.getPanelsDrawingPoints();
+  public static void drawPath(final Path path, final Style style) {
+    final double[][] points = path.getPanelsDrawingPoints();
 
     for (int i = 0; i < points[0].length; i++) {
       for (int j = 0; j < points.length; j++) {
@@ -1389,7 +1398,7 @@ class Drawing {
    * @param pathChain the PathChain to draw
    * @param style the parameters used to draw the PathChain with
    */
-  public static void drawPath(PathChain pathChain, Style style) {
+  public static void drawPath(final PathChain pathChain, final Style style) {
     for (int i = 0; i < pathChain.size(); i++) {
       drawPath(pathChain.getPath(i), style);
     }
@@ -1401,10 +1410,10 @@ class Drawing {
    * @param poseTracker the PoseHistory to get the pose history from
    * @param style the parameters used to draw the pose history with
    */
-  public static void drawPoseHistory(PoseHistory poseTracker, Style style) {
+  public static void drawPoseHistory(final PoseHistory poseTracker, final Style style) {
     panelsField.setStyle(style);
 
-    int size = poseTracker.getXPositionsArray().length;
+    final int size = poseTracker.getXPositionsArray().length;
     for (int i = 0; i < size - 1; i++) {
 
       panelsField.moveCursor(
@@ -1419,7 +1428,7 @@ class Drawing {
    *
    * @param poseTracker the PoseHistory to get the pose history from
    */
-  public static void drawPoseHistory(PoseHistory poseTracker) {
+  public static void drawPoseHistory(final PoseHistory poseTracker) {
     drawPoseHistory(poseTracker, historyLook);
   }
 
