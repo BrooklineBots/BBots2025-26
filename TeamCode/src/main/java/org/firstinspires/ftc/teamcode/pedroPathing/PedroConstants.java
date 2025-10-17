@@ -36,7 +36,7 @@ public class PedroConstants {
           .strafePodX(Constants.RobotConstants.STRAFE_POD_OFFSET)
           .distanceUnit(DistanceUnit.INCH)
           .hardwareMapName("pinpoint")
-          .encoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD)
+          .encoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_SWINGARM_POD)
           .forwardEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD)
           .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD);
 
