@@ -37,9 +37,16 @@ public class LimelightAprilTag extends OpMode {
     LLResult llResult = limelight.getLatestResult();
     if (llResult != null && llResult.isValid()) {
       Pose3D botpose = llResult.getBotpose_MT2();
+//      distance = getDistanceFromTag(llResult.getTa());
+//      telemetry.addData("Distance", distance);
       telemetry.addData("Ty", llResult.getTy());
       telemetry.addData("Tx", llResult.getTx());
       telemetry.addData("Ta", llResult.getTa());
     }
   }
+
+  // public double getDistanceFromTag(double ta){}
+//  double scale = ;
+//  double distance = (scale/ta);
+//  return distance;
 }
