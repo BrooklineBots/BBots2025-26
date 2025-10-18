@@ -5,8 +5,8 @@ public class Constants {
   public static class RobotConstants {
     public static final double ROBOT_MASS = 0.0; // in kilograms
     // pinpoint constants
-    public static final double FORWARD_POD_OFFSET = 0.0;
-    public static final double STRAFE_POD_OFFSET = 0.0;
+    public static final double FORWARD_POD_OFFSET = -4.2;
+    public static final double STRAFE_POD_OFFSET = -2.25;
   }
 
   public static class DriveConstants {
@@ -22,18 +22,17 @@ public class Constants {
     public static final String LEFT_INTAKE_ID = "leftIntakeMotor";
     public static final String RIGHT_INTAKE_ID = "rightIntakeMotor";
 
-    public static final double INTAKE_VELOCITY = 170;
-    public static final double INTAKE_MAX_VELOCITY = 312; // in RPM
+    public static final double INTAKE_VELOCITY = 500;
+    public static final double INTAKE_MAX_VELOCITY = 900; // in RPM, 312
   }
 
   public static class OuttakeConstants {
-    public static final String LEFT_OUTTAKE_ID = "leftOuttakeMotor";
-    public static final String RIGHT_OUTTAKE_ID = "rightOuttakeMotor";
+    public static final String OUTTAKE_ID = "outtakeMotor";
 
-    public static final double OUTTAKE_MAX_VELOCITY = 9400; // TODO:test max
+    public static final double OUTTAKE_MAX_VELOCITY = 11000; // TODO:test max //11000
     // 10178.76; // in radians per minute
 
-    public static final double OUTTAKE_MOVEMENT_SPEED = 9300;
+    public static final double OUTTAKE_MOVEMENT_SPEED = 11000;
   }
 
   public static class StorageConstants {
