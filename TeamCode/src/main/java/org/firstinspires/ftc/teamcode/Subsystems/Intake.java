@@ -20,7 +20,7 @@ public class Intake extends SubsystemBase {
     leftIntakeMotor.setRunMode(Motor.RunMode.VelocityControl);
     rightIntakeMotor.setRunMode(Motor.RunMode.VelocityControl);
 
-    leftIntakeMotor.setInverted(true);
+    leftIntakeMotor.setInverted(false);
     rightIntakeMotor.setInverted(true);
   }
 

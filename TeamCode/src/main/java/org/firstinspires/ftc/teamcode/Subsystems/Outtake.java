@@ -8,8 +8,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.Constants;
 
 public class Outtake extends SubsystemBase {
-  private final MotorEx leftOuttakeMotor;
-  private final MotorEx rightOuttakeMotor;
+  private final MotorEx outtakeMotor;
 
   private final double MAX_VELOCITY = Constants.OuttakeConstants.OUTTAKE_MAX_VELOCITY;
   private final double MIN_VELOCITY = 1;
@@ -17,24 +16,21 @@ public class Outtake extends SubsystemBase {
   private final Telemetry telemetry;
 
   public Outtake(final HardwareMap hwMap, final Telemetry telemetry) {
-    leftOuttakeMotor = new MotorEx(hwMap, Constants.OuttakeConstants.LEFT_OUTTAKE_ID);
-    rightOuttakeMotor = new MotorEx(hwMap, Constants.OuttakeConstants.RIGHT_OUTTAKE_ID);
+    outtakeMotor = new MotorEx(hwMap, Constants.OuttakeConstants.OUTTAKE_ID);
 
     this.telemetry = telemetry;
-    // leftOuttakeMotor.setInverted(true);
-    leftOuttakeMotor.setInverted(false);
-    rightOuttakeMotor.setInverted(false);
+
+    outtakeMotor.setInverted(false);
   }
 
   public void setVelocity(final double velocity) {
     if (velocity >= MIN_VELOCITY && velocity <= MAX_VELOCITY) {
-      leftOuttakeMotor.setVelocity(velocity, AngleUnit.RADIANS);
-      rightOuttakeMotor.setVelocity(velocity, AngleUnit.RADIANS);
+      outtakeMotor.setVelocity(velocity, AngleUnit.RADIANS);
     }
   }
 
   public double getVelocity() {
-    return leftOuttakeMotor.getVelocity();
+    return outtakeMotor.getVelocity();
   }
 
   public void shoot() {
@@ -42,7 +38,6 @@ public class Outtake extends SubsystemBase {
   }
 
   public void stop() {
-    leftOuttakeMotor.stopMotor();
-    rightOuttakeMotor.stopMotor();
+    outtakeMotor.stopMotor();
   }
 }
