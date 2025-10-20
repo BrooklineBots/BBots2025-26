@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
+import com.pedropathing.follower.Follower;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
@@ -17,7 +18,7 @@ public class Drivetrain extends SubsystemBase {
   private final Motor frontRightMotor;
   private final Motor backRightMotor;
 
-  //  private final Follower follower;
+  private final Follower follower;
 
   private final RevIMU revIMU;
 
@@ -36,10 +37,12 @@ public class Drivetrain extends SubsystemBase {
     frontRightMotor = new Motor(hwMap, Constants.DriveConstants.FRONT_RIGHT_MOTOR_ID);
     backRightMotor = new Motor(hwMap, Constants.DriveConstants.BACK_RIGHT_MOTOR_ID);
 
-    //    follower = org.firstinspires.ftc.teamcode.pedroPathing.Constants.createFollower(hwMap);
+    follower = org.firstinspires.ftc.teamcode.pedroPathing.PedroConstants.createFollower(hwMap);
 
     // frontLeftMotor.setInverted(true); // Invert this motor!
     // backLeftMotor.setInverted(true); // Invert this motor!
+
+    backRightMotor.setInverted(true);
 
     frontLeftMotor.setRunMode(
         Motor.RunMode
@@ -59,7 +62,7 @@ public class Drivetrain extends SubsystemBase {
     final IMU.Parameters parameters =
         new IMU.Parameters(
             new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
+                RevHubOrientationOnRobot.LogoFacingDirection.UP,
                 RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD));
 
     drive =
@@ -102,7 +105,7 @@ public class Drivetrain extends SubsystemBase {
     drive.driveFieldCentric(strafe, forward, rotate, revIMU.getRotation2d().getDegrees(), false);
   }
 
-  //  public Follower getFollower() {
-  //    return follower;
-  //  }
+  public Follower getFollower() {
+    return follower;
+  }
 }
