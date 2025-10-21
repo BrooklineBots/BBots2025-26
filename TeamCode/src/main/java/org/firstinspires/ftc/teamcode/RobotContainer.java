@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.CommandOpMode;
@@ -10,6 +11,7 @@ import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.AutoChooser;
+import org.firstinspires.ftc.teamcode.Commands.AutoCommands.PedroAutoTest;
 import org.firstinspires.ftc.teamcode.Commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.OuttakeCommand;
@@ -40,8 +42,8 @@ public class RobotContainer {
   private gameMode currentGameMode = null;
 
   public enum AutoMode { // Enum of all valid autonomous modes
-    ExampleAuto,
     DoNothingAuto,
+    ExampleAuto,
     PedroAutoTest;
   }
 
@@ -122,8 +124,8 @@ public class RobotContainer {
     } else if (selectedAutoMode == AutoMode.DoNothingAuto) {
       CommandScheduler.getInstance().schedule(new InstantCommand());
     } else if (selectedAutoMode == AutoMode.PedroAutoTest) {
-      //       CommandScheduler.getInstance().schedule(new PedroAutoTest(drive));
-      CommandScheduler.getInstance().schedule(new InstantCommand());
+      CommandScheduler.getInstance().schedule(new PedroAutoTest(drive));
+//      CommandScheduler.getInstance().schedule(new InstantCommand());
 
     } else {
       telemetry.addLine("No auto was selected! There was likely an error.");

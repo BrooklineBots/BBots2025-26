@@ -10,6 +10,8 @@ import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.hardware.RevIMU;
 import com.seattlesolvers.solverslib.hardware.motors.Motor;
 import org.firstinspires.ftc.teamcode.Constants;
+import org.firstinspires.ftc.teamcode.RobotContainer;
+import org.firstinspires.ftc.teamcode.pedroPathing.PedroConstants;
 
 public class Drivetrain extends SubsystemBase {
   // Declare our motors
@@ -36,8 +38,6 @@ public class Drivetrain extends SubsystemBase {
     backLeftMotor = new Motor(hwMap, Constants.DriveConstants.BACK_LEFT_MOTOR_ID);
     frontRightMotor = new Motor(hwMap, Constants.DriveConstants.FRONT_RIGHT_MOTOR_ID);
     backRightMotor = new Motor(hwMap, Constants.DriveConstants.BACK_RIGHT_MOTOR_ID);
-
-    follower = org.firstinspires.ftc.teamcode.pedroPathing.PedroConstants.createFollower(hwMap);
 
     // frontLeftMotor.setInverted(true); // Invert this motor!
     // backLeftMotor.setInverted(true); // Invert this motor!
@@ -68,6 +68,9 @@ public class Drivetrain extends SubsystemBase {
     drive =
         new MecanumDrive(
             frontLeftMotor, frontRightMotor, backLeftMotor, backRightMotor); // Read the docs
+
+    follower = PedroConstants.createFollower(hwMap);
+
   }
 
   public void resetYaw() {
@@ -108,4 +111,10 @@ public class Drivetrain extends SubsystemBase {
   public Follower getFollower() {
     return follower;
   }
+
+  @Override
+  public void periodic() {
+    if (follower != null)
+      follower.update();
+    }
 }
