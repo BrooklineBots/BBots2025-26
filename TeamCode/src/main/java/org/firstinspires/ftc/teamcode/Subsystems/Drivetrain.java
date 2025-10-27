@@ -10,7 +10,6 @@ import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.hardware.RevIMU;
 import com.seattlesolvers.solverslib.hardware.motors.Motor;
 import org.firstinspires.ftc.teamcode.Constants;
-import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.teamcode.pedroPathing.PedroConstants;
 
 public class Drivetrain extends SubsystemBase {
@@ -63,14 +62,13 @@ public class Drivetrain extends SubsystemBase {
         new IMU.Parameters(
             new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD));
+                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
 
     drive =
         new MecanumDrive(
             frontLeftMotor, frontRightMotor, backLeftMotor, backRightMotor); // Read the docs
 
     follower = PedroConstants.createFollower(hwMap);
-
   }
 
   public void resetYaw() {
@@ -114,7 +112,6 @@ public class Drivetrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if (follower != null)
-      follower.update();
-    }
+    if (follower != null) follower.update();
+  }
 }

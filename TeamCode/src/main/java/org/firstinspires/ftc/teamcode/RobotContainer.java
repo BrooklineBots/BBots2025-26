@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.CommandOpMode;
@@ -125,7 +124,7 @@ public class RobotContainer {
       CommandScheduler.getInstance().schedule(new InstantCommand());
     } else if (selectedAutoMode == AutoMode.PedroAutoTest) {
       CommandScheduler.getInstance().schedule(new PedroAutoTest(drive));
-//      CommandScheduler.getInstance().schedule(new InstantCommand());
+      //      CommandScheduler.getInstance().schedule(new InstantCommand());
 
     } else {
       telemetry.addLine("No auto was selected! There was likely an error.");
@@ -141,6 +140,10 @@ public class RobotContainer {
     if (currentGameMode == gameMode.TeleOp) {
       gamepad1.readButtons();
       gamepad2.readButtons();
+    }
+    if (currentGameMode == gameMode.Auto) {
+      telemetry.addData("Pos x", drive.getFollower().getPose().getX());
+      telemetry.addData("Pos y", drive.getFollower().getPose().getY());
     }
     //    if (currentGameMode == gameMode.Auto) {
     //      dashboardPoseTracker.update();

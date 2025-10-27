@@ -28,7 +28,7 @@ public class PedroConstants {
           .leftFrontMotorDirection(DcMotorSimple.Direction.REVERSE)
           .leftRearMotorDirection(DcMotorSimple.Direction.REVERSE)
           .rightFrontMotorDirection(DcMotorSimple.Direction.FORWARD)
-          .leftRearMotorDirection(DcMotorSimple.Direction.FORWARD);
+          .rightRearMotorDirection(DcMotorSimple.Direction.REVERSE);
 
   public static PinpointConstants localizerConstants =
       new PinpointConstants()
