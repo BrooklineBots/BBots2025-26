@@ -41,8 +41,6 @@ public class Drivetrain extends SubsystemBase {
     // frontLeftMotor.setInverted(true); // Invert this motor!
     // backLeftMotor.setInverted(true); // Invert this motor!
 
-    backRightMotor.setInverted(true);
-
     frontLeftMotor.setRunMode(
         Motor.RunMode
             .VelocityControl); // Set the run mode for the motors! Read the docs if you don't know
@@ -85,6 +83,13 @@ public class Drivetrain extends SubsystemBase {
     fieldHeadingOffset = newOffset;
   }
 
+  public void setSpeeds(final double fl, final double bl, final double fr, final double br) {
+    frontLeftMotor.set(fl);
+    backLeftMotor.set(bl);
+    frontRightMotor.set(fr);
+    backRightMotor.set(br);
+  }
+
   public void stopMotors() { // Stops all motors
     drive.stop();
   }
@@ -98,7 +103,8 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void driveFieldCentric(final GamepadEx Controller) {
-    driveFieldCentric(-Controller.getLeftY(), -Controller.getLeftX(), -Controller.getRightX());
+    driveFieldCentric(
+        -Controller.getLeftY(), -Controller.getLeftX(), -(Controller.getRightX() * 0.5));
   }
 
   public void driveFieldCentric(final double forward, final double strafe, final double rotate) {
