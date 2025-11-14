@@ -3,10 +3,10 @@ package org.firstinspires.ftc.teamcode;
 public class Constants {
 
   public static class RobotConstants {
-    public static final double ROBOT_MASS = 0.0; // in kilograms
+    public static final double ROBOT_MASS = 10.0; // in kilograms
     // pinpoint constants
-    public static final double FORWARD_POD_OFFSET = -4.2;
-    public static final double STRAFE_POD_OFFSET = -2.25;
+    public static final double FORWARD_POD_OFFSET = 3.75;
+    public static final double STRAFE_POD_OFFSET = -1.625;
   }
 
   public static class DriveConstants {
@@ -19,10 +19,9 @@ public class Constants {
   }
 
   public static class IntakeConstants {
-    public static final String LEFT_INTAKE_ID = "leftIntakeMotor";
-    public static final String RIGHT_INTAKE_ID = "rightIntakeMotor";
+    public static final String INTAKE_ID = "intakeMotor";
 
-    public static final double INTAKE_VELOCITY = 500;
+    public static final double INTAKE_VELOCITY = 900;
     public static final double INTAKE_MAX_VELOCITY = 900; // in RPM, 312
   }
 

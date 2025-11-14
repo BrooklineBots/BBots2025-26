@@ -60,7 +60,7 @@ public class Drivetrain extends SubsystemBase {
         new IMU.Parameters(
             new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
+                RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
 
     drive =
         new MecanumDrive(

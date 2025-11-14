@@ -38,7 +38,7 @@ public class PedroConstants {
           .hardwareMapName("pinpoint")
           .encoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_SWINGARM_POD)
           .forwardEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD)
-          .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD);
+          .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.REVERSED);
 
   public static Follower createFollower(final HardwareMap hardwareMap) {
     return new FollowerBuilder(followerConstants, hardwareMap)

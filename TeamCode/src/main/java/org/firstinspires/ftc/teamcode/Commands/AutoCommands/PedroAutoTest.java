@@ -12,9 +12,9 @@ public class PedroAutoTest extends SequentialCommandGroup {
   private final Follower follower;
 
   // Poses
-  private final Pose startPose = new Pose(56, 32, Math.toRadians(90));
-  private final Pose pose2 = new Pose(56, 56, Math.toRadians(90));
-  private final Pose endPose = new Pose(84, 84, Math.toRadians(90));
+  private final Pose startPose = new Pose(56, 32);
+  private final Pose pose2 = new Pose(56, 56, Math.toRadians(0));
+  private final Pose endPose = new Pose(84, 84, Math.toRadians(0));
 
   // Path chains
   private PathChain pathLine1, pathLine2;
