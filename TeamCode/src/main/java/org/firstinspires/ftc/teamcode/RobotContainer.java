@@ -147,7 +147,7 @@ public class RobotContainer {
     } else if (selectedAutoMode == AutoMode.DoNothingAuto) {
       CommandScheduler.getInstance().schedule(new InstantCommand());
     } else if (selectedAutoMode == AutoMode.PedroAutoTest) {
-      CommandScheduler.getInstance().schedule(new PedroAutoTest(drive));
+      CommandScheduler.getInstance().schedule(new PedroAutoTest(drive, intake));
       //      CommandScheduler.getInstance().schedule(new InstantCommand());
 
     } else {
