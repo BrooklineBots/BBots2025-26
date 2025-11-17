@@ -14,12 +14,14 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.AutoChooser;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.PedroAutoTest;
 import org.firstinspires.ftc.teamcode.Commands.DriveCommand;
+import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
 public class RobotContainer {
   // Subsystems
   private Drivetrain drive;
-  // private Intake intake;
+  private Intake intake;
   // private Outtake outtake;
 
   // private Storage storage;
@@ -64,12 +66,12 @@ public class RobotContainer {
   }
 
   public void initializeSubsystems() {
-    // intake = new Intake(hardwareMap);
+    intake = new Intake(hardwareMap);
     drive = new Drivetrain(hardwareMap);
     // outtake = new Outtake(hardwareMap, telemetry);
     // storage = new Storage(hardwareMap);
     // Register subsystems with scheduler
-    CommandScheduler.getInstance().registerSubsystem(drive);
+    CommandScheduler.getInstance().registerSubsystem(drive, intake);
   }
 
   public void configureTeleOp() {
@@ -97,9 +99,9 @@ public class RobotContainer {
     // Gamepad 1 buttons
     //    new GamepadButton(gamepad1, GamepadKeys.Button.A)
     //        .whenActive(new TransferToStorageCommand(intake, storage));
-    //    new GamepadButton(gamepad1, GamepadKeys.Button.A).whenActive(new IntakeCommand(intake));
-    //    new GamepadButton(gamepad1, GamepadKeys.Button.B)
-    //        .whenActive(new InstantCommand(() -> intake.stop(), intake));
+    new GamepadButton(gamepad1, GamepadKeys.Button.A).whenActive(new IntakeCommand(intake));
+    new GamepadButton(gamepad1, GamepadKeys.Button.B)
+        .whenActive(new InstantCommand(() -> intake.stop(), intake));
     //    //    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_DOWN)
     //    //        .whenActive(new InstantCommand(() -> storage.stop(), storage));
     //    //    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP)

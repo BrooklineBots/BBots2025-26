@@ -25,8 +25,8 @@ public class PedroConstants {
           .rightRearMotorName("backRightMotor")
           .leftFrontMotorName("frontLeftMotor")
           .leftRearMotorName("backLeftMotor")
-          .leftFrontMotorDirection(DcMotorSimple.Direction.FORWARD)
-          .leftRearMotorDirection(DcMotorSimple.Direction.FORWARD)
+          .leftFrontMotorDirection(DcMotorSimple.Direction.REVERSE)
+          .leftRearMotorDirection(DcMotorSimple.Direction.REVERSE)
           .rightFrontMotorDirection(DcMotorSimple.Direction.FORWARD)
           .rightRearMotorDirection(DcMotorSimple.Direction.FORWARD);
 
@@ -37,7 +37,7 @@ public class PedroConstants {
           .distanceUnit(DistanceUnit.INCH)
           .hardwareMapName("pinpoint")
           .encoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_SWINGARM_POD)
-          .forwardEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD)
+          .forwardEncoderDirection(GoBildaPinpointDriver.EncoderDirection.REVERSED)
           .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.REVERSED);
 
   public static Follower createFollower(final HardwareMap hardwareMap) {
