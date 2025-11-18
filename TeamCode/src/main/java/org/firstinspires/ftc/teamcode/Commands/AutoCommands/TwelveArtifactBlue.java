@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
-public class PedroAutoTest extends SequentialCommandGroup {
+public class TwelveArtifactBlue extends SequentialCommandGroup {
   private final Follower follower;
   private final Intake intakeWheel;
 
@@ -47,7 +47,7 @@ public class PedroAutoTest extends SequentialCommandGroup {
       goToOuttake3Path,
       releasePath;
 
-  public PedroAutoTest(final Drivetrain drive, final Intake intake) {
+  public TwelveArtifactBlue(final Drivetrain drive, final Intake intake) {
     this.follower = drive.getFollower();
     this.intakeWheel = intake;
     follower.setStartingPose(startPose);
@@ -59,20 +59,20 @@ public class PedroAutoTest extends SequentialCommandGroup {
         new WaitCommand(1000),
         new FollowPathCommand(follower, setupIntake1Path),
         new WaitCommand(500),
-        intakeWhileRunningRed(intake1Path),
+        intakeWhileRunningBlue(intake1Path),
         stopIntake(),
         new WaitCommand(500),
         new FollowPathCommand(follower, goToOuttake1Path),
         new WaitCommand(1000),
         new FollowPathCommand(follower, setupIntake2Path),
         new WaitCommand(500),
-        intakeWhileRunningRed(intake2Path),
+        intakeWhileRunningBlue(intake2Path),
         stopIntake(),
         new FollowPathCommand(follower, goToOuttake2Path),
         new WaitCommand(1000),
         new FollowPathCommand(follower, setupIntake3Path),
         new WaitCommand(500),
-        intakeWhileRunningRed(intake3Path),
+        intakeWhileRunningBlue(intake3Path),
         stopIntake(),
         new FollowPathCommand(follower, goToOuttake3Path),
         new WaitCommand(1000),
@@ -98,7 +98,7 @@ public class PedroAutoTest extends SequentialCommandGroup {
     return new InstantCommand(() -> intakeWheel.stop(), intakeWheel);
   }
 
-  private ParallelRaceGroup intakeWhileRunningRed(PathChain path) {
+  private ParallelRaceGroup intakeWhileRunningBlue(final PathChain path) {
     return new ParallelRaceGroup(
         new FollowPathCommand(follower, path), new IntakeCommand(intakeWheel).withTimeout(1000));
   }
