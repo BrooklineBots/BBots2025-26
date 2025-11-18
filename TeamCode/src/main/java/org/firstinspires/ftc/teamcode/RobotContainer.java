@@ -67,7 +67,7 @@ public class RobotContainer {
 
   public void initializeSubsystems() {
     intake = new Intake(hardwareMap);
-    drive = new Drivetrain(hardwareMap);
+    drive = new Drivetrain(hardwareMap, telemetry, gameMode.TeleOp);
     // outtake = new Outtake(hardwareMap, telemetry);
     // storage = new Storage(hardwareMap);
     // Register subsystems with scheduler

@@ -9,7 +9,9 @@ import com.seattlesolvers.solverslib.drivebase.MecanumDrive;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.hardware.RevIMU;
 import com.seattlesolvers.solverslib.hardware.motors.Motor;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Constants;
+import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.teamcode.pedroPathing.PedroConstants;
 
 public class Drivetrain extends SubsystemBase {
@@ -23,6 +25,8 @@ public class Drivetrain extends SubsystemBase {
 
   private final RevIMU revIMU;
 
+  private final Telemetry telemetry;
+
   private double fieldHeadingOffset = 0.0; // in radians
 
   private final HardwareMap hwMap;
@@ -30,16 +34,18 @@ public class Drivetrain extends SubsystemBase {
   private MecanumDrive drive = null;
 
   // Make sure your ID's match your configuration
-  public Drivetrain(final HardwareMap hwMap) {
+  public Drivetrain(
+      final HardwareMap hwMap, final Telemetry telemetry, final RobotContainer.gameMode gameMode) {
     this.hwMap = hwMap;
+    this.telemetry = telemetry;
 
     frontLeftMotor = new Motor(hwMap, Constants.DriveConstants.FRONT_LEFT_MOTOR_ID);
     backLeftMotor = new Motor(hwMap, Constants.DriveConstants.BACK_LEFT_MOTOR_ID);
     frontRightMotor = new Motor(hwMap, Constants.DriveConstants.FRONT_RIGHT_MOTOR_ID);
     backRightMotor = new Motor(hwMap, Constants.DriveConstants.BACK_RIGHT_MOTOR_ID);
 
-    // frontLeftMotor.setInverted(true); // Invert this motor!
-    // backLeftMotor.setInverted(true); // Invert this motor!
+    frontLeftMotor.setInverted(false); // Invert this motor!
+    backLeftMotor.setInverted(false); // Invert this motor!
 
     frontLeftMotor.setRunMode(
         Motor.RunMode
@@ -65,8 +71,14 @@ public class Drivetrain extends SubsystemBase {
     drive =
         new MecanumDrive(
             frontLeftMotor, frontRightMotor, backLeftMotor, backRightMotor); // Read the docs
-
-    follower = PedroConstants.createFollower(hwMap);
+    if (gameMode == RobotContainer.gameMode.Auto) {
+      follower = PedroConstants.createFollower(hwMap);
+      telemetry.addData("Follower: ", "auto");
+    } else {
+      follower = null;
+      telemetry.addData("Follower: ", gameMode);
+      telemetry.addData("FrontL direction:", frontLeftMotor.getInverted());
+    }
   }
 
   public void resetYaw() {
