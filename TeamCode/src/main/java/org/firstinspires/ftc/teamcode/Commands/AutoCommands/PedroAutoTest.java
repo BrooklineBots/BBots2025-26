@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Commands.AutoCommands;
 
 import com.pedropathing.follower.Follower;
+import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
@@ -19,19 +20,32 @@ public class PedroAutoTest extends SequentialCommandGroup {
 
   // Poses
   private final Pose startPose = newPose(56, 8, 90);
-  private final Pose pose2 = newPose(39, 43, 180);
-  private final Pose pose3 = newPose(12, 43, 90);
-  private final Pose pose4 = newPose(56, 96, 135);
-  private final Pose pose5 = newPose(37, 70, 180);
-  private final Pose pose6 = newPose(13, 59, 180);
-  private final Pose pose7 = newPose(56, 96, 135);
-  private final Pose pose8 = newPose(34, 83, 180);
-  private final Pose pose9 = newPose(14, 83, 180);
-  private final Pose pose10 = newPose(56, 96, 132);
-  private final Pose pose11 = newPose(12, 69, 90);
+  private final Pose outtakePreload = newPose(56, 96, 135);
+  private final Pose beforeIntake1Pose = newPose(42, 44, 180);
+  private final Pose afterIntake1Pose = newPose(12, 44, 180);
+  private final Pose curveToOuttake1Pose = newPose(64, 46, 180);
+  private final Pose outtake1Pose = newPose(56, 96, 135);
+  private final Pose beforeIntake2Pose = newPose(42, 68, 180);
+  private final Pose afterIntake2Pose = newPose(13, 68, 180);
+  private final Pose curveToOuttake2Pose = newPose(60, 58, 180);
+  private final Pose outtake2Pose = newPose(56, 96, 135);
+  private final Pose beforeIntake3Pose = newPose(42, 90, 180);
+  private final Pose afterIntake3Pose = newPose(14, 90, 180);
+  private final Pose outtake3Pose = newPose(56, 96, 132);
+  private final Pose releasePose = newPose(25, 69, 90);
 
   // Path chains
-  private PathChain path1, path2, path3, path4, path5, path6, path7, path8, path9, path10;
+  private PathChain setupIntake1Path,
+      scorePreload,
+      intake1Path,
+      goToOuttake1Path,
+      setupIntake2Path,
+      intake2Path,
+      goToOuttake2Path,
+      setupIntake3Path,
+      intake3Path,
+      goToOuttake3Path,
+      releasePath;
 
   public PedroAutoTest(final Drivetrain drive, final Intake intake) {
     this.follower = drive.getFollower();
@@ -41,16 +55,28 @@ public class PedroAutoTest extends SequentialCommandGroup {
     buildPaths();
 
     addCommands(
-        new FollowPathCommand(follower, path1),
+        new FollowPathCommand(follower, scorePreload),
+        new WaitCommand(1000),
+        new FollowPathCommand(follower, setupIntake1Path),
         new WaitCommand(500),
-        new ParallelRaceGroup(
-            new FollowPathCommand(follower, path2),
-            new IntakeCommand(intakeWheel).withTimeout(1000)),
+        intakeWhileRunningRed(intake1Path),
         stopIntake(),
         new WaitCommand(500),
-        new FollowPathCommand(follower, path3),
+        new FollowPathCommand(follower, goToOuttake1Path),
+        new WaitCommand(1000),
+        new FollowPathCommand(follower, setupIntake2Path),
         new WaitCommand(500),
-        new FollowPathCommand(follower, path4),
+        intakeWhileRunningRed(intake2Path),
+        stopIntake(),
+        new FollowPathCommand(follower, goToOuttake2Path),
+        new WaitCommand(1000),
+        new FollowPathCommand(follower, setupIntake3Path),
+        new WaitCommand(500),
+        intakeWhileRunningRed(intake3Path),
+        stopIntake(),
+        new FollowPathCommand(follower, goToOuttake3Path),
+        new WaitCommand(1000),
+        new FollowPathCommand(follower, releasePath),
         new WaitCommand(500));
 
     /*
@@ -72,71 +98,87 @@ public class PedroAutoTest extends SequentialCommandGroup {
     return new InstantCommand(() -> intakeWheel.stop(), intakeWheel);
   }
 
+  private ParallelRaceGroup intakeWhileRunningRed(PathChain path) {
+    return new ParallelRaceGroup(
+        new FollowPathCommand(follower, path), new IntakeCommand(intakeWheel).withTimeout(1000));
+  }
+
   public void buildPaths() {
-    path1 =
+    scorePreload =
         follower
             .pathBuilder()
-            .addPath(new BezierLine(startPose, pose2))
-            .setLinearHeadingInterpolation(startPose.getHeading(), pose2.getHeading())
+            .addPath(new BezierLine(startPose, outtakePreload))
+            .setLinearHeadingInterpolation(startPose.getHeading(), outtakePreload.getHeading())
+            .build();
+    setupIntake1Path =
+        follower
+            .pathBuilder()
+            .addPath(new BezierLine(outtakePreload, beforeIntake1Pose))
+            .setLinearHeadingInterpolation(
+                outtakePreload.getHeading(), beforeIntake1Pose.getHeading())
             .build();
 
-    path2 =
+    intake1Path =
         follower
             .pathBuilder()
-            .addPath(new BezierLine(pose2, pose3))
+            .addPath(new BezierLine(beforeIntake1Pose, afterIntake1Pose))
             .setTangentHeadingInterpolation()
             .build();
 
-    path3 =
+    goToOuttake1Path =
         follower
             .pathBuilder()
-            .addPath(new BezierLine(pose3, pose4))
-            .setLinearHeadingInterpolation(pose3.getHeading(), pose4.getHeading())
+            .addPath(new BezierCurve(afterIntake1Pose, curveToOuttake1Pose, outtake1Pose))
+            .setLinearHeadingInterpolation(afterIntake1Pose.getHeading(), outtake1Pose.getHeading())
             .build();
 
-    path4 =
+    setupIntake2Path =
         follower
             .pathBuilder()
-            .addPath(new BezierLine(pose4, pose5))
-            .setLinearHeadingInterpolation(pose4.getHeading(), pose5.getHeading())
+            .addPath(new BezierLine(outtake1Pose, beforeIntake2Pose))
+            .setLinearHeadingInterpolation(
+                outtake1Pose.getHeading(), beforeIntake2Pose.getHeading())
             .build();
-    path5 =
+    intake2Path =
         follower
             .pathBuilder()
-            .addPath(new BezierLine(pose5, pose6))
-            .setLinearHeadingInterpolation(pose5.getHeading(), pose6.getHeading())
+            .addPath(new BezierLine(beforeIntake2Pose, afterIntake2Pose))
+            .setLinearHeadingInterpolation(
+                beforeIntake2Pose.getHeading(), afterIntake2Pose.getHeading())
             .build();
-    path6 =
+    goToOuttake2Path =
         follower
             .pathBuilder()
-            .addPath(new BezierLine(pose6, pose7))
-            .setLinearHeadingInterpolation(pose6.getHeading(), pose7.getHeading())
-            .build();
-
-    path7 =
-        follower
-            .pathBuilder()
-            .addPath(new BezierLine(pose7, pose8))
-            .setLinearHeadingInterpolation(pose7.getHeading(), pose8.getHeading())
+            .addPath(new BezierCurve(afterIntake2Pose, curveToOuttake2Pose, outtake2Pose))
+            .setLinearHeadingInterpolation(afterIntake2Pose.getHeading(), outtake2Pose.getHeading())
             .build();
 
-    path8 =
+    setupIntake3Path =
         follower
             .pathBuilder()
-            .addPath(new BezierLine(pose8, pose9))
-            .setLinearHeadingInterpolation(pose8.getHeading(), pose9.getHeading())
+            .addPath(new BezierLine(outtake2Pose, beforeIntake3Pose))
+            .setLinearHeadingInterpolation(
+                outtake2Pose.getHeading(), beforeIntake3Pose.getHeading())
             .build();
-    path9 =
+
+    intake3Path =
         follower
             .pathBuilder()
-            .addPath(new BezierLine(pose9, pose10))
-            .setLinearHeadingInterpolation(pose9.getHeading(), pose10.getHeading())
+            .addPath(new BezierLine(beforeIntake3Pose, afterIntake3Pose))
+            .setLinearHeadingInterpolation(
+                beforeIntake3Pose.getHeading(), afterIntake3Pose.getHeading())
             .build();
-    path10 =
+    goToOuttake3Path =
         follower
             .pathBuilder()
-            .addPath(new BezierLine(pose10, pose11))
-            .setLinearHeadingInterpolation(pose10.getHeading(), pose11.getHeading())
+            .addPath(new BezierLine(afterIntake3Pose, outtake3Pose))
+            .setLinearHeadingInterpolation(afterIntake3Pose.getHeading(), outtake3Pose.getHeading())
+            .build();
+    releasePath =
+        follower
+            .pathBuilder()
+            .addPath(new BezierLine(outtake3Pose, releasePose))
+            .setLinearHeadingInterpolation(outtake3Pose.getHeading(), releasePose.getHeading())
             .build();
 
     /*
