@@ -21,6 +21,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 public class RobotContainer {
   // Subsystems
   private Drivetrain drive;
+  private Drivetrain autoDrive;
   private Intake intake;
   // private Outtake outtake;
 
@@ -43,7 +44,7 @@ public class RobotContainer {
   public enum AutoMode { // Enum of all valid autonomous modes
     DoNothingAuto,
     ExampleAuto,
-    PedroAutoTest;
+    TwelveArtifactBlue;
   }
 
   private AutoMode currentAuto;
@@ -68,10 +69,11 @@ public class RobotContainer {
   public void initializeSubsystems() {
     intake = new Intake(hardwareMap);
     drive = new Drivetrain(hardwareMap, telemetry, gameMode.TeleOp);
+    autoDrive = new Drivetrain(hardwareMap, telemetry, gameMode.Auto);
     // outtake = new Outtake(hardwareMap, telemetry);
     // storage = new Storage(hardwareMap);
     // Register subsystems with scheduler
-    CommandScheduler.getInstance().registerSubsystem(drive, intake);
+    CommandScheduler.getInstance().registerSubsystem(drive, autoDrive, intake);
   }
 
   public void configureTeleOp() {
@@ -146,10 +148,8 @@ public class RobotContainer {
       // CommandScheduler.getInstance().schedule(new InstantCommand(() -> outtake.shoot()));
     } else if (selectedAutoMode == AutoMode.DoNothingAuto) {
       CommandScheduler.getInstance().schedule(new InstantCommand());
-    } else if (selectedAutoMode == AutoMode.PedroAutoTest) {
-      CommandScheduler.getInstance().schedule(new TwelveArtifactBlue(drive, intake));
-      //      CommandScheduler.getInstance().schedule(new InstantCommand());
-
+    } else if (selectedAutoMode == AutoMode.TwelveArtifactBlue) {
+      CommandScheduler.getInstance().schedule(new TwelveArtifactBlue(autoDrive, intake));
     } else {
       telemetry.addLine("No auto was selected! There was likely an error.");
       telemetry.update();
@@ -166,9 +166,9 @@ public class RobotContainer {
       gamepad2.readButtons();
     }
     if (currentGameMode == gameMode.Auto) {
-      telemetry.addData("Pos x", drive.getFollower().getPose().getX());
-      telemetry.addData("Pos y", drive.getFollower().getPose().getY());
-      telemetry.addData("Heading: ", drive.getFollower().getPose().getHeading());
+      telemetry.addData("Pos x", autoDrive.getFollower().getPose().getX());
+      telemetry.addData("Pos y", autoDrive.getFollower().getPose().getY());
+      telemetry.addData("Heading: ", autoDrive.getFollower().getPose().getHeading());
     }
     //    if (currentGameMode == gameMode.Auto) {
     //      dashboardPoseTracker.update();

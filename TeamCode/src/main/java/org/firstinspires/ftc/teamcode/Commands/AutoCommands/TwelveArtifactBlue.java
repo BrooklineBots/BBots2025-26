@@ -6,11 +6,10 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
 import com.seattlesolvers.solverslib.command.InstantCommand;
-import com.seattlesolvers.solverslib.command.ParallelRaceGroup;
+import com.seattlesolvers.solverslib.command.ParallelCommandGroup;
 import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.pedroCommand.FollowPathCommand;
-
 import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
@@ -21,19 +20,21 @@ public class TwelveArtifactBlue extends SequentialCommandGroup {
 
   // Poses
   private final Pose startPose = newPose(56, 8, 90);
-  private final Pose outtakePreload = newPose(56, 96, 135);
+  private final Pose outtakePreload = newPose(48, 96, 135);
   private final Pose beforeIntake1Pose = newPose(42, 44, 180);
-  private final Pose afterIntake1Pose = newPose(12, 44, 180);
+  private final Pose afterIntake1Pose = newPose(5, 44, 180);
   private final Pose curveToOuttake1Pose = newPose(64, 46, 180);
-  private final Pose outtake1Pose = newPose(56, 96, 135);
+  private final Pose outtake1Pose = newPose(48, 96, 135);
   private final Pose beforeIntake2Pose = newPose(42, 68, 180);
-  private final Pose afterIntake2Pose = newPose(13, 68, 180);
+  private final Pose afterIntake2Pose = newPose(5, 68, 180);
   private final Pose curveToOuttake2Pose = newPose(60, 58, 180);
-  private final Pose outtake2Pose = newPose(56, 96, 135);
+  private final Pose outtake2Pose = newPose(48, 96, 135);
   private final Pose beforeIntake3Pose = newPose(42, 90, 180);
-  private final Pose afterIntake3Pose = newPose(14, 90, 180);
-  private final Pose outtake3Pose = newPose(56, 96, 132);
+  private final Pose afterIntake3Pose = newPose(13, 90, 180);
+  private final Pose outtake3Pose = newPose(48, 96, 132);
   private final Pose releasePose = newPose(25, 69, 90);
+
+  // shoots well 40 inches away from the basket
 
   // Path chains
   private PathChain setupIntake1Path,
@@ -87,10 +88,8 @@ public class TwelveArtifactBlue extends SequentialCommandGroup {
     (optional) new WaitCommand(500), to allow the heading to be fully corrected before doing next movement
 
     FOR SIMULTANEOUS INTAKE:
-    new ParallelRaceGroup(
-        new FollowPathCommand(follower, pathName),
-        new IntakeCommand(intakeWheel).withTimeout(milliseconds)),
-    stopIntake());
+    intakeWhileRunning(pathName),
+    stopIntake(),
      */
 
   }
@@ -99,9 +98,9 @@ public class TwelveArtifactBlue extends SequentialCommandGroup {
     return new InstantCommand(() -> intakeWheel.stop(), intakeWheel);
   }
 
-  private ParallelRaceGroup intakeWhileRunning(final PathChain path) {
-    return new ParallelRaceGroup(
-        new FollowPathCommand(follower, path), new IntakeCommand(intakeWheel).withTimeout(1000));
+  private ParallelCommandGroup intakeWhileRunning(final PathChain path) {
+    return new ParallelCommandGroup(
+        new FollowPathCommand(follower, path), new IntakeCommand(intakeWheel).withTimeout(1500));
   }
 
   public void buildPaths() {
@@ -198,6 +197,14 @@ public class TwelveArtifactBlue extends SequentialCommandGroup {
             .pathBuilder()
             .addPath(new BezierLine(firstPose, secondPose))
             .setTangentHeadingInterpolation()
+            .build();
+
+    CURVE PATH:
+    pathName =
+        follower
+            .pathBuilder()
+            .addPath(new BezierCurve(firstPose, curveControlPoint, secondPose))
+            .setLinearHeadingInterpolation(firstPose.getHeading(), secondPose.getHeading())
             .build();
      */
   }
