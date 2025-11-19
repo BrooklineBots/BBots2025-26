@@ -12,7 +12,8 @@ import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.AutoChooser;
-import org.firstinspires.ftc.teamcode.Commands.AutoCommands.TwelveArtifactBlue;
+import org.firstinspires.ftc.teamcode.Commands.AutoCommands.BlueTwelveArtifact;
+import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifact;
 import org.firstinspires.ftc.teamcode.Commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
@@ -44,7 +45,8 @@ public class RobotContainer {
   public enum AutoMode { // Enum of all valid autonomous modes
     DoNothingAuto,
     ExampleAuto,
-    TwelveArtifactBlue;
+    BlueTwelveArtifact,
+    RedTwelveArtifact;
   }
 
   private AutoMode currentAuto;
@@ -148,8 +150,10 @@ public class RobotContainer {
       // CommandScheduler.getInstance().schedule(new InstantCommand(() -> outtake.shoot()));
     } else if (selectedAutoMode == AutoMode.DoNothingAuto) {
       CommandScheduler.getInstance().schedule(new InstantCommand());
-    } else if (selectedAutoMode == AutoMode.TwelveArtifactBlue) {
-      CommandScheduler.getInstance().schedule(new TwelveArtifactBlue(autoDrive, intake));
+    } else if (selectedAutoMode == AutoMode.BlueTwelveArtifact) {
+      CommandScheduler.getInstance().schedule(new BlueTwelveArtifact(autoDrive, intake));
+    } else if (selectedAutoMode == AutoMode.RedTwelveArtifact) {
+      CommandScheduler.getInstance().schedule(new RedTwelveArtifact(autoDrive, intake));
     } else {
       telemetry.addLine("No auto was selected! There was likely an error.");
       telemetry.update();

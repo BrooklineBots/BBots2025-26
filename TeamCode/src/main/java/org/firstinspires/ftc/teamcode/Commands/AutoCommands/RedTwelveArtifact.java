@@ -14,25 +14,36 @@ import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
-public class TwelveArtifactBlue extends SequentialCommandGroup {
+/*
+
+I F   Y O U   A R E   H A I L E Y,   D O N ' T   L O O K!!
+
+(if you finished or need help, then scroll down to check ur work)
+our values may differ by a little, but as long as ur code works on the robot its fine
+
+
+
+ */
+
+public class RedTwelveArtifact extends SequentialCommandGroup {
   private final Follower follower;
   private final Intake intakeWheel;
 
   // Poses
-  private final Pose startPose = newPose(56, 8, 90);
-  private final Pose outtakePreload = newPose(48, 96, 135);
-  private final Pose beforeIntake1Pose = newPose(42, 44, 180);
-  private final Pose afterIntake1Pose = newPose(5, 44, 180);
-  private final Pose curveToOuttake1Pose = newPose(64, 46, 180);
-  private final Pose outtake1Pose = newPose(48, 96, 135);
-  private final Pose beforeIntake2Pose = newPose(42, 68, 180);
-  private final Pose afterIntake2Pose = newPose(5, 68, 180);
-  private final Pose curveToOuttake2Pose = newPose(60, 58, 180);
-  private final Pose outtake2Pose = newPose(48, 96, 135);
-  private final Pose beforeIntake3Pose = newPose(42, 90, 180);
-  private final Pose afterIntake3Pose = newPose(13, 90, 180);
-  private final Pose outtake3Pose = newPose(48, 96, 132);
-  private final Pose releasePose = newPose(25, 69, 90);
+  private final Pose startPose = newPose(88, 8, 90);
+  private final Pose outtakePreload = newPose(96, 96, 45);
+  private final Pose beforeIntake1Pose = newPose(90, 31, 0);
+  private final Pose afterIntake1Pose = newPose(125, 31, 0);
+  private final Pose curveToOuttake1Pose = newPose(70, 46, 0);
+  private final Pose outtake1Pose = newPose(96, 96, 45);
+  private final Pose beforeIntake2Pose = newPose(90, 53, 0);
+  private final Pose afterIntake2Pose = newPose(125, 53, 0);
+  private final Pose curveToOuttake2Pose = newPose(80, 58, 0);
+  private final Pose outtake2Pose = newPose(96, 96, 45);
+  private final Pose beforeIntake3Pose = newPose(90, 78, 0);
+  private final Pose afterIntake3Pose = newPose(120, 78, 0);
+  private final Pose outtake3Pose = newPose(96, 96, 45);
+  private final Pose releasePose = newPose(119, 69, 90);
 
   // shoots well 40 inches away from the basket
 
@@ -49,7 +60,7 @@ public class TwelveArtifactBlue extends SequentialCommandGroup {
       goToOuttake3Path,
       releasePath;
 
-  public TwelveArtifactBlue(final Drivetrain drive, final Intake intake) {
+  public RedTwelveArtifact(final Drivetrain drive, final Intake intake) {
     this.follower = drive.getFollower();
     this.intakeWheel = intake;
     follower.setStartingPose(startPose);
