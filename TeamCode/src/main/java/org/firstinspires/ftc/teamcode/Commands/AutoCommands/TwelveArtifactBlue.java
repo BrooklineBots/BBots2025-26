@@ -10,6 +10,7 @@ import com.seattlesolvers.solverslib.command.ParallelRaceGroup;
 import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.pedroCommand.FollowPathCommand;
+
 import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
@@ -59,20 +60,20 @@ public class TwelveArtifactBlue extends SequentialCommandGroup {
         new WaitCommand(1000),
         new FollowPathCommand(follower, setupIntake1Path),
         new WaitCommand(500),
-        intakeWhileRunningBlue(intake1Path),
+        intakeWhileRunning(intake1Path),
         stopIntake(),
         new WaitCommand(500),
         new FollowPathCommand(follower, goToOuttake1Path),
         new WaitCommand(1000),
         new FollowPathCommand(follower, setupIntake2Path),
         new WaitCommand(500),
-        intakeWhileRunningBlue(intake2Path),
+        intakeWhileRunning(intake2Path),
         stopIntake(),
         new FollowPathCommand(follower, goToOuttake2Path),
         new WaitCommand(1000),
         new FollowPathCommand(follower, setupIntake3Path),
         new WaitCommand(500),
-        intakeWhileRunningBlue(intake3Path),
+        intakeWhileRunning(intake3Path),
         stopIntake(),
         new FollowPathCommand(follower, goToOuttake3Path),
         new WaitCommand(1000),
@@ -98,7 +99,7 @@ public class TwelveArtifactBlue extends SequentialCommandGroup {
     return new InstantCommand(() -> intakeWheel.stop(), intakeWheel);
   }
 
-  private ParallelRaceGroup intakeWhileRunningBlue(final PathChain path) {
+  private ParallelRaceGroup intakeWhileRunning(final PathChain path) {
     return new ParallelRaceGroup(
         new FollowPathCommand(follower, path), new IntakeCommand(intakeWheel).withTimeout(1000));
   }
