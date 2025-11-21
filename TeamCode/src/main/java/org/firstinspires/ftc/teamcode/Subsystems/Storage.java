@@ -9,7 +9,7 @@ public class Storage extends SubsystemBase {
   private final CRServoEx storageServo;
 
   public Storage(final HardwareMap hwMap) {
-    storageServo = new CRServoEx(hwMap, Constants.StorageConstants.STORAGE_SERVO) {};
+    storageServo = new CRServoEx(hwMap, Constants.StorageConstants.STORAGE_SERVO);
   }
 
   private void setPower(double power) {
