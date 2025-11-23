@@ -13,7 +13,9 @@ import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.AutoChooser;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.BlueTwelveArtifact;
+import org.firstinspires.ftc.teamcode.Commands.AutoCommands.BlueTwelveArtifactFromObelisk;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifact;
+import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifactFromObelisk;
 import org.firstinspires.ftc.teamcode.Commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
@@ -46,7 +48,9 @@ public class RobotContainer {
     DoNothingAuto,
     ExampleAuto,
     BlueTwelveArtifact,
-    RedTwelveArtifact;
+    RedTwelveArtifact,
+    BlueTwelveArtifactFromObelisk,
+    RedTwelveArtifactFromObelisk;
   }
 
   private AutoMode currentAuto;
@@ -154,6 +158,10 @@ public class RobotContainer {
       CommandScheduler.getInstance().schedule(new BlueTwelveArtifact(autoDrive, intake));
     } else if (selectedAutoMode == AutoMode.RedTwelveArtifact) {
       CommandScheduler.getInstance().schedule(new RedTwelveArtifact(autoDrive, intake));
+    } else if (selectedAutoMode == AutoMode.BlueTwelveArtifactFromObelisk) {
+      CommandScheduler.getInstance().schedule(new BlueTwelveArtifactFromObelisk(autoDrive, intake));
+    } else if (selectedAutoMode == AutoMode.RedTwelveArtifactFromObelisk) {
+      CommandScheduler.getInstance().schedule(new RedTwelveArtifactFromObelisk(autoDrive, intake));
     } else {
       telemetry.addLine("No auto was selected! There was likely an error.");
       telemetry.update();
