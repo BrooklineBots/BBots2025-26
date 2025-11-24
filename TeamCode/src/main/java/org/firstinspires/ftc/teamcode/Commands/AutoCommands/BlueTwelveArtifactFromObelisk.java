@@ -18,20 +18,20 @@ public class BlueTwelveArtifactFromObelisk extends SequentialCommandGroup {
   private final Follower follower;
   private final Intake intakeWheel;
   // Poses
-  private final Pose startPose = new Pose(25, 130, 325);
-  private final Pose outtakePreload = new Pose(48, 96, 135);
-  private final Pose beforeIntake1Pose = new Pose(42, 44, 180);
-  private final Pose afterIntake1Pose = new Pose(5, 44, 180);
-  private final Pose curveToOuttake1Pose = new Pose(64, 46, 180);
-  private final Pose outtake1Pose = new Pose(48, 96, 135);
-  private final Pose beforeIntake2Pose = new Pose(42, 68, 180);
-  private final Pose afterIntake2Pose = new Pose(5, 68, 180);
-  private final Pose curveToOuttake2Pose = new Pose(60, 58, 180);
-  private final Pose outtake2Pose = new Pose(48, 96, 135);
-  private final Pose beforeIntake3Pose = new Pose(42, 90, 180);
-  private final Pose afterIntake3Pose = new Pose(13, 90, 180);
-  private final Pose outtake3Pose = new Pose(48, 96, 135);
-  private final Pose releasePose = new Pose(25, 69, 90);
+  private final Pose startPose = newPose(10, 137, -35);
+  private final Pose outtakePreload = newPose(48, 96, 135);
+  private final Pose beforeIntake1Pose = newPose(42, 44, 180);
+  private final Pose afterIntake1Pose = newPose(5, 44, 180);
+  private final Pose curveToOuttake1Pose = newPose(64, 46, 180);
+  private final Pose outtake1Pose = newPose(48, 96, 135);
+  private final Pose beforeIntake2Pose = newPose(42, 68, 180);
+  private final Pose afterIntake2Pose = newPose(5, 68, 180);
+  private final Pose curveToOuttake2Pose = newPose(60, 58, 180);
+  private final Pose outtake2Pose = newPose(48, 96, 135);
+  private final Pose beforeIntake3Pose = newPose(42, 90, 180);
+  private final Pose afterIntake3Pose = newPose(13, 90, 180);
+  private final Pose outtake3Pose = newPose(48, 96, 135);
+  private final Pose releasePose = newPose(25, 69, 90);
 
   // shoots well 40 inches away from the basket
 
@@ -85,7 +85,7 @@ public class BlueTwelveArtifactFromObelisk extends SequentialCommandGroup {
   }
 
   private InstantCommand stopIntake() {
-    return new InstantCommand(() -> intakeWheel.stop(), intakeWheel);
+    return new InstantCommand(intakeWheel::stop, intakeWheel);
   }
 
   private ParallelCommandGroup intakeWhileRunning(final PathChain path) {
