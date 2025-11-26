@@ -15,14 +15,9 @@ import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
 /*
-
 I F   Y O U   A R E   H A I L E Y,   D O N ' T   L O O K!!
-
 (if you finished or need help, then scroll down to check ur work)
 our values may differ by a little, but as long as ur code works on the robot its fine
-
-
-
  */
 
 public class RedTwelveArtifact extends SequentialCommandGroup {
@@ -97,7 +92,6 @@ public class RedTwelveArtifact extends SequentialCommandGroup {
     TO ADD A PATH:
     new FollowPathCommand(follower, pathName),
     (optional) new WaitCommand(500), to allow the heading to be fully corrected before doing next movement
-
     FOR SIMULTANEOUS INTAKE:
     intakeWhileRunning(pathName),
     stopIntake(),
@@ -201,7 +195,6 @@ public class RedTwelveArtifact extends SequentialCommandGroup {
             .addPath(new BezierLine(firstPose, secondPose))
             .setLinearHeadingInterpolation(firstPose.getHeading(), secondPose.getHeading())
             .build();
-
     TANGENTIAL PATH:
     pathName =
         follower
@@ -209,7 +202,6 @@ public class RedTwelveArtifact extends SequentialCommandGroup {
             .addPath(new BezierLine(firstPose, secondPose))
             .setTangentHeadingInterpolation()
             .build();
-
     CURVE PATH:
     pathName =
         follower
