@@ -4,6 +4,7 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.pedroCommand.FollowPathCommand;
 import java.io.IOException;
@@ -31,10 +32,10 @@ public class reg extends SequentialCommandGroup {
   private PathChain BeforeSecondRowTOAfterSecondRow;
   private PathChain AfterSecondRowTOScoringPosition;
 
-  public reg(final Drivetrain drive, Telemetry tel) throws IOException {
+  public reg(final Drivetrain drive, Telemetry tel, HardwareMap hw) throws IOException {
     this.follower = drive.getFollower();
 
-    PedroPathReader pp = new PedroPathReader("reg.pp");
+    PedroPathReader pp = new PedroPathReader("reg.pp", hw.appContext);
 
     startPoint = pp.get("startPoint");
     BeforeFirstRow = pp.get("BeforeFirstRow");

@@ -15,7 +15,6 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.AutoChooser;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.BlueTwelveArtifact;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.BlueTwelveArtifactFromObelisk;
-import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifact;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifactFromObelisk;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.reg;
 import org.firstinspires.ftc.teamcode.Commands.DriveCommand;
@@ -157,11 +156,11 @@ public class RobotContainer {
       if (selectedAutoMode == AutoMode.DoNothingAuto) {
         CommandScheduler.getInstance().schedule(new InstantCommand());
       } else if (selectedAutoMode == AutoMode.reg) {
-        CommandScheduler.getInstance().schedule(new reg(autoDrive, telemetry));
+        CommandScheduler.getInstance().schedule(new reg(autoDrive, telemetry, hardwareMap));
       } else if (selectedAutoMode == AutoMode.BlueTwelveArtifact) {
         CommandScheduler.getInstance().schedule(new BlueTwelveArtifact(autoDrive, intake));
       } else if (selectedAutoMode == AutoMode.RedTwelveArtifact) {
-        CommandScheduler.getInstance().schedule(new RedTwelveArtifact(autoDrive));
+        //        CommandScheduler.getInstance().schedule(new RedTwelveArtifact(autoDrive));
       } else if (selectedAutoMode == AutoMode.BlueTwelveArtifactFromObelisk) {
         CommandScheduler.getInstance()
             .schedule(new BlueTwelveArtifactFromObelisk(autoDrive, intake));

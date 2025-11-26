@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Utils;
 
+import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.pedropathing.geometry.Pose;
@@ -10,7 +11,6 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public final class PedroPathReader {
 
@@ -21,11 +21,15 @@ public final class PedroPathReader {
   private double lastY;
   private double lastDeg;
 
-  public PedroPathReader(String filename) throws IOException {
-
-    InputStream stream =
-        Objects.requireNonNull(getClass().getClassLoader())
-            .getResourceAsStream("AutoPaths/" + filename);
+  public PedroPathReader(String filename, Context context) throws IOException {
+    InputStream stream = null;
+    try {
+      // hardwareMap.appContext is available in your OpMode
+      stream = context.getAssets().open("AutoPaths/" + filename);
+    } catch (IOException e) {
+      //      Telemetry.addData("Failed to open reg.pp from assets: " + e.getMessage());
+      throw e;
+    }
 
     if (stream == null) {
       throw new FileNotFoundException("PP File not found: " + filename);
@@ -40,22 +44,30 @@ public final class PedroPathReader {
   }
 
   private void loadAllPoints() {
-    lastX = file.startPoint.x;
-    lastY = file.startPoint.y;
-    lastDeg = file.startPoint.startDeg;
+    double x = file.startPoint.x;
+    double y = file.startPoint.y;
+    double deg = file.startPoint.startDeg; // fallback if not present
+    if (Double.isNaN(deg)) deg = 0;
+
+    lastX = x;
+    lastY = y;
+    lastDeg = deg;
 
     poses.put("startPoint", toPose(lastX, lastY, lastDeg));
 
     for (PedroPP.Line line : file.lines) {
-      double x = line.endPoint.x;
-      double y = line.endPoint.y;
+      double lx = line.endPoint.x;
+      double ly = line.endPoint.y;
 
-      double heading = extractHeading(line.endPoint.heading, lastX, lastY, x, y, lastDeg);
+      double heading = extractHeading(line.endPoint.heading, lastX, lastY, lx, ly, lastDeg);
 
-      poses.put(line.name, toPose(x, y, heading));
+      // Fix JSON name with space
+      String name =
+          line.name.replace(" ", ""); // removes spaces like "Scoring Position" -> "ScoringPosition"
+      poses.put(name, toPose(lx, ly, heading));
 
-      lastX = x;
-      lastY = y;
+      lastX = lx;
+      lastY = ly;
       lastDeg = heading;
     }
   }
