@@ -156,7 +156,7 @@ public class RobotContainer {
       if (selectedAutoMode == AutoMode.DoNothingAuto) {
         CommandScheduler.getInstance().schedule(new InstantCommand());
       } else if (selectedAutoMode == AutoMode.reg) {
-        CommandScheduler.getInstance().schedule(new reg(autoDrive, telemetry, hardwareMap));
+        CommandScheduler.getInstance().schedule(new reg(autoDrive, hardwareMap));
       } else if (selectedAutoMode == AutoMode.BlueTwelveArtifact) {
         CommandScheduler.getInstance().schedule(new BlueTwelveArtifact(autoDrive, intake));
       } else if (selectedAutoMode == AutoMode.RedTwelveArtifact) {

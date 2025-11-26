@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.pedroCommand.FollowPathCommand;
 import java.io.IOException;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Utils.PedroPathReader;
 
@@ -17,7 +16,6 @@ public class reg extends SequentialCommandGroup {
   private final Follower follower;
 
   // Poses
-
   private Pose startPoint;
   private Pose BeforeFirstRow;
   private Pose AfterFirstRow;
@@ -32,7 +30,7 @@ public class reg extends SequentialCommandGroup {
   private PathChain BeforeSecondRowTOAfterSecondRow;
   private PathChain AfterSecondRowTOScoringPosition;
 
-  public reg(final Drivetrain drive, Telemetry tel, HardwareMap hw) throws IOException {
+  public reg(final Drivetrain drive, HardwareMap hw) throws IOException {
     this.follower = drive.getFollower();
 
     PedroPathReader pp = new PedroPathReader("reg.pp", hw.appContext);
@@ -43,24 +41,7 @@ public class reg extends SequentialCommandGroup {
     BeforeSecondRow = pp.get("BeforeSecondRow");
     AfterSecondRow = pp.get("AfterSecondRow");
     ScoringPosition = pp.get("ScoringPosition");
-    tel.addData("startPoint X", startPoint.getX());
-    tel.addData("startPoint Y", startPoint.getY());
 
-    tel.addData("BeforeFirstRow X", BeforeFirstRow.getX());
-    tel.addData("BeforeFirstRow Y", BeforeFirstRow.getY());
-
-    tel.addData("AfterFirstRow X", AfterFirstRow.getX());
-    tel.addData("AfterFirstRow Y", AfterFirstRow.getY());
-
-    tel.addData("BeforeSecondRow X", BeforeSecondRow.getX());
-    tel.addData("BeforeSecondRow Y", BeforeSecondRow.getY());
-
-    tel.addData("AfterSecondRow X", AfterSecondRow.getX());
-    tel.addData("AfterSecondRow Y", AfterSecondRow.getY());
-
-    tel.addData("ScoringPosition X", ScoringPosition.getX());
-    tel.addData("ScoringPosition Y", ScoringPosition.getY());
-    tel.update();
     follower.setStartingPose(startPoint);
 
     buildPaths();
