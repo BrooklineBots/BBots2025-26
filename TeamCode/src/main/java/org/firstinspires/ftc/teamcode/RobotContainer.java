@@ -10,12 +10,14 @@ import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.command.button.GamepadButton;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
+import java.io.IOException;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.AutoChooser;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.BlueTwelveArtifact;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.BlueTwelveArtifactFromObelisk;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifact;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifactFromObelisk;
+import org.firstinspires.ftc.teamcode.Commands.AutoCommands.reg;
 import org.firstinspires.ftc.teamcode.Commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
@@ -47,6 +49,7 @@ public class RobotContainer {
   public enum AutoMode { // Enum of all valid autonomous modes
     DoNothingAuto,
     ExampleAuto,
+    reg,
     BlueTwelveArtifact,
     RedTwelveArtifact,
     BlueTwelveArtifactFromObelisk,
@@ -150,37 +153,45 @@ public class RobotContainer {
     telemetry.addData("Starting Auto Mode", selectedAutoMode);
     telemetry.update();
 
-    if (selectedAutoMode == AutoMode.ExampleAuto) {
-      // CommandScheduler.getInstance().schedule(new InstantCommand(() -> outtake.shoot()));
-    } else if (selectedAutoMode == AutoMode.DoNothingAuto) {
-      CommandScheduler.getInstance().schedule(new InstantCommand());
-    } else if (selectedAutoMode == AutoMode.BlueTwelveArtifact) {
-      CommandScheduler.getInstance().schedule(new BlueTwelveArtifact(autoDrive, intake));
-    } else if (selectedAutoMode == AutoMode.RedTwelveArtifact) {
-      CommandScheduler.getInstance().schedule(new RedTwelveArtifact(autoDrive, intake));
-    } else if (selectedAutoMode == AutoMode.BlueTwelveArtifactFromObelisk) {
-      CommandScheduler.getInstance().schedule(new BlueTwelveArtifactFromObelisk(autoDrive, intake));
-    } else if (selectedAutoMode == AutoMode.RedTwelveArtifactFromObelisk) {
-      CommandScheduler.getInstance().schedule(new RedTwelveArtifactFromObelisk(autoDrive, intake));
-    } else {
-      telemetry.addLine("No auto was selected! There was likely an error.");
+    try {
+      if (selectedAutoMode == AutoMode.DoNothingAuto) {
+        CommandScheduler.getInstance().schedule(new InstantCommand());
+      } else if (selectedAutoMode == AutoMode.reg) {
+        CommandScheduler.getInstance().schedule(new reg(autoDrive, telemetry));
+      } else if (selectedAutoMode == AutoMode.BlueTwelveArtifact) {
+        CommandScheduler.getInstance().schedule(new BlueTwelveArtifact(autoDrive, intake));
+      } else if (selectedAutoMode == AutoMode.RedTwelveArtifact) {
+        CommandScheduler.getInstance().schedule(new RedTwelveArtifact(autoDrive));
+      } else if (selectedAutoMode == AutoMode.BlueTwelveArtifactFromObelisk) {
+        CommandScheduler.getInstance()
+            .schedule(new BlueTwelveArtifactFromObelisk(autoDrive, intake));
+      } else if (selectedAutoMode == AutoMode.RedTwelveArtifactFromObelisk) {
+        CommandScheduler.getInstance()
+            .schedule(new RedTwelveArtifactFromObelisk(autoDrive, intake));
+      } else {
+        telemetry.addLine("No auto was selected! There was likely an error.");
+        telemetry.update();
+      }
+    } catch (IOException error) {
+      telemetry.addLine("A critical IOException error has occurred. Doing nothing. ");
       telemetry.update();
+      CommandScheduler.getInstance().schedule(new InstantCommand());
     }
   }
 
   public void run() {
     // telemetry`
     // telemetry.addData("Currently shooting", outtake.getPower());
-    telemetry.update();
+    //    telemetry.update();
 
     if (currentGameMode == gameMode.TeleOp) {
       gamepad1.readButtons();
       gamepad2.readButtons();
     }
     if (currentGameMode == gameMode.Auto) {
-      telemetry.addData("Pos x", autoDrive.getFollower().getPose().getX());
-      telemetry.addData("Pos y", autoDrive.getFollower().getPose().getY());
-      telemetry.addData("Heading: ", autoDrive.getFollower().getPose().getHeading());
+      //      telemetry.addData("Pos x", autoDrive.getFollower().getPose().getX());
+      //      telemetry.addData("Pos y", autoDrive.getFollower().getPose().getY());
+      //      telemetry.addData("Heading: ", autoDrive.getFollower().getPose().getHeading());
     }
     //    if (currentGameMode == gameMode.Auto) {
     //      dashboardPoseTracker.update();
