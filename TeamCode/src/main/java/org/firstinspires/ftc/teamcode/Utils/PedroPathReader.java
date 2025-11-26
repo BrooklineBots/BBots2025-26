@@ -24,10 +24,8 @@ public final class PedroPathReader {
   public PedroPathReader(String filename, Context context) throws IOException {
     InputStream stream = null;
     try {
-      // hardwareMap.appContext is available in your OpMode
       stream = context.getAssets().open("AutoPaths/" + filename);
     } catch (IOException e) {
-      //      Telemetry.addData("Failed to open reg.pp from assets: " + e.getMessage());
       throw e;
     }
 
@@ -46,7 +44,7 @@ public final class PedroPathReader {
   private void loadAllPoints() {
     double x = file.startPoint.x;
     double y = file.startPoint.y;
-    double deg = file.startPoint.startDeg; // fallback if not present
+    double deg = file.startPoint.startDeg;
     if (Double.isNaN(deg)) deg = 0;
 
     lastX = x;
@@ -61,9 +59,7 @@ public final class PedroPathReader {
 
       double heading = extractHeading(line.endPoint.heading, lastX, lastY, lx, ly, lastDeg);
 
-      // Fix JSON name with space
-      String name =
-          line.name.replace(" ", ""); // removes spaces like "Scoring Position" -> "ScoringPosition"
+      String name = line.name.replace(" ", "");
       poses.put(name, toPose(lx, ly, heading));
 
       lastX = lx;
