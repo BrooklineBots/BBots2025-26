@@ -19,6 +19,7 @@ import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifact;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifactFromObelisk;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.reg;
 import org.firstinspires.ftc.teamcode.Commands.DriveCommand;
+import org.firstinspires.ftc.teamcode.Commands.ExpelIntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
@@ -113,6 +114,7 @@ public class RobotContainer {
     new GamepadButton(gamepad1, GamepadKeys.Button.A).whenActive(new IntakeCommand(intake));
     new GamepadButton(gamepad1, GamepadKeys.Button.B)
         .whenActive(new InstantCommand(() -> intake.stop(), intake));
+    new GamepadButton(gamepad1, GamepadKeys.Button.X).whenActive(new ExpelIntakeCommand(intake));
     //    //    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_DOWN)
     //    //        .whenActive(new InstantCommand(() -> storage.stop(), storage));
     //    //    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP)

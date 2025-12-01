@@ -29,8 +29,13 @@ public class Intake extends SubsystemBase {
   }
 
   public void intake() {
+    intakeMotor.setInverted(false);
     setVelocity(Constants.IntakeConstants.INTAKE_VELOCITY);
   }
+  public void expel() {
+      intakeMotor.setInverted(true);
+      setVelocity(Constants.IntakeConstants.EXPEL_VELOCITY);
+    }
 
   public void stop() {
     intakeMotor.stopMotor();
