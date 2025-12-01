@@ -22,6 +22,7 @@ import org.firstinspires.ftc.teamcode.Commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
+import org.firstinspires.ftc.teamcode.Utils.Pathing.NamedCommands;
 
 public class RobotContainer {
   // Subsystems
@@ -101,6 +102,7 @@ public class RobotContainer {
   public void configureAuto() { // Note that I'm still working on this. It does not work yet.
     currentGameMode = gameMode.Auto;
     initializeSubsystems();
+    registerNamedCommands();
 
     // Schedule Auto Chooser
     CommandScheduler.getInstance().schedule(new AutoChooser(this, gamepad1, telemetry));
@@ -177,6 +179,18 @@ public class RobotContainer {
       telemetry.update();
       CommandScheduler.getInstance().schedule(new InstantCommand());
     }
+  }
+
+  private void registerNamedCommands() {
+
+    // Register  commands
+    NamedCommands.registerCommand(
+        "IntakeOn", new IntakeCommand(intake), "Turn intake on (intake mode)");
+
+    NamedCommands.registerCommand(
+        "IntakeOff", new InstantCommand(() -> intake.stop()), "Turn intake off");
+
+    NamedCommands.listAllCommands(telemetry);
   }
 
   public void run() {
