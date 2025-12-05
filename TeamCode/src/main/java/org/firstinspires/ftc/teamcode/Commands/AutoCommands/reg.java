@@ -20,6 +20,7 @@ public class reg extends SequentialCommandGroup {
 
   private final Follower follower;
   private final ProgressTracker progressTracker;
+
   // Poses
   private Pose startPoint;
   private Pose BeforeFirstRow;
@@ -39,7 +40,7 @@ public class reg extends SequentialCommandGroup {
     this.follower = drive.getFollower();
     this.progressTracker = new ProgressTracker(follower, telemetry);
 
-    PedroPathReader pp = new PedroPathReader("reg.pp", hw.appContext);
+    PedroPathReader pp = new PedroPathReader("reg", hw.appContext);
 
     // Load poses
     startPoint = pp.get("startPoint");
@@ -54,7 +55,6 @@ public class reg extends SequentialCommandGroup {
     buildPaths();
 
     addCommands(
-        // First path with IntakeOn event
         new InstantCommand(
             () -> {
               progressTracker.setCurrentChain(startPointTOBeforeFirstRow);
@@ -69,8 +69,6 @@ public class reg extends SequentialCommandGroup {
                     () -> {
                       progressTracker.executeEvent("IntakeOn");
                     }))),
-
-        // Second path with IntakeOff event
         new InstantCommand(
             () -> {
               progressTracker.setCurrentChain(BeforeFirstRowTOAfterFirstRow);
@@ -85,8 +83,6 @@ public class reg extends SequentialCommandGroup {
                     () -> {
                       progressTracker.executeEvent("IntakeOff");
                     }))),
-
-        // Remaining paths without events
         new InstantCommand(
             () -> {
               progressTracker.setCurrentChain(AfterFirstRowTOBeforeSecondRow);
