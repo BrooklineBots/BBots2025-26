@@ -7,15 +7,19 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
-public class LimelightAprilTag extends SubsystemBase {
+public class LimelightSub extends SubsystemBase {
 
   private Limelight3A limelight;
   private IMU imu;
   private LLResult latestResult;
 
-  public LimelightAprilTag(HardwareMap hardwareMap) {
+
+  public LimelightSub(HardwareMap hardwareMap) {
     limelight = hardwareMap.get(Limelight3A.class, "limelight");
     limelight.pipelineSwitch(1); // apriltag #1 pipeline
+    limelight.setPollRateHz(100);// limelight pipleine
+    limelight.pipelineSwitch(1); // Use pipeline 1 for green and 2 for purple
+    limelight.start();
 
     imu = hardwareMap.get(IMU.class, "imu");
     RevHubOrientationOnRobot revHubOrientationOnRobot =
@@ -69,4 +73,6 @@ public class LimelightAprilTag extends SubsystemBase {
     double distance = (scale / ta);
     return distance;
   }
+
+
 }
