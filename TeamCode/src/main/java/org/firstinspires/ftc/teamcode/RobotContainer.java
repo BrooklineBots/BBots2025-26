@@ -159,7 +159,7 @@ public class RobotContainer {
       if (selectedAutoMode == AutoMode.DoNothingAuto) {
         CommandScheduler.getInstance().schedule(new InstantCommand());
       } else if (selectedAutoMode == AutoMode.reg) {
-        CommandScheduler.getInstance().schedule(new reg(autoDrive, hardwareMap));
+        CommandScheduler.getInstance().schedule(new reg(autoDrive, hardwareMap, telemetry));
       } else if (selectedAutoMode == AutoMode.BlueTwelveArtifact) {
         CommandScheduler.getInstance().schedule(new BlueTwelveArtifact(autoDrive, intake));
       } else if (selectedAutoMode == AutoMode.RedTwelveArtifact) {
@@ -185,7 +185,7 @@ public class RobotContainer {
 
     // Register  commands
     NamedCommands.registerCommand(
-        "IntakeOn", new IntakeCommand(intake), "Turn intake on (intake mode)");
+        "IntakeOn", new InstantCommand(() -> intake.intake()), "Turn intake on (intake mode)");
 
     NamedCommands.registerCommand(
         "IntakeOff", new InstantCommand(() -> intake.stop()), "Turn intake off");
