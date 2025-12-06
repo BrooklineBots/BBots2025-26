@@ -18,10 +18,13 @@ import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifactFro
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.reg;
 import org.firstinspires.ftc.teamcode.Commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.Commands.ExpelStorageAndIntakeCommand;
+import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
+import org.firstinspires.ftc.teamcode.Commands.OuttakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.StoreArtifactsCommand;
 import org.firstinspires.ftc.teamcode.Commands.TransferToStorageCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake;
 import org.firstinspires.ftc.teamcode.Subsystems.Storage;
 import org.firstinspires.ftc.teamcode.Utils.Pathing.NamedCommands;
 
@@ -30,7 +33,7 @@ public class RobotContainer {
   private Drivetrain drive;
   private Drivetrain autoDrive;
   private Intake intake;
-  // private Outtake outtake;
+  private Outtake outtake;
 
   private Storage storage;
 
@@ -81,10 +84,10 @@ public class RobotContainer {
     intake = new Intake(hardwareMap);
     drive = new Drivetrain(hardwareMap, telemetry, currentGameMode);
     autoDrive = new Drivetrain(hardwareMap, telemetry, currentGameMode);
-    // outtake = new Outtake(hardwareMap, telemetry);
+    outtake = new Outtake(hardwareMap, telemetry);
     storage = new Storage(hardwareMap);
     // Register subsystems with scheduler
-    CommandScheduler.getInstance().registerSubsystem(drive, autoDrive, intake, storage);
+    CommandScheduler.getInstance().registerSubsystem(drive, autoDrive, intake, storage, outtake);
   }
 
   public void configureTeleOp() {
@@ -116,10 +119,12 @@ public class RobotContainer {
         .whenActive(new InstantCommand(() -> storage.stop(), storage));
     new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_DOWN)
         .whenHeld(new ExpelStorageAndIntakeCommand(intake, storage));
-    new GamepadButton(gamepad1, GamepadKeys.Button.X)
-        .whenActive(new StoreArtifactsCommand(storage));
+    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_RIGHT)
+        .whenHeld(new StoreArtifactsCommand(storage));
+    new GamepadButton(gamepad1, GamepadKeys.Button.A).whenHeld(new IntakeCommand(intake));
+    new GamepadButton(gamepad1, GamepadKeys.Button.X).whenActive(new OuttakeCommand(outtake));
     new GamepadButton(gamepad1, GamepadKeys.Button.Y)
-        .whenActive(new InstantCommand(() -> storage.stop(), storage));
+        .whenActive(new InstantCommand(() -> outtake.stop(), outtake));
     //    new GamepadButton(gamepad1, GamepadKeys.Button.B)
     //            .whenActive(new InstantCommand(() -> intake.stop(), intake));
     //    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP)

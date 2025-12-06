@@ -29,16 +29,17 @@ public class Constants {
   public static class OuttakeConstants {
     public static final String OUTTAKE_ID = "outtakeMotor";
 
-    public static final double OUTTAKE_MAX_VELOCITY = 11000; // TODO:test max //11000
+    public static final double OUTTAKE_MAX_VELOCITY = 12000; // TODO:test max //11000
     // 10178.76; // in radians per minute
 
-    public static final double OUTTAKE_MOVEMENT_SPEED = 11000;
+    public static final double OUTTAKE_MOVEMENT_SPEED = 12000;
   }
 
   public static class StorageConstants {
     public static final String STORAGE_MOTOR_ID = "storageMotor";
 
-    public static final double STORAGE_VELOCITY = 700;
-    public static final double STORAGE_MAX_VELOCITY = 900;
+    public static final double STORAGE_VELOCITY = 1200;
+    public static final double STORAGE_EXPEL_VELOCITY = 900;
+    public static final double STORAGE_MAX_VELOCITY = 1200;
   }
 }
