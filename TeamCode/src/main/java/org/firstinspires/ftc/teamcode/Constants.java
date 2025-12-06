@@ -36,8 +36,9 @@ public class Constants {
   }
 
   public static class StorageConstants {
-    public static final String STORAGE_SERVO = "storageServo";
+    public static final String STORAGE_MOTOR_ID = "storageMotor";
 
-    public static final double STORAGE_POWER = 0.5;
+    public static final double STORAGE_VELOCITY = 700;
+    public static final double STORAGE_MAX_VELOCITY = 900;
   }
 }
