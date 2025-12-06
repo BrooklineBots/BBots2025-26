@@ -11,12 +11,18 @@ import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.pedroCommand.FollowPathCommand;
 import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
+import org.firstinspires.ftc.teamcode.Commands.OuttakeCommand;
+import org.firstinspires.ftc.teamcode.Commands.StoreArtifactsCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake;
+import org.firstinspires.ftc.teamcode.Subsystems.Storage;
 
 public class BlueTwelveArtifact extends SequentialCommandGroup {
   private final Follower follower;
   private final Intake intakeWheel;
+  private final Storage storage;
+  private final Outtake outtake;
 
   // Poses
   private final Pose startPose = newPose(56, 8, 90);
@@ -49,9 +55,12 @@ public class BlueTwelveArtifact extends SequentialCommandGroup {
       goToOuttake3Path,
       releasePath;
 
-  public BlueTwelveArtifact(final Drivetrain drive, final Intake intake) {
+  public BlueTwelveArtifact(
+      final Drivetrain drive, final Intake intake, final Storage storage, final Outtake outtake) {
     this.follower = drive.getFollower();
     this.intakeWheel = intake;
+    this.storage = storage;
+    this.outtake = outtake;
     follower.setStartingPose(startPose);
 
     buildPaths();
@@ -66,18 +75,21 @@ public class BlueTwelveArtifact extends SequentialCommandGroup {
         new WaitCommand(500),
         new FollowPathCommand(follower, goToOuttake1Path),
         new WaitCommand(1000),
+        new OuttakeCommand(outtake).withTimeout(2000),
         new FollowPathCommand(follower, setupIntake2Path),
         new WaitCommand(500),
         intakeWhileRunning(intake2Path),
         stopIntake(),
         new FollowPathCommand(follower, goToOuttake2Path),
         new WaitCommand(1000),
+        new OuttakeCommand(outtake).withTimeout(2000),
         new FollowPathCommand(follower, setupIntake3Path),
         new WaitCommand(500),
         intakeWhileRunning(intake3Path),
         stopIntake(),
         new FollowPathCommand(follower, goToOuttake3Path),
         new WaitCommand(1000),
+        new OuttakeCommand(outtake).withTimeout(2000),
         new FollowPathCommand(follower, releasePath),
         new WaitCommand(500));
 
@@ -100,8 +112,14 @@ public class BlueTwelveArtifact extends SequentialCommandGroup {
 
   private ParallelCommandGroup intakeWhileRunning(final PathChain path) {
     return new ParallelCommandGroup(
-        new FollowPathCommand(follower, path), new IntakeCommand(intakeWheel).withTimeout(1500));
+        new FollowPathCommand(follower, path),
+        new IntakeCommand(intakeWheel).withTimeout(1500),
+        new StoreArtifactsCommand(storage).withTimeout(2000));
   }
+
+  //  private ParallelCommandGroup pushAndOuttake(){
+  //    new Outtake Comm
+  //  }
 
   public void buildPaths() {
     scorePreload =

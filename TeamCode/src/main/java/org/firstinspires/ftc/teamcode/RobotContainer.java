@@ -8,7 +8,7 @@ import com.seattlesolvers.solverslib.command.InstantCommand;
 import com.seattlesolvers.solverslib.command.button.GamepadButton;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
-import java.io.IOException;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.AutoChooser;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.BlueTwelveArtifact;
@@ -17,9 +17,11 @@ import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifact;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifactFromObelisk;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.reg;
 import org.firstinspires.ftc.teamcode.Commands.DriveCommand;
+import org.firstinspires.ftc.teamcode.Commands.ExpelIntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.ExpelStorageAndIntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.OuttakeCommand;
+import org.firstinspires.ftc.teamcode.Commands.OuttakeFastCommand;
 import org.firstinspires.ftc.teamcode.Commands.StoreArtifactsCommand;
 import org.firstinspires.ftc.teamcode.Commands.TransferToStorageCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
@@ -27,6 +29,8 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake;
 import org.firstinspires.ftc.teamcode.Subsystems.Storage;
 import org.firstinspires.ftc.teamcode.Utils.Pathing.NamedCommands;
+
+import java.io.IOException;
 
 public class RobotContainer {
   // Subsystems
@@ -112,7 +116,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Gamepad 1 buttons
     new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP)
-        .whenActive(new TransferToStorageCommand(intake, storage));
+        .whenHeld(new TransferToStorageCommand(intake, storage));
     new GamepadButton(gamepad1, GamepadKeys.Button.B)
         .whenActive(new InstantCommand(() -> intake.stop(), intake));
     new GamepadButton(gamepad1, GamepadKeys.Button.B)
@@ -122,11 +126,12 @@ public class RobotContainer {
     new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_RIGHT)
         .whenHeld(new StoreArtifactsCommand(storage));
     new GamepadButton(gamepad1, GamepadKeys.Button.A).whenHeld(new IntakeCommand(intake));
-    new GamepadButton(gamepad1, GamepadKeys.Button.X).whenActive(new OuttakeCommand(outtake));
-    new GamepadButton(gamepad1, GamepadKeys.Button.Y)
+    new GamepadButton(gamepad1, GamepadKeys.Button.Y).whenHeld(new ExpelIntakeCommand(intake));
+
+    new GamepadButton(gamepad2, GamepadKeys.Button.X).whenActive(new OuttakeCommand(outtake));
+    new GamepadButton(gamepad2, GamepadKeys.Button.Y)
         .whenActive(new InstantCommand(() -> outtake.stop(), outtake));
-    //    new GamepadButton(gamepad1, GamepadKeys.Button.B)
-    //            .whenActive(new InstantCommand(() -> intake.stop(), intake));
+    new GamepadButton(gamepad2, GamepadKeys.Button.A).whenActive(new OuttakeFastCommand(outtake));
     //    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP)
     //        .whenPressed(
     //            new SequentialCommandGroup(
@@ -166,7 +171,8 @@ public class RobotContainer {
       } else if (selectedAutoMode == AutoMode.reg) {
         CommandScheduler.getInstance().schedule(new reg(autoDrive, hardwareMap, telemetry));
       } else if (selectedAutoMode == AutoMode.BlueTwelveArtifact) {
-        CommandScheduler.getInstance().schedule(new BlueTwelveArtifact(autoDrive, intake));
+        CommandScheduler.getInstance()
+            .schedule(new BlueTwelveArtifact(autoDrive, intake, storage, outtake));
       } else if (selectedAutoMode == AutoMode.RedTwelveArtifact) {
         CommandScheduler.getInstance().schedule(new RedTwelveArtifact(autoDrive, intake));
       } else if (selectedAutoMode == AutoMode.BlueTwelveArtifactFromObelisk) {
