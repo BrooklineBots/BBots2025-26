@@ -5,8 +5,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.CommandOpMode;
 import com.seattlesolvers.solverslib.command.CommandScheduler;
 import com.seattlesolvers.solverslib.command.InstantCommand;
-import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
-import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.command.button.GamepadButton;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
@@ -19,10 +17,12 @@ import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifact;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifactFromObelisk;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.reg;
 import org.firstinspires.ftc.teamcode.Commands.DriveCommand;
-import org.firstinspires.ftc.teamcode.Commands.ExpelIntakeCommand;
-import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
+import org.firstinspires.ftc.teamcode.Commands.ExpelStorageAndIntakeCommand;
+import org.firstinspires.ftc.teamcode.Commands.StoreArtifactsCommand;
+import org.firstinspires.ftc.teamcode.Commands.TransferToStorageCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
+import org.firstinspires.ftc.teamcode.Subsystems.Storage;
 import org.firstinspires.ftc.teamcode.Utils.Pathing.NamedCommands;
 
 public class RobotContainer {
@@ -32,7 +32,7 @@ public class RobotContainer {
   private Intake intake;
   // private Outtake outtake;
 
-  // private Storage storage;
+  private Storage storage;
 
   // Dependencies
   private final HardwareMap hardwareMap;
@@ -82,9 +82,9 @@ public class RobotContainer {
     drive = new Drivetrain(hardwareMap, telemetry, currentGameMode);
     autoDrive = new Drivetrain(hardwareMap, telemetry, currentGameMode);
     // outtake = new Outtake(hardwareMap, telemetry);
-    // storage = new Storage(hardwareMap);
+    storage = new Storage(hardwareMap);
     // Register subsystems with scheduler
-    CommandScheduler.getInstance().registerSubsystem(drive, autoDrive, intake);
+    CommandScheduler.getInstance().registerSubsystem(drive, autoDrive, intake, storage);
   }
 
   public void configureTeleOp() {
@@ -93,9 +93,6 @@ public class RobotContainer {
 
     // Default commands
     drive.setDefaultCommand(new DriveCommand(drive, gamepad1));
-    // intake.setDefaultCommand(new IntakeCommand(intake));
-    //    outtake.setDefaultCommand(new OuttakeCommand(outtake));
-    // storage.setDefaultCommand(new StoreArtifactsCommand(storage));
     // Button bindings
     configureButtonBindings();
   }
@@ -111,43 +108,44 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     // Gamepad 1 buttons
-    //    new GamepadButton(gamepad1, GamepadKeys.Button.A)
-    //        .whenActive(new TransferToStorageCommand(intake, storage));
-    new GamepadButton(gamepad1, GamepadKeys.Button.A).whenActive(new IntakeCommand(intake));
+    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP)
+        .whenActive(new TransferToStorageCommand(intake, storage));
     new GamepadButton(gamepad1, GamepadKeys.Button.B)
         .whenActive(new InstantCommand(() -> intake.stop(), intake));
-    new GamepadButton(gamepad1, GamepadKeys.Button.X).whenActive(new ExpelIntakeCommand(intake));
-    //    //    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_DOWN)
-    //    //        .whenActive(new InstantCommand(() -> storage.stop(), storage));
-    //    //    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP)
-    //    //        .whenActive(new StoreArtifactsCommand(storage));
-    //    new GamepadButton(gamepad1, GamepadKeys.Button.X).whenActive(new OuttakeCommand(outtake));
-    //    new GamepadButton(gamepad1, GamepadKeys.Button.Y)
-    //        .whenActive(new InstantCommand(() -> outtake.stop(), outtake));
-    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP)
-        .whenPressed(
-            new SequentialCommandGroup(
-                new InstantCommand(() -> drive.setSpeeds(1, 0, 0, 0)),
-                new WaitCommand(2000),
-                new InstantCommand(() -> drive.setSpeeds(0, 0, 0, 0))));
+    new GamepadButton(gamepad1, GamepadKeys.Button.B)
+        .whenActive(new InstantCommand(() -> storage.stop(), storage));
     new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_DOWN)
-        .whenPressed(
-            new SequentialCommandGroup(
-                new InstantCommand(() -> drive.setSpeeds(0, 1, 0, 0)),
-                new WaitCommand(2000),
-                new InstantCommand(() -> drive.setSpeeds(0, 0, 0, 0))));
-    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_RIGHT)
-        .whenPressed(
-            new SequentialCommandGroup(
-                new InstantCommand(() -> drive.setSpeeds(0, 0, 1, 0)),
-                new WaitCommand(2000),
-                new InstantCommand(() -> drive.setSpeeds(0, 0, 0, 0))));
-    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_LEFT)
-        .whenPressed(
-            new SequentialCommandGroup(
-                new InstantCommand(() -> drive.setSpeeds(0, 0, 0, 1)),
-                new WaitCommand(2000),
-                new InstantCommand(() -> drive.setSpeeds(0, 0, 0, 0))));
+        .whenHeld(new ExpelStorageAndIntakeCommand(intake, storage));
+    new GamepadButton(gamepad1, GamepadKeys.Button.X)
+        .whenActive(new StoreArtifactsCommand(storage));
+    new GamepadButton(gamepad1, GamepadKeys.Button.Y)
+        .whenActive(new InstantCommand(() -> storage.stop(), storage));
+    //    new GamepadButton(gamepad1, GamepadKeys.Button.B)
+    //            .whenActive(new InstantCommand(() -> intake.stop(), intake));
+    //    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP)
+    //        .whenPressed(
+    //            new SequentialCommandGroup(
+    //                new InstantCommand(() -> drive.setSpeeds(1, 0, 0, 0)),
+    //                new WaitCommand(2000),
+    //                new InstantCommand(() -> drive.setSpeeds(0, 0, 0, 0))));
+    //    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_DOWN)
+    //        .whenPressed(
+    //            new SequentialCommandGroup(
+    //                new InstantCommand(() -> drive.setSpeeds(0, 1, 0, 0)),
+    //                new WaitCommand(2000),
+    //                new InstantCommand(() -> drive.setSpeeds(0, 0, 0, 0))));
+    //    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_RIGHT)
+    //        .whenPressed(
+    //            new SequentialCommandGroup(
+    //                new InstantCommand(() -> drive.setSpeeds(0, 0, 1, 0)),
+    //                new WaitCommand(2000),
+    //                new InstantCommand(() -> drive.setSpeeds(0, 0, 0, 0))));
+    //    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_LEFT)
+    //        .whenPressed(
+    //            new SequentialCommandGroup(
+    //                new InstantCommand(() -> drive.setSpeeds(0, 0, 0, 1)),
+    //                new WaitCommand(2000),
+    //                new InstantCommand(() -> drive.setSpeeds(0, 0, 0, 0))));
 
     // Gamepad 2 buttons
 
@@ -176,7 +174,7 @@ public class RobotContainer {
         telemetry.addLine("No auto was selected! There was likely an error.");
         telemetry.update();
       }
-    } catch (IOException error) {
+    } catch (final IOException error) {
       telemetry.addLine("A critical IOException error has occurred. Doing nothing. ");
       telemetry.update();
       CommandScheduler.getInstance().schedule(new InstantCommand());
