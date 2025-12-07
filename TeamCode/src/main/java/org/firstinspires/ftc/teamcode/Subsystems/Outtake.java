@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
 import com.seattlesolvers.solverslib.hardware.motors.MotorEx;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.Constants;
@@ -21,12 +22,13 @@ public class Outtake extends SubsystemBase {
     this.telemetry = telemetry;
 
     outtakeMotor.setInverted(false);
+    outtakeMotor.setVeloCoefficients(1, 0.1, 0);
   }
 
   public void setVelocity(final double velocity) {
-    if (velocity >= MIN_VELOCITY && velocity <= MAX_VELOCITY) {
-      outtakeMotor.setVelocity(velocity, AngleUnit.RADIANS);
-    }
+    //    if (velocity >= MIN_VELOCITY && velocity <= MAX_VELOCITY) {
+    outtakeMotor.setVelocity(velocity, AngleUnit.RADIANS);
+    //    }
   }
 
   public double getVelocity() {
@@ -35,6 +37,10 @@ public class Outtake extends SubsystemBase {
 
   public void shoot() {
     setVelocity(Constants.OuttakeConstants.OUTTAKE_MOVEMENT_SPEED);
+  }
+
+  public void shootFast() {
+    setVelocity(-Constants.OuttakeConstants.OUTTAKE_FAST_SPEED);
   }
 
   public void stop() {

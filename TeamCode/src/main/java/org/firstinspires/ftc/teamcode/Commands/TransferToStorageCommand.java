@@ -7,12 +7,10 @@ import org.firstinspires.ftc.teamcode.Subsystems.Storage;
 
 public class TransferToStorageCommand extends SequentialCommandGroup {
   public TransferToStorageCommand(final Intake intake, final Storage storage) {
-    intakeAndStore(intake, storage);
+    addCommands(intakeAndStore(intake, storage));
   }
 
   private static ParallelCommandGroup intakeAndStore(final Intake intake, final Storage storage) {
-    return new ParallelCommandGroup(
-        new IntakeCommand(intake).withTimeout(1000),
-        new StoreArtifactsCommand(storage).withTimeout(1000));
+    return new ParallelCommandGroup(new IntakeCommand(intake), new StoreArtifactsCommand(storage));
   }
 }

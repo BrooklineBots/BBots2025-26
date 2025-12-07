@@ -35,7 +35,7 @@ public class Storage extends SubsystemBase {
 
   public void expelStorage() {
     storageMotor.setInverted(false);
-    setVelocity(Constants.StorageConstants.STORAGE_VELOCITY);
+    setVelocity(Constants.StorageConstants.STORAGE_EXPEL_VELOCITY);
   }
 
   public void stop() {
