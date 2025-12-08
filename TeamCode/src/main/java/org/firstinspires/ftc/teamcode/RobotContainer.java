@@ -11,8 +11,12 @@ import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.AutoChooser;
+import org.firstinspires.ftc.teamcode.Commands.AutoCommands.BlueLeaveBigTri;
+import org.firstinspires.ftc.teamcode.Commands.AutoCommands.BlueLeaveLittleTri;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.BlueTwelveArtifact;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.BlueTwelveArtifactFromObelisk;
+import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedLeaveBigTri;
+import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedLeaveLittleTri;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifact;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifactFromObelisk;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.reg;
@@ -62,7 +66,11 @@ public class RobotContainer {
     BlueTwelveArtifact,
     RedTwelveArtifact,
     BlueTwelveArtifactFromObelisk,
-    RedTwelveArtifactFromObelisk;
+    RedTwelveArtifactFromObelisk,
+      BlueLeaveLittleTri,
+      RedLeaveLittleTri,
+      BlueLeaveBigTri,
+      RedLeaveBigTri;
   }
 
   private AutoMode currentAuto;
@@ -169,7 +177,7 @@ public class RobotContainer {
       if (selectedAutoMode == AutoMode.DoNothingAuto) {
         CommandScheduler.getInstance().schedule(new InstantCommand());
       } else if (selectedAutoMode == AutoMode.reg) {
-        CommandScheduler.getInstance().schedule(new reg(autoDrive, hardwareMap, telemetry));
+        CommandScheduler.getInstance().schedule(new reg(autoDrive, hardwareMap));
       } else if (selectedAutoMode == AutoMode.BlueTwelveArtifact) {
         CommandScheduler.getInstance()
             .schedule(new BlueTwelveArtifact(autoDrive, intake, storage, outtake));
@@ -179,8 +187,20 @@ public class RobotContainer {
         CommandScheduler.getInstance()
             .schedule(new BlueTwelveArtifactFromObelisk(autoDrive, intake));
       } else if (selectedAutoMode == AutoMode.RedTwelveArtifactFromObelisk) {
-        CommandScheduler.getInstance()
-            .schedule(new RedTwelveArtifactFromObelisk(autoDrive, intake));
+          CommandScheduler.getInstance()
+                  .schedule(new RedTwelveArtifactFromObelisk(autoDrive, intake));
+      } else if (selectedAutoMode == AutoMode.BlueLeaveLittleTri){
+            CommandScheduler.getInstance()
+                    .schedule(new BlueLeaveLittleTri(autoDrive));
+      } else if (selectedAutoMode == AutoMode.RedLeaveLittleTri){
+          CommandScheduler.getInstance()
+                  .schedule(new RedLeaveLittleTri(autoDrive));
+      } else if (selectedAutoMode == AutoMode.BlueLeaveBigTri){
+          CommandScheduler.getInstance()
+                  .schedule(new BlueLeaveBigTri(autoDrive));
+      } else if (selectedAutoMode == AutoMode.RedLeaveBigTri){
+          CommandScheduler.getInstance()
+                  .schedule(new RedLeaveBigTri(autoDrive));
       } else {
         telemetry.addLine("No auto was selected! There was likely an error.");
         telemetry.update();
