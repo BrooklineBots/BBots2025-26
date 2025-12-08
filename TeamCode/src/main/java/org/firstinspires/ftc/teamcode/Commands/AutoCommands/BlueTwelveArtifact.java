@@ -38,7 +38,7 @@ public class BlueTwelveArtifact extends SequentialCommandGroup {
   private final Pose beforeIntake3Pose = newPose(42, 90, 180);
   private final Pose afterIntake3Pose = newPose(13, 90, 180);
   private final Pose outtake3Pose = newPose(48, 96, 135);
-  private final Pose releasePose = newPose(25, 69, 90);
+  private final Pose releasePose = newPose(25, 69, 180);
 
   // shoots well 40 inches away from the basket
 
