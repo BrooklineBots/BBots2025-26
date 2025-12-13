@@ -20,6 +20,7 @@ import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedLeaveLittleTri;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifact;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifactFromObelisk;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.reg;
+import org.firstinspires.ftc.teamcode.Commands.BombshellPushUpCommand;
 import org.firstinspires.ftc.teamcode.Commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.Commands.ExpelIntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.ExpelStorageAndIntakeCommand;
@@ -28,6 +29,7 @@ import org.firstinspires.ftc.teamcode.Commands.OuttakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.OuttakeFastCommand;
 import org.firstinspires.ftc.teamcode.Commands.StoreArtifactsCommand;
 import org.firstinspires.ftc.teamcode.Commands.TransferToStorageCommand;
+import org.firstinspires.ftc.teamcode.Subsystems.BombshellServo;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake;
@@ -40,6 +42,7 @@ public class RobotContainer {
   private Drivetrain autoDrive;
   private Intake intake;
   private Outtake outtake;
+  private BombshellServo bombshellServo;
 
   private Storage storage;
 
@@ -96,8 +99,10 @@ public class RobotContainer {
     autoDrive = new Drivetrain(hardwareMap, telemetry, currentGameMode);
     outtake = new Outtake(hardwareMap, telemetry);
     storage = new Storage(hardwareMap);
+    bombshellServo = new BombshellServo(hardwareMap, telemetry);
     // Register subsystems with scheduler
-    CommandScheduler.getInstance().registerSubsystem(drive, autoDrive, intake, storage, outtake);
+    CommandScheduler.getInstance()
+        .registerSubsystem(drive, autoDrive, intake, storage, outtake, bombshellServo);
   }
 
   public void configureTeleOp() {
@@ -138,6 +143,8 @@ public class RobotContainer {
     new GamepadButton(gamepad2, GamepadKeys.Button.Y)
         .whenActive(new InstantCommand(() -> outtake.stop(), outtake));
     new GamepadButton(gamepad2, GamepadKeys.Button.A).whenActive(new OuttakeFastCommand(outtake));
+    new GamepadButton(gamepad2, GamepadKeys.Button.RIGHT_BUMPER)
+        .whenActive(new BombshellPushUpCommand(bombshellServo));
     //    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP)
     //        .whenPressed(
     //            new SequentialCommandGroup(

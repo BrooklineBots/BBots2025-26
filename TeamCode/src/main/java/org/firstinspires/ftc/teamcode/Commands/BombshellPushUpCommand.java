@@ -1,13 +1,13 @@
 package org.firstinspires.ftc.teamcode.Commands;
 
 import com.seattlesolvers.solverslib.command.CommandBase;
+import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.BombshellServo;
 
 public class BombshellPushUpCommand extends CommandBase {
   private final BombshellServo bombshellServo;
-  private long startTime;
 
-  // 0.5 seconds
+  private long startTime;
 
   public BombshellPushUpCommand(BombshellServo bombshellServo) {
     this.bombshellServo = bombshellServo;
@@ -16,23 +16,23 @@ public class BombshellPushUpCommand extends CommandBase {
 
   @Override
   public void initialize() {
-    //        startTime = System.currentTimeMillis();
+    startTime = System.currentTimeMillis();
   }
 
   @Override
   public void execute() {
-    bombshellServo.pushUp(1);
+    bombshellServo.pushUp();
   }
 
-  //    @Override
-  //    public boolean isFinished() {
-  ////        return System.currentTimeMillis() - startTime >=
-  // Constants.BombshellServoConstants.secondsToPush;
-  //    }
+  @Override
+  public boolean isFinished() {
+    return System.currentTimeMillis() - startTime
+        >= Constants.BombshellServoConstants.secondsToPush;
+  }
 
   @Override
   public void end(boolean interrupted) {
-    //        bombshellServo.stop();
+    bombshellServo.stop();
   }
 }
 

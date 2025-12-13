@@ -29,12 +29,12 @@ public class Storage extends SubsystemBase {
   }
 
   public void store() {
-    storageMotor.setInverted(true);
+    storageMotor.setInverted(false);
     setVelocity(Constants.StorageConstants.STORAGE_VELOCITY);
   }
 
   public void expelStorage() {
-    storageMotor.setInverted(false);
+    storageMotor.setInverted(true);
     setVelocity(Constants.StorageConstants.STORAGE_EXPEL_VELOCITY);
   }
 
