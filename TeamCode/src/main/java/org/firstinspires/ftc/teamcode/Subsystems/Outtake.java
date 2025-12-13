@@ -22,7 +22,7 @@ public class Outtake extends SubsystemBase {
     outtakeMotor.setRunMode(Motor.RunMode.VelocityControl);
 
     outtakeMotor.setInverted(false);
-    // outtakeMotor.setVeloCoefficients(1, 0.1, 0);
+    outtakeMotor.setVeloCoefficients(0.05, 0.01, 0.31);
   }
 
   public void setVelocity(final double velocity) {
@@ -39,6 +39,7 @@ public class Outtake extends SubsystemBase {
   public void shoot() {
 
     setVelocity(Constants.OuttakeConstants.OUTTAKE_MOVEMENT_SPEED);
+    // setVelocity(0.3);
   }
 
   public void shootFast() {

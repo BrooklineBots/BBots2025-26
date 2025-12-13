@@ -36,15 +36,15 @@ public class Constants {
 
     public static final double OUTTAKE_MAX_VELOCITY = rpmToRadPerSec(12000);
     public static final double OUTTAKE_MOVEMENT_SPEED = rpmToRadPerSec(2000);
-    public static final double OUTTAKE_FAST_SPEED = 2800; // rpmToRadPerSec(4000);
+    public static final double OUTTAKE_FAST_SPEED = 1400; // rpmToRadPerSec(4000);
   }
 
   public static class StorageConstants {
     public static final String STORAGE_MOTOR_ID = "storageMotor";
 
-    public static final double STORAGE_VELOCITY = 1400;
-    public static final double STORAGE_EXPEL_VELOCITY = 900;
-    public static final double STORAGE_MAX_VELOCITY = 1400;
+    public static final double STORAGE_VELOCITY = 1800;
+    public static final double STORAGE_EXPEL_VELOCITY = 1700;
+    public static final double STORAGE_MAX_VELOCITY = 1800;
   }
 
   public static class BombshellServoConstants {
