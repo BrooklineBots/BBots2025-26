@@ -27,13 +27,16 @@ public class Constants {
   }
 
   public static class OuttakeConstants {
+
+    private static double rpmToRadPerSec(double rpm) {
+      return rpm * (2 * Math.PI / 60);
+    }
+
     public static final String OUTTAKE_ID = "outtakeMotor";
 
-    public static final double OUTTAKE_MAX_VELOCITY = 12000; // TODO:test max //11000
-    // 10178.76; // in radians per minute
-
-    public static final double OUTTAKE_MOVEMENT_SPEED = 20000;
-    public static final double OUTTAKE_FAST_SPEED = 90000;
+    public static final double OUTTAKE_MAX_VELOCITY = rpmToRadPerSec(12000);
+    public static final double OUTTAKE_MOVEMENT_SPEED = rpmToRadPerSec(2000);
+    public static final double OUTTAKE_FAST_SPEED = rpmToRadPerSec(4000);
   }
 
   public static class StorageConstants {
@@ -44,7 +47,7 @@ public class Constants {
     public static final double STORAGE_MAX_VELOCITY = 1400;
   }
 
-  public static class BombshellServoConstants{
+  public static class BombshellServoConstants {
     public static final String BOMBSHELL_SERVO_ID = "bombshellServo";
     public static final double servoPosition1 = 0;
     public static final double servoPosition2 = 1;

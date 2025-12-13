@@ -15,4 +15,8 @@ public class Utils {
     final double TICKS_PER_REV = 384.5; // specific to GoBILDA 13.7:1 Yellow Jacket
     return (ticks / (gearRatio * TICKS_PER_REV)) * (Math.PI * wheelDiameter);
   }
+
+  private static double rpmToRadPerSec(double rpm) {
+    return rpm * (2 * Math.PI / 60);
+  }
 }
