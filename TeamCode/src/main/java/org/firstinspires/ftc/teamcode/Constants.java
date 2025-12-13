@@ -33,7 +33,7 @@ public class Constants {
     // 10178.76; // in radians per minute
 
     public static final double OUTTAKE_MOVEMENT_SPEED = 20000;
-    public static final double OUTTAKE_FAST_SPEED = 70000;
+    public static final double OUTTAKE_FAST_SPEED = 90000;
   }
 
   public static class StorageConstants {
@@ -42,5 +42,13 @@ public class Constants {
     public static final double STORAGE_VELOCITY = 1400;
     public static final double STORAGE_EXPEL_VELOCITY = 900;
     public static final double STORAGE_MAX_VELOCITY = 1400;
+  }
+
+  public static class BombshellServoConstants{
+    public static final String BOMBSHELL_SERVO_ID = "bombshellServo";
+    public static final double servoPosition1 = 0;
+    public static final double servoPosition2 = 1;
+    public static final double servoPosition3 = 0.2;
+    public static final long secondsToPush = 830;
   }
 }
