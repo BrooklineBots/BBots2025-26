@@ -1,48 +1,48 @@
 package org.firstinspires.ftc.teamcode.Commands;
 
 import com.seattlesolvers.solverslib.command.CommandBase;
-
-import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.BombshellServo;
 
 public class BombshellPushUpCommand extends CommandBase {
-    private final BombshellServo bombshellServo;
-    private long startTime;
-    // 0.5 seconds
+  private final BombshellServo bombshellServo;
+  private long startTime;
 
-    public BombshellPushUpCommand(BombshellServo bombshellServo){
-        this.bombshellServo = bombshellServo;
-        addRequirements(bombshellServo);
-    }
+  // 0.5 seconds
 
-    @Override
-    public void initialize() {
-//        startTime = System.currentTimeMillis();
-    }
+  public BombshellPushUpCommand(BombshellServo bombshellServo) {
+    this.bombshellServo = bombshellServo;
+    addRequirements(bombshellServo);
+  }
 
-    @Override
-    public void execute(){
-        bombshellServo.pushUp(1);
-    }
+  @Override
+  public void initialize() {
+    //        startTime = System.currentTimeMillis();
+  }
 
-//    @Override
-//    public boolean isFinished() {
-////        return System.currentTimeMillis() - startTime >= Constants.BombshellServoConstants.secondsToPush;
-//    }
+  @Override
+  public void execute() {
+    bombshellServo.pushUp(1);
+  }
 
-    @Override
-    public void end(boolean interrupted){
-//        bombshellServo.stop();
-    }
+  //    @Override
+  //    public boolean isFinished() {
+  ////        return System.currentTimeMillis() - startTime >=
+  // Constants.BombshellServoConstants.secondsToPush;
+  //    }
+
+  @Override
+  public void end(boolean interrupted) {
+    //        bombshellServo.stop();
+  }
 }
 
-//package org.firstinspires.ftc.teamcode.Commands;
+// package org.firstinspires.ftc.teamcode.Commands;
 //
-//import com.seattlesolvers.solverslib.command.CommandBase;
+// import com.seattlesolvers.solverslib.command.CommandBase;
 //
-//import org.firstinspires.ftc.teamcode.Subsystems.BombshellServo;
+// import org.firstinspires.ftc.teamcode.Subsystems.BombshellServo;
 //
-//public class BombshellPushUpCommand extends CommandBase {
+// public class BombshellPushUpCommand extends CommandBase {
 //    private final BombshellServo bombshellServo;
 //
 //    public BombshellPushUpCommand(BombshellServo bombshellServo){
@@ -59,4 +59,4 @@ public class BombshellPushUpCommand extends CommandBase {
 //    public void end(boolean interrupted){
 //        bombshellServo.stop();
 //    }
-//}
+// }

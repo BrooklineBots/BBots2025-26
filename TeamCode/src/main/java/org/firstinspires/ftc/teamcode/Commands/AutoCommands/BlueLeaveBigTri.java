@@ -8,35 +8,31 @@ import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
 import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.pedroCommand.FollowPathCommand;
-
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 
+public class BlueLeaveBigTri extends SequentialCommandGroup {
+  private final Follower follower;
 
-public class BlueLeaveBigTri  extends SequentialCommandGroup {
-    private final Follower follower;
+  private final Pose startPose = newPose(27, 128, 180);
+  private final Pose finalParkedPose = newPose(57, 128, 180);
 
-    private final Pose startPose = newPose(27, 128, 180);
-    private final Pose finalParkedPose = newPose(57, 128, 180);
+  private PathChain leaveTriangle;
 
-    private PathChain leaveTriangle;
+  public BlueLeaveBigTri(final Drivetrain drive) {
+    this.follower = drive.getFollower();
+    follower.setStartingPose(startPose);
 
-    public BlueLeaveBigTri(final Drivetrain drive) {
-        this.follower = drive.getFollower();
-        follower.setStartingPose(startPose);
+    buildPaths();
 
-        buildPaths();
+    addCommands(new FollowPathCommand(follower, leaveTriangle));
+  }
 
-        addCommands(new FollowPathCommand(follower, leaveTriangle));
-
-    }
-    void buildPaths () {
-        leaveTriangle =
-                follower
-                        .pathBuilder()
-                        .addPath(new BezierLine(startPose, finalParkedPose))
-                        .setLinearHeadingInterpolation(startPose.getHeading(), finalParkedPose.getHeading())
-                        .build();
-
-    }
-
+  void buildPaths() {
+    leaveTriangle =
+        follower
+            .pathBuilder()
+            .addPath(new BezierLine(startPose, finalParkedPose))
+            .setLinearHeadingInterpolation(startPose.getHeading(), finalParkedPose.getHeading())
+            .build();
+  }
 }

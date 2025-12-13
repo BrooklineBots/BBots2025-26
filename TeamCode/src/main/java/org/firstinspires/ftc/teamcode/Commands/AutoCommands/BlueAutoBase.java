@@ -16,62 +16,62 @@ import org.firstinspires.ftc.teamcode.Utils.PedroPathReader;
 
 public class BlueAutoBase extends SequentialCommandGroup {
 
-    private final Follower follower;
-    private final ProgressTracker progressTracker;
+  private final Follower follower;
+  private final ProgressTracker progressTracker;
 
-    // Poses
-    private Pose startPoint;
-    private Pose Path1;
-    private Pose Path2;
+  // Poses
+  private Pose startPoint;
+  private Pose Path1;
+  private Pose Path2;
 
-    // Path chains
-    private PathChain startPointTOPath1;
-    private PathChain Path1TOPath2;
+  // Path chains
+  private PathChain startPointTOPath1;
+  private PathChain Path1TOPath2;
 
-    public BlueAutoBase(final Drivetrain drive, HardwareMap hw, Telemetry telemetry)
-            throws IOException {
-        this.follower = drive.getFollower();
-        this.progressTracker = new ProgressTracker(follower, telemetry);
+  public BlueAutoBase(final Drivetrain drive, HardwareMap hw, Telemetry telemetry)
+      throws IOException {
+    this.follower = drive.getFollower();
+    this.progressTracker = new ProgressTracker(follower, telemetry);
 
-        PedroPathReader pp = new PedroPathReader("reg.pp", hw.appContext);
+    PedroPathReader pp = new PedroPathReader("reg.pp", hw.appContext);
 
-        // Load poses
-        startPoint = pp.get("startPoint");
-        Path1 = pp.get("Path1");
-        Path2 = pp.get("Path2");
+    // Load poses
+    startPoint = pp.get("startPoint");
+    Path1 = pp.get("Path1");
+    Path2 = pp.get("Path2");
 
-        follower.setStartingPose(startPoint);
+    follower.setStartingPose(startPoint);
 
-        buildPaths();
+    buildPaths();
 
-        addCommands(
-                new InstantCommand(() -> {
-                    progressTracker.setCurrentChain(startPointTOPath1);
-                    progressTracker.setCurrentPathName("startPointTOPath1");
-                }),
-                new FollowPathCommand(follower, startPointTOPath1),
-                new InstantCommand(() -> {
-                    progressTracker.setCurrentChain(Path1TOPath2);
-                    progressTracker.setCurrentPathName("Path1TOPath2");
-                }),
-                new FollowPathCommand(follower, Path1TOPath2)
-        );
-    }
+    addCommands(
+        new InstantCommand(
+            () -> {
+              progressTracker.setCurrentChain(startPointTOPath1);
+              progressTracker.setCurrentPathName("startPointTOPath1");
+            }),
+        new FollowPathCommand(follower, startPointTOPath1),
+        new InstantCommand(
+            () -> {
+              progressTracker.setCurrentChain(Path1TOPath2);
+              progressTracker.setCurrentPathName("Path1TOPath2");
+            }),
+        new FollowPathCommand(follower, Path1TOPath2));
+  }
 
-    public void buildPaths() {
-        startPointTOPath1 = follower
-                .pathBuilder()
-                .addPath(new BezierLine(startPoint, Path1))
-                .setLinearHeadingInterpolation(
-                        startPoint.getHeading(),
-                        Path1.getHeading()
-                )
-                .build();
+  public void buildPaths() {
+    startPointTOPath1 =
+        follower
+            .pathBuilder()
+            .addPath(new BezierLine(startPoint, Path1))
+            .setLinearHeadingInterpolation(startPoint.getHeading(), Path1.getHeading())
+            .build();
 
-        Path1TOPath2 = follower
-                .pathBuilder()
-                .addPath(new BezierLine(Path1, Path2))
-                .setTangentHeadingInterpolation()
-                .build();
-    }
+    Path1TOPath2 =
+        follower
+            .pathBuilder()
+            .addPath(new BezierLine(Path1, Path2))
+            .setTangentHeadingInterpolation()
+            .build();
+  }
 }
