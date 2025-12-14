@@ -43,8 +43,8 @@ public class Constants {
     public static final String STORAGE_MOTOR_ID = "storageMotor";
 
     public static final double STORAGE_VELOCITY = 1800;
-    public static final double STORAGE_EXPEL_VELOCITY = 1700;
-    public static final double STORAGE_MAX_VELOCITY = 1800;
+    public static final double STORAGE_EXPEL_VELOCITY = 1900;
+    public static final double STORAGE_MAX_VELOCITY = 1900;
   }
 
   public static class BombshellServoConstants {

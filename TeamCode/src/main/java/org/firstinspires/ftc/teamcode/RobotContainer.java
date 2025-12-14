@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.CommandOpMode;
 import com.seattlesolvers.solverslib.command.CommandScheduler;
 import com.seattlesolvers.solverslib.command.InstantCommand;
+import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
+import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.command.button.GamepadButton;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
@@ -221,6 +223,10 @@ public class RobotContainer {
 
     NamedCommands.registerCommand(
         "IntakeOff", new InstantCommand(() -> intake.stop()), "Turn intake off");
+    NamedCommands.registerCommand(
+        "ShootCenter",
+        new SequentialCommandGroup(new OuttakeFastCommand(outtake), new WaitCommand(3000)),
+        "Outtakes artifacts");
 
     NamedCommands.listAllCommands(telemetry);
   }
