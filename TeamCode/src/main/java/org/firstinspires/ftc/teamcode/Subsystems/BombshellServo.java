@@ -24,6 +24,10 @@ public class BombshellServo extends SubsystemBase {
     setPower(1);
   }
 
+  public void reverse() {
+    setPower(-0.8);
+  }
+
   public void stop() {
     bombshellServo.stop();
   }

@@ -36,7 +36,7 @@ public class Constants {
 
     public static final double OUTTAKE_MAX_VELOCITY = rpmToRadPerSec(12000);
     public static final double OUTTAKE_MOVEMENT_SPEED = rpmToRadPerSec(2000);
-    public static final double OUTTAKE_FAST_SPEED = 1400; // rpmToRadPerSec(4000);
+    public static final double OUTTAKE_FAST_SPEED = 1200; // rpmToRadPerSec(4000);
   }
 
   public static class StorageConstants {

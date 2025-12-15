@@ -14,7 +14,7 @@ public class RedLeaveLittleTri extends SequentialCommandGroup {
   private final Follower follower;
 
   private final Pose startPose = newPose(88, 8, 0);
-  private final Pose finalParkedPose = newPose(114, 12, 0);
+  private final Pose finalParkedPose = newPose(108, 12, 0);
 
   private PathChain leaveTriangle;
 

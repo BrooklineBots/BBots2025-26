@@ -14,7 +14,7 @@ public class BlueLeaveLittleTri extends SequentialCommandGroup {
   private final Follower follower;
 
   private final Pose startPose = newPose(56, 8, 180);
-  private final Pose finalParkedPose = newPose(25, 12, 180);
+  private final Pose finalParkedPose = newPose(31, 12, 180);
 
   private PathChain leaveTriangle;
 

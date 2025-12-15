@@ -23,6 +23,7 @@ import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifact;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifactFromObelisk;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.reg;
 import org.firstinspires.ftc.teamcode.Commands.BombshellPushUpCommand;
+import org.firstinspires.ftc.teamcode.Commands.BombshellReverseCommand;
 import org.firstinspires.ftc.teamcode.Commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.Commands.ExpelIntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.ExpelStorageAndIntakeCommand;
@@ -146,7 +147,9 @@ public class RobotContainer {
         .whenActive(new InstantCommand(() -> outtake.stop(), outtake));
     new GamepadButton(gamepad2, GamepadKeys.Button.A).whenActive(new OuttakeFastCommand(outtake));
     new GamepadButton(gamepad2, GamepadKeys.Button.RIGHT_BUMPER)
-        .whenActive(new BombshellPushUpCommand(bombshellServo));
+        .whenHeld(new BombshellPushUpCommand(bombshellServo));
+    new GamepadButton(gamepad2, GamepadKeys.Button.LEFT_BUMPER)
+        .whenHeld(new BombshellReverseCommand(bombshellServo));
     //    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP)
     //        .whenPressed(
     //            new SequentialCommandGroup(
