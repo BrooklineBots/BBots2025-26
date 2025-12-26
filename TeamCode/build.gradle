@@ -47,6 +47,10 @@ repositories {
     maven {
         url "https://repo.dairy.foundation/snapshots"
     }
+
+    maven {
+        url 'https://jitpack.io'
+    }
 }
 
 dependencies {
@@ -62,6 +66,8 @@ dependencies {
     // Pedro Pathing
     implementation 'com.pedropathing:ftc:2.0.3'
     implementation 'com.pedropathing:telemetry:1.0.0'
+
+    implementation 'com.github.Mallen220:PedroPathingPlus:1.0.5'
 
     // Panels Dashboard
     implementation "com.bylazar:fullpanels:1.0.10"

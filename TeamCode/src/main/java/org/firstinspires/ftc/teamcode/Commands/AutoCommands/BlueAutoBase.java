@@ -4,6 +4,8 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
+import com.pedropathingplus.PedroPathReader;
+import com.pedropathingplus.pathing.ProgressTracker;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.InstantCommand;
 import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
@@ -11,8 +13,6 @@ import com.seattlesolvers.solverslib.pedroCommand.FollowPathCommand;
 import java.io.IOException;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
-import org.firstinspires.ftc.teamcode.Utils.Pathing.ProgressTracker;
-import org.firstinspires.ftc.teamcode.Utils.PedroPathReader;
 
 public class BlueAutoBase extends SequentialCommandGroup {
 
