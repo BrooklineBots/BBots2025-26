@@ -1,8 +1,8 @@
 {
   "version": 1,
   "startPoint": {
-    "x": 56,
-    "y": 8,
+    "x": 23.712210216272556,
+    "y": 128.54910706898545,
     "heading": "linear",
     "startDeg": 90,
     "endDeg": 180,
@@ -10,26 +10,20 @@
   },
   "lines": [
     {
+      "id": "line-pijgryzx2tb",
       "name": "shoot (1)",
       "endPoint": {
-        "x": 86.65505490344567,
-        "y": 77.5297235895494,
+        "x": 48.04428044280444,
+        "y": 95.80004612546121,
         "heading": "linear",
-        "startDeg": 180,
-        "endDeg": 136
+        "reverse": false,
+        "startDeg": -36,
+        "endDeg": 135
       },
       "controlPoints": [],
-      "color": "#000000",
-      "eventMarkers": [
-        {
-          "id": "event-1765669487457-ar87y0mda",
-          "name": "ShootCenter",
-          "position": 1,
-          "lineIndex": 0
-        }
-      ],
+      "color": "#B9867B",
       "locked": false,
-      "id": "line-m7wl2agr0ta",
+      "eventMarkers": [],
       "waitBeforeMs": 0,
       "waitAfterMs": 0,
       "waitBeforeName": "",
@@ -37,244 +31,213 @@
       "_linkedName": "shoot"
     },
     {
+      "id": "line-3ssd9lmdmrp",
+      "name": "intakeTop",
       "endPoint": {
-        "x": 43.578947368421055,
-        "y": 35.78947368421052,
+        "x": 48.044,
+        "y": 83.255,
         "heading": "linear",
-        "startDeg": 136,
+        "reverse": false,
+        "startDeg": 135,
         "endDeg": 180
       },
       "controlPoints": [],
-      "color": "#C56CD9",
-      "name": "ToIntakeOne",
+      "color": "#C777C9",
+      "locked": false,
       "eventMarkers": [],
-      "id": "line-12xub4p8vuxr",
       "waitBeforeMs": 0,
       "waitAfterMs": 0,
       "waitBeforeName": "",
       "waitAfterName": ""
     },
     {
-      "name": "IntakeOne",
+      "id": "mlbjwat1-pcbvid",
+      "name": "intakeTopDone",
       "endPoint": {
-        "x": 12,
-        "y": 35.78947368421052,
-        "heading": "tangential",
-        "reverse": false
-      },
-      "controlPoints": [],
-      "color": "#9b5cad",
-      "eventMarkers": [
-        {
-          "id": "event-1765669594928-lzo2cjkph",
-          "name": "IntakeOn",
-          "position": 0,
-          "lineIndex": 2
-        },
-        {
-          "id": "event-1765669640305-gi92yqaml",
-          "name": "IntakeOff",
-          "position": 1,
-          "lineIndex": 2
-        }
-      ],
-      "id": "line-otfstttv9yo",
-      "waitBeforeMs": 0,
-      "waitAfterMs": 0,
-      "waitBeforeName": "",
-      "waitAfterName": ""
-    },
-    {
-      "name": "shoot (2)",
-      "endPoint": {
-        "x": 86.65505490344567,
-        "y": 77.5297235895494,
+        "x": 18.374439461883405,
+        "y": 83.255,
         "heading": "linear",
         "reverse": false,
         "startDeg": 180,
-        "endDeg": 134
+        "endDeg": 180
       },
-      "controlPoints": [
-        {
-          "x": 69.89473684210526,
-          "y": 48.00000000000001
-        }
-      ],
-      "color": "#a471cc",
+      "controlPoints": [],
+      "color": "#C5A9CB",
+      "waitBeforeMs": 0,
+      "waitAfterMs": 0,
+      "waitBeforeName": "",
+      "waitAfterName": "",
       "eventMarkers": [
         {
-          "id": "event-1765669687070-0tn8pvntx",
-          "name": "ShootCenter",
-          "position": 1,
+          "id": "event-1770423385908-1q6gk1hxx",
+          "name": "IntakeOn",
+          "position": 0.020000000000000018,
+          "lineIndex": 2
+        }
+      ]
+    },
+    {
+      "id": "mlbjydjm-tclj45",
+      "name": "shoot (2)",
+      "endPoint": {
+        "x": 48.04428044280444,
+        "y": 95.80004612546121,
+        "heading": "linear",
+        "reverse": false,
+        "startDeg": 180,
+        "endDeg": 135
+      },
+      "controlPoints": [],
+      "color": "#68DB9A",
+      "waitBeforeMs": 0,
+      "waitAfterMs": 0,
+      "waitBeforeName": "",
+      "waitAfterName": "",
+      "eventMarkers": [
+        {
+          "id": "event-1770423403777-2couh7qc4",
+          "name": "",
+          "position": 0.06999999999999984,
           "lineIndex": 3
         }
       ],
-      "id": "line-7gbwpxub07o",
+      "_linkedName": "shoot"
+    },
+    {
+      "id": "mlbjyhuo-xf3tg2",
+      "name": "intakeMiddle",
+      "endPoint": {
+        "x": 48.04428044280444,
+        "y": 59.88789237668162,
+        "heading": "linear",
+        "reverse": false,
+        "startDeg": 135,
+        "endDeg": 180
+      },
+      "controlPoints": [],
+      "color": "#A676B5",
       "waitBeforeMs": 0,
       "waitAfterMs": 0,
       "waitBeforeName": "",
       "waitAfterName": "",
-      "_linkedName": "shoot"
+      "eventMarkers": []
     },
     {
-      "name": "ToIntakeTwo",
+      "id": "mlbjz0ow-nan7yw",
+      "name": "intakeMiddleDone",
       "endPoint": {
-        "x": 44.63157894736842,
-        "y": 59.99999999999999,
-        "heading": "linear",
-        "reverse": false,
-        "startDeg": 136,
-        "endDeg": 180
-      },
-      "controlPoints": [],
-      "color": "#bd283f",
-      "id": "line-codcnxk853s",
-      "eventMarkers": [],
-      "waitBeforeMs": 0,
-      "waitAfterMs": 0,
-      "waitBeforeName": "",
-      "waitAfterName": ""
-    },
-    {
-      "name": "IntakeTwo",
-      "endPoint": {
-        "x": 11.157894736842104,
-        "y": 59.578947368421055,
+        "x": 18.374439461883405,
+        "y": 59.88789237668162,
         "heading": "linear",
         "reverse": false,
         "startDeg": 180,
         "endDeg": 180
       },
       "controlPoints": [],
-      "color": "#ca2f47",
-      "eventMarkers": [
-        {
-          "id": "event-1765669697764-7clq15rqe",
-          "name": "IntakeOn",
-          "position": 0,
-          "lineIndex": 5
-        },
-        {
-          "id": "event-1765669702858-6up7t5q79",
-          "name": "IntakeOff",
-          "position": 1,
-          "lineIndex": 5
-        }
-      ],
-      "id": "line-is15cwgoxwj",
+      "color": "#A5B7A5",
       "waitBeforeMs": 0,
       "waitAfterMs": 0,
       "waitBeforeName": "",
-      "waitAfterName": ""
+      "waitAfterName": "",
+      "locked": false,
+      "eventMarkers": []
     },
     {
+      "id": "mlbk9ju9-2jz1wd",
       "name": "shoot (3)",
       "endPoint": {
-        "x": 86.65505490344567,
-        "y": 77.5297235895494,
+        "x": 48.04428044280444,
+        "y": 95.80004612546121,
         "heading": "linear",
         "reverse": false,
         "startDeg": 180,
-        "endDeg": 136
+        "endDeg": 135
       },
-      "controlPoints": [
-        {
-          "x": 63.578947368421055,
-          "y": 33.68421052631579
-        }
-      ],
-      "color": "#ba2626",
-      "eventMarkers": [
-        {
-          "id": "event-1765669729243-l11kwmghe",
-          "name": "ShootCenter",
-          "position": 1,
-          "lineIndex": 6
-        }
-      ],
-      "id": "line-lezituwjtf",
+      "controlPoints": [],
+      "color": "#BBBC85",
       "waitBeforeMs": 0,
       "waitAfterMs": 0,
       "waitBeforeName": "",
       "waitAfterName": "",
+      "eventMarkers": [],
       "_linkedName": "shoot"
     },
     {
-      "name": "ToIntakeThree",
+      "id": "mlbk9qcb-3089ee",
+      "name": "intakeBottom",
       "endPoint": {
-        "x": 45.26315789473684,
-        "y": 83.78947368421052,
+        "x": 48.04428044280444,
+        "y": 37.0358744394619,
         "heading": "linear",
         "reverse": false,
-        "startDeg": 136,
+        "startDeg": 135,
         "endDeg": 180
       },
       "controlPoints": [],
-      "color": "#5da040",
-      "id": "line-izzujc0pz",
+      "color": "#558796",
+      "waitBeforeMs": 0,
+      "waitAfterMs": 0,
+      "waitBeforeName": "",
+      "waitAfterName": "",
+      "eventMarkers": []
+    },
+    {
+      "id": "mlbkacy0-a4po3i",
+      "name": "intakeBottomDone",
+      "endPoint": {
+        "x": 15.432735426008966,
+        "y": 37.0358744394619,
+        "heading": "linear",
+        "reverse": false,
+        "startDeg": 180,
+        "endDeg": 180
+      },
+      "controlPoints": [],
+      "color": "#7DD957",
+      "waitBeforeMs": 0,
+      "waitAfterMs": 0,
+      "waitBeforeName": "",
+      "waitAfterName": "",
+      "eventMarkers": []
+    },
+    {
+      "id": "mlbkb37x-wkgasi",
+      "name": "shoot (4)",
+      "endPoint": {
+        "x": 48.04428044280444,
+        "y": 95.80004612546121,
+        "heading": "linear",
+        "reverse": false,
+        "startDeg": 180,
+        "endDeg": 135
+      },
+      "controlPoints": [],
+      "color": "#5AC967",
+      "waitBeforeMs": 0,
+      "waitAfterMs": 0,
+      "waitBeforeName": "",
+      "waitAfterName": "",
       "eventMarkers": [],
-      "waitBeforeMs": 0,
-      "waitAfterMs": 0,
-      "waitBeforeName": "",
-      "waitAfterName": ""
+      "_linkedName": "shoot"
     },
     {
-      "name": "IntakeThree",
+      "id": "mlbkbiw1-nbysbq",
+      "name": "gate",
       "endPoint": {
-        "x": 12,
-        "y": 84.42105263157895,
+        "x": 18.374439461883405,
+        "y": 65.68161434977577,
         "heading": "linear",
         "reverse": false,
-        "startDeg": 180,
+        "startDeg": 135,
         "endDeg": 180
       },
       "controlPoints": [],
-      "color": "#54a329",
-      "eventMarkers": [
-        {
-          "id": "event-1765669757581-en3r9qw3t",
-          "name": "IntakeOn",
-          "position": 0,
-          "lineIndex": 8
-        },
-        {
-          "id": "event-1765669767137-jil6zcehe",
-          "name": "IntakeOff",
-          "position": 1,
-          "lineIndex": 8
-        }
-      ],
-      "id": "line-fkc95k8po4r",
+      "color": "#89B76A",
       "waitBeforeMs": 0,
       "waitAfterMs": 0,
       "waitBeforeName": "",
-      "waitAfterName": ""
-    },
-    {
-      "name": "OuttakeThree",
-      "endPoint": {
-        "x": 72.42105263157895,
-        "y": 71.78947368421052,
-        "heading": "linear",
-        "reverse": false,
-        "startDeg": 180,
-        "endDeg": 136
-      },
-      "controlPoints": [],
-      "color": "#5ec846",
-      "eventMarkers": [
-        {
-          "id": "event-1765669741051-2kq1a24e3",
-          "name": "ShootCenter",
-          "position": 1,
-          "lineIndex": 9
-        }
-      ],
-      "id": "line-3vmloqklpcf",
-      "waitBeforeMs": 0,
-      "waitAfterMs": 0,
-      "waitBeforeName": "",
-      "waitAfterName": ""
+      "waitAfterName": "",
+      "eventMarkers": []
     }
   ],
   "settings": {
@@ -282,18 +245,18 @@
     "yVelocity": 30,
     "aVelocity": 1.5707963267948966,
     "kFriction": 0.4,
-    "rLength": 17,
-    "rWidth": 17,
-    "safetyMargin": 6,
+    "rLength": 14,
+    "rWidth": 15.5,
+    "safetyMargin": 0,
     "maxVelocity": 40,
     "maxAcceleration": 30,
     "maxDeceleration": 30,
     "maxAngularAcceleration": 0,
     "fieldMap": "decode.webp",
     "fieldRotation": 0,
-    "robotImage": "/JefferyThePotato.png",
+    "robotImage": "/robot.png",
     "javaPackageName": "org.firstinspires.ftc.teamcode.Commands.AutoCommands",
-    "theme": "auto",
+    "theme": "Pink Plugin Theme",
     "programFontSize": 100,
     "autosaveMode": "change",
     "autosaveInterval": 5,
@@ -1174,8 +1137,8 @@
       }
     ],
     "recentFiles": [
-      "/Users/briellehwang/GitHub/BBots2025-26/TeamCode/src/main/assets/AutoPaths/BlueTwelveV2FromLittleTri.pp",
-      "/Users/briellehwang/GitHub/BBots2025-26/TeamCode/src/main/assets/AutoPaths/elsa.pp"
+      "/Users/briellehwang/GitHub/BBots2025-26/TeamCode/src/main/assets/AutoPaths/elsa.pp",
+      "/Users/briellehwang/GitHub/BBots2025-26/TeamCode/src/main/assets/AutoPaths/BlueTwelveV2FromLittleTri.pp"
     ],
     "lastSeenVersion": "1.7.2",
     "hasSeenOnboarding": true,
@@ -1348,43 +1311,103 @@
   "sequence": [
     {
       "kind": "path",
-      "lineId": "line-m7wl2agr0ta"
+      "lineId": "line-pijgryzx2tb"
+    },
+    {
+      "kind": "wait",
+      "id": "mlbkh0ld-thco75",
+      "name": "outtakeWait (1)",
+      "durationMs": 3000,
+      "locked": false,
+      "_linkedName": "outtakeWait"
     },
     {
       "kind": "path",
-      "lineId": "line-12xub4p8vuxr"
+      "lineId": "line-3ssd9lmdmrp"
     },
     {
       "kind": "path",
-      "lineId": "line-otfstttv9yo"
+      "lineId": "mlbjwat1-pcbvid"
+    },
+    {
+      "kind": "wait",
+      "id": "mlbke3cd-tt7h3l",
+      "name": "intakeWait (1)",
+      "durationMs": 500,
+      "locked": false,
+      "_linkedName": "intakeWait"
     },
     {
       "kind": "path",
-      "lineId": "line-7gbwpxub07o"
+      "lineId": "mlbjydjm-tclj45"
+    },
+    {
+      "kind": "wait",
+      "id": "mlbkhfd0-jl4c4l",
+      "name": "outtakeWait (2)",
+      "durationMs": 3000,
+      "locked": false,
+      "_linkedName": "outtakeWait"
     },
     {
       "kind": "path",
-      "lineId": "line-codcnxk853s"
+      "lineId": "mlbjyhuo-xf3tg2"
+    },
+    {
+      "kind": "wait",
+      "id": "mlbkexft-q8dg60",
+      "name": "intakeWait (2)",
+      "durationMs": 500,
+      "locked": false,
+      "_linkedName": "intakeWait"
     },
     {
       "kind": "path",
-      "lineId": "line-is15cwgoxwj"
+      "lineId": "mlbjz0ow-nan7yw"
     },
     {
       "kind": "path",
-      "lineId": "line-lezituwjtf"
+      "lineId": "mlbk9ju9-2jz1wd"
+    },
+    {
+      "kind": "wait",
+      "id": "mlbkhl9h-1wqh6q",
+      "name": "outtakeWait (3)",
+      "durationMs": 3000,
+      "locked": false,
+      "_linkedName": "outtakeWait"
     },
     {
       "kind": "path",
-      "lineId": "line-izzujc0pz"
+      "lineId": "mlbk9qcb-3089ee"
     },
     {
       "kind": "path",
-      "lineId": "line-fkc95k8po4r"
+      "lineId": "mlbkacy0-a4po3i"
+    },
+    {
+      "kind": "wait",
+      "id": "mlbkg187-1brkly",
+      "name": "intakeWait (3)",
+      "durationMs": 500,
+      "locked": false,
+      "_linkedName": "intakeWait"
     },
     {
       "kind": "path",
-      "lineId": "line-3vmloqklpcf"
+      "lineId": "mlbkb37x-wkgasi"
+    },
+    {
+      "kind": "wait",
+      "id": "mlbkhql6-uh69n8",
+      "name": "outtakeWait (4)",
+      "durationMs": 3000,
+      "locked": false,
+      "_linkedName": "outtakeWait"
+    },
+    {
+      "kind": "path",
+      "lineId": "mlbkbiw1-nbysbq"
     }
   ],
   "shapes": [
@@ -1414,7 +1437,8 @@
         }
       ],
       "color": "#dc2626",
-      "fillColor": "#fca5a5"
+      "fillColor": "#fca5a5",
+      "type": "obstacle"
     },
     {
       "id": "triangle-2",
@@ -1442,7 +1466,8 @@
         }
       ],
       "color": "#0b08d9",
-      "fillColor": "#fca5a5"
+      "fillColor": "#fca5a5",
+      "type": "obstacle"
     }
   ],
   "extraData": {}

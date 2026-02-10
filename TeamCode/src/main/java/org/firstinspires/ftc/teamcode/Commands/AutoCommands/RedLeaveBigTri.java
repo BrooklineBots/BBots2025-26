@@ -27,7 +27,7 @@ public class RedLeaveBigTri extends SequentialCommandGroup {
     addCommands(new FollowPathCommand(follower, leaveTriangle));
   }
 
-  void buildPaths() {
+  void buildPaths() { // all i need
     leaveTriangle =
         follower
             .pathBuilder()
