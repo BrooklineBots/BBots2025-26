@@ -95,34 +95,14 @@ public class bluePotato extends SequentialCommandGroup {
       new InstantCommand(() -> {
         progressTracker.setCurrentChain(intakeTopTOintakeTopDone);
         progressTracker.setCurrentPathName("intakeTopTOintakeTopDone");
-        progressTracker.registerEvent("IntakeOn", 0.020);
       }),
-      new ParallelRaceGroup(
-        new FollowPathCommand(follower, intakeTopTOintakeTopDone),
-        new SequentialCommandGroup(
-          new WaitUntilCommand(() ->
-            progressTracker.shouldTriggerEvent("IntakeOn")
-          ),
-          new InstantCommand(() -> {
-            progressTracker.executeEvent("IntakeOn");
-          })
-        )
-      ),
+      new FollowPathCommand(follower, intakeTopTOintakeTopDone),
       new WaitCommand(500),
       new InstantCommand(() -> {
         progressTracker.setCurrentChain(intakeTopDoneTOshoot);
         progressTracker.setCurrentPathName("intakeTopDoneTOshoot");
-        progressTracker.registerEvent("", 0.070);
       }),
-      new ParallelRaceGroup(
-        new FollowPathCommand(follower, intakeTopDoneTOshoot),
-        new SequentialCommandGroup(
-          new WaitUntilCommand(() -> progressTracker.shouldTriggerEvent("")),
-          new InstantCommand(() -> {
-            progressTracker.executeEvent("");
-          })
-        )
-      ),
+      new FollowPathCommand(follower, intakeTopDoneTOshoot),
       new WaitCommand(3000),
       new InstantCommand(() -> {
         progressTracker.setCurrentChain(shootTOintakeMiddle);

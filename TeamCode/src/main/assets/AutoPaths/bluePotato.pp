@@ -67,14 +67,7 @@
       "waitAfterMs": 0,
       "waitBeforeName": "",
       "waitAfterName": "",
-      "eventMarkers": [
-        {
-          "id": "event-1770423385908-1q6gk1hxx",
-          "name": "IntakeOn",
-          "position": 0.020000000000000018,
-          "lineIndex": 2
-        }
-      ]
+      "eventMarkers": []
     },
     {
       "id": "mlbjydjm-tclj45",
@@ -93,14 +86,7 @@
       "waitAfterMs": 0,
       "waitBeforeName": "",
       "waitAfterName": "",
-      "eventMarkers": [
-        {
-          "id": "event-1770423403777-2couh7qc4",
-          "name": "",
-          "position": 0.06999999999999984,
-          "lineIndex": 3
-        }
-      ],
+      "eventMarkers": [],
       "_linkedName": "shoot"
     },
     {
@@ -1137,6 +1123,7 @@
       }
     ],
     "recentFiles": [
+      "/Users/briellehwang/GitHub/BBots2025-26/TeamCode/src/main/assets/AutoPaths/bluePotato.pp",
       "/Users/briellehwang/GitHub/BBots2025-26/TeamCode/src/main/assets/AutoPaths/elsa.pp",
       "/Users/briellehwang/GitHub/BBots2025-26/TeamCode/src/main/assets/AutoPaths/BlueTwelveV2FromLittleTri.pp"
     ],
@@ -1300,13 +1287,14 @@
     ],
     "showDebugSequence": false,
     "autoExportCode": true,
-    "autoExportPath": "GeneratedCode",
+    "autoExportPath": "../../java/org/firstinspires/ftc/teamcode/Commands/AutoCommands",
     "autoExportFormat": "sequential",
     "autoExportTargetLibrary": "SolversLib",
     "autoExportFullClass": true,
     "telemetryImplementation": "Panels",
     "followRobot": false,
-    "fileManagerSortMode": "date"
+    "fileManagerSortMode": "date",
+    "autoExportPathMode": "relative"
   },
   "sequence": [
     {
