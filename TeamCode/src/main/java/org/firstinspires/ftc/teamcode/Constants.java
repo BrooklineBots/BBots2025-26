@@ -35,8 +35,7 @@ public class Constants {
     public static final String OUTTAKE_ID = "outtakeMotor";
 
     public static final double OUTTAKE_MAX_VELOCITY = rpmToRadPerSec(12000);
-    public static final double OUTTAKE_MOVEMENT_SPEED = rpmToRadPerSec(2000);
-    public static final double OUTTAKE_FAST_SPEED = 1200; // rpmToRadPerSec(4000);
+    public static final double OUTTAKE_MOVEMENT_SPEED = 1200;
   }
 
   public static class StorageConstants {
@@ -50,5 +49,15 @@ public class Constants {
   public static class BombshellServoConstants {
     public static final String BOMBSHELL_SERVO_ID = "bombshellServo";
     public static final long secondsToPush = 817;
+  }
+
+  public static class PinballServosConstants {
+    public static final String PINBALL_RIGHT_ID = "pinballRight";
+    public static final String PINBALL_LEFT_ID = "pinballLeft";
+
+    public static final double rightClosed = 0;
+    public static final double rightOpen = 1;
+    public static final double leftClosed = 0;
+    public static final double leftOpen = 1;
   }
 }

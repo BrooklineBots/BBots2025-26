@@ -42,11 +42,6 @@ public class Outtake extends SubsystemBase {
     // setVelocity(0.3);
   }
 
-  public void shootFast() {
-
-    setVelocity(-Constants.OuttakeConstants.OUTTAKE_FAST_SPEED);
-  }
-
   public void stop() {
 
     outtakeMotor.stopMotor();

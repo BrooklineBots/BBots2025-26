@@ -27,20 +27,18 @@ import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifactFro
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.bluePotato;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.reg;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.zendayaHatTheory;
-import org.firstinspires.ftc.teamcode.Commands.BombshellPushUpCommand;
-import org.firstinspires.ftc.teamcode.Commands.BombshellReverseCommand;
 import org.firstinspires.ftc.teamcode.Commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.Commands.ExpelIntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.ExpelStorageAndIntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.OuttakeCommand;
-import org.firstinspires.ftc.teamcode.Commands.OuttakeFastCommand;
 import org.firstinspires.ftc.teamcode.Commands.StoreArtifactsCommand;
 import org.firstinspires.ftc.teamcode.Commands.TransferToStorageCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.BombshellServo;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake;
+import org.firstinspires.ftc.teamcode.Subsystems.PinballServos;
 import org.firstinspires.ftc.teamcode.Subsystems.Storage;
 
 public class RobotContainer {
@@ -51,6 +49,7 @@ public class RobotContainer {
   private Outtake outtake;
   private BombshellServo bombshellServo;
   private PinpointLocalizer pinpoint;
+  private PinballServos pinballs;
 
   private Storage storage;
 
@@ -111,9 +110,10 @@ public class RobotContainer {
     outtake = new Outtake(hardwareMap, telemetry);
     storage = new Storage(hardwareMap);
     bombshellServo = new BombshellServo(hardwareMap, telemetry);
+    pinballs = new PinballServos(hardwareMap);
     // Register subsystems with scheduler
     CommandScheduler.getInstance()
-        .registerSubsystem(drive, autoDrive, intake, storage, outtake, bombshellServo);
+        .registerSubsystem(drive, autoDrive, intake, storage, outtake, bombshellServo, pinballs);
   }
 
   public void configureTeleOp() {
@@ -150,14 +150,18 @@ public class RobotContainer {
     new GamepadButton(gamepad1, GamepadKeys.Button.A).whenHeld(new IntakeCommand(intake));
     new GamepadButton(gamepad1, GamepadKeys.Button.Y).whenHeld(new ExpelIntakeCommand(intake));
 
-    new GamepadButton(gamepad2, GamepadKeys.Button.X).whenActive(new OuttakeCommand(outtake));
     new GamepadButton(gamepad2, GamepadKeys.Button.Y)
         .whenActive(new InstantCommand(() -> outtake.stop(), outtake));
-    new GamepadButton(gamepad2, GamepadKeys.Button.A).whenActive(new OuttakeFastCommand(outtake));
-    new GamepadButton(gamepad2, GamepadKeys.Button.RIGHT_BUMPER)
-        .whenHeld(new BombshellPushUpCommand(bombshellServo));
-    new GamepadButton(gamepad2, GamepadKeys.Button.LEFT_BUMPER)
-        .whenHeld(new BombshellReverseCommand(bombshellServo));
+    new GamepadButton(gamepad2, GamepadKeys.Button.A).whenActive(new OuttakeCommand(outtake));
+    new GamepadButton(gamepad2, GamepadKeys.Button.B)
+        .whenActive(new InstantCommand(() -> pinballs.open()));
+    new GamepadButton(gamepad2, GamepadKeys.Button.X)
+        .whenActive(new InstantCommand(() -> pinballs.close()));
+
+    //    new GamepadButton(gamepad2, GamepadKeys.Button.RIGHT_BUMPER)
+    //        .whenHeld(new BombshellPushUpCommand(bombshellServo));
+    //    new GamepadButton(gamepad2, GamepadKeys.Button.LEFT_BUMPER)
+    //        .whenHeld(new BombshellReverseCommand(bombshellServo));
     //    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP)
     //        .whenPressed(
     //            new SequentialCommandGroup(
@@ -242,7 +246,7 @@ public class RobotContainer {
         "IntakeOff", new InstantCommand(() -> intake.stop()), "Turn intake off");
     NamedCommands.registerCommand(
         "ShootCenter",
-        new SequentialCommandGroup(new OuttakeFastCommand(outtake), new WaitCommand(3000)),
+        new SequentialCommandGroup(new OuttakeCommand(outtake), new WaitCommand(3000)),
         "Outtakes artifacts");
 
     NamedCommands.listAllCommands(telemetry);
