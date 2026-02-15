@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.pedropathing.ftc.localization.constants.PinpointConstants;
+import com.pedropathing.ftc.localization.localizers.PinpointLocalizer;
 import com.pedropathingplus.pathing.NamedCommands;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -22,6 +24,7 @@ import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedLeaveBigTri;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedLeaveLittleTri;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifact;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifactFromObelisk;
+import org.firstinspires.ftc.teamcode.Commands.AutoCommands.bluePotato;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.reg;
 import org.firstinspires.ftc.teamcode.Commands.BombshellPushUpCommand;
 import org.firstinspires.ftc.teamcode.Commands.BombshellReverseCommand;
@@ -46,6 +49,7 @@ public class RobotContainer {
   private Intake intake;
   private Outtake outtake;
   private BombshellServo bombshellServo;
+  private PinpointLocalizer pinpoint;
 
   private Storage storage;
 
@@ -74,7 +78,8 @@ public class RobotContainer {
     BlueLeaveLittleTri,
     RedLeaveLittleTri,
     BlueLeaveBigTri,
-    RedLeaveBigTri;
+    RedLeaveBigTri,
+    bluePotato;
   }
 
   private AutoMode currentAuto;
@@ -97,9 +102,10 @@ public class RobotContainer {
   }
 
   public void initializeSubsystems() {
+    pinpoint = new PinpointLocalizer(hardwareMap, new PinpointConstants());
     intake = new Intake(hardwareMap);
-    drive = new Drivetrain(hardwareMap, telemetry, currentGameMode);
-    autoDrive = new Drivetrain(hardwareMap, telemetry, currentGameMode);
+    drive = new Drivetrain(hardwareMap, telemetry, currentGameMode, pinpoint);
+    autoDrive = new Drivetrain(hardwareMap, telemetry, currentGameMode, pinpoint);
     outtake = new Outtake(hardwareMap, telemetry);
     storage = new Storage(hardwareMap);
     bombshellServo = new BombshellServo(hardwareMap, telemetry);
@@ -207,12 +213,15 @@ public class RobotContainer {
         CommandScheduler.getInstance().schedule(new BlueLeaveBigTri(autoDrive));
       } else if (selectedAutoMode == AutoMode.RedLeaveBigTri) {
         CommandScheduler.getInstance().schedule(new RedLeaveBigTri(autoDrive));
+      } else if (selectedAutoMode == AutoMode.bluePotato) {
+        CommandScheduler.getInstance().schedule(new bluePotato(drive, hardwareMap, telemetry));
       } else {
         telemetry.addLine("No auto was selected! There was likely an error.");
         telemetry.update();
       }
     } catch (final IOException error) {
       telemetry.addLine("A critical IOException error has occurred. Doing nothing. ");
+      telemetry.addLine(error.toString());
       telemetry.update();
       CommandScheduler.getInstance().schedule(new InstantCommand());
     }

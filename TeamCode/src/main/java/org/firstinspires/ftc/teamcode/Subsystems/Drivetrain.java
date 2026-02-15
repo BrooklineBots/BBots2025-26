@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.pedropathing.follower.Follower;
+import com.pedropathing.ftc.localization.localizers.PinpointLocalizer;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
@@ -25,6 +26,8 @@ public class Drivetrain extends SubsystemBase {
 
   private final RevIMU revIMU;
 
+  private final PinpointLocalizer pinpoint;
+
   private final Telemetry telemetry;
 
   private double fieldHeadingOffset = 0.0; // in radians
@@ -35,9 +38,13 @@ public class Drivetrain extends SubsystemBase {
 
   // Make sure your ID's match your configuration
   public Drivetrain(
-      final HardwareMap hwMap, final Telemetry telemetry, final RobotContainer.gameMode gameMode) {
+      final HardwareMap hwMap,
+      final Telemetry telemetry,
+      final RobotContainer.gameMode gameMode,
+      final PinpointLocalizer pinpoint) {
     this.hwMap = hwMap;
     this.telemetry = telemetry;
+    this.pinpoint = pinpoint;
 
     frontLeftMotor = new Motor(hwMap, Constants.DriveConstants.FRONT_LEFT_MOTOR_ID);
     backLeftMotor = new Motor(hwMap, Constants.DriveConstants.BACK_LEFT_MOTOR_ID);
@@ -121,7 +128,8 @@ public class Drivetrain extends SubsystemBase {
 
   public void driveFieldCentric(final double forward, final double strafe, final double rotate) {
 
-    drive.driveFieldCentric(strafe, forward, rotate, revIMU.getRotation2d().getDegrees(), false);
+    drive.driveFieldCentric(
+        strafe, forward, rotate, Math.toDegrees(pinpoint.getPose().getHeading()), false);
   }
 
   public Follower getFollower() {

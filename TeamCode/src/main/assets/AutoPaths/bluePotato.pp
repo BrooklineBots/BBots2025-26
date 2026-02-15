@@ -17,7 +17,7 @@
         "y": 95.80004612546121,
         "heading": "linear",
         "reverse": false,
-        "startDeg": -36,
+        "startDeg": 142,
         "endDeg": 135
       },
       "controlPoints": [],
@@ -1293,8 +1293,7 @@
     "autoExportFullClass": true,
     "telemetryImplementation": "Panels",
     "followRobot": false,
-    "fileManagerSortMode": "date",
-    "autoExportPathMode": "relative"
+    "fileManagerSortMode": "date"
   },
   "sequence": [
     {

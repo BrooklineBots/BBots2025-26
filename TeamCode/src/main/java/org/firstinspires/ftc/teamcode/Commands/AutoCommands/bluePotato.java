@@ -11,19 +11,15 @@
 package org.firstinspires.ftc.teamcode.Commands.AutoCommands;
 
 import com.pedropathing.follower.Follower;
-import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
 import com.pedropathingplus.PedroPathReader;
-import com.pedropathingplus.pathing.NamedCommands;
 import com.pedropathingplus.pathing.ProgressTracker;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.InstantCommand;
-import com.seattlesolvers.solverslib.command.ParallelRaceGroup;
 import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitCommand;
-import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 import com.seattlesolvers.solverslib.pedroCommand.FollowPathCommand;
 import java.io.IOException;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -59,11 +55,11 @@ public class bluePotato extends SequentialCommandGroup {
   private PathChain shootTOgate;
 
   public bluePotato(final Drivetrain drive, HardwareMap hw, Telemetry telemetry)
-    throws IOException {
+      throws IOException {
     this.follower = drive.getFollower();
     this.progressTracker = new ProgressTracker(follower, telemetry);
 
-    PedroPathReader pp = new PedroPathReader("bluePotato", hw.appContext);
+    PedroPathReader pp = new PedroPathReader("bluePotato.pp", hw.appContext);
 
     // Load poses
     startPoint = pp.get("startPoint");
@@ -81,163 +77,157 @@ public class bluePotato extends SequentialCommandGroup {
     buildPaths();
 
     addCommands(
-      new InstantCommand(() -> {
-        progressTracker.setCurrentChain(startPointTOshoot);
-        progressTracker.setCurrentPathName("startPointTOshoot");
-      }),
-      new FollowPathCommand(follower, startPointTOshoot),
-      new WaitCommand(3000),
-      new InstantCommand(() -> {
-        progressTracker.setCurrentChain(shootTOintakeTop);
-        progressTracker.setCurrentPathName("shootTOintakeTop");
-      }),
-      new FollowPathCommand(follower, shootTOintakeTop),
-      new InstantCommand(() -> {
-        progressTracker.setCurrentChain(intakeTopTOintakeTopDone);
-        progressTracker.setCurrentPathName("intakeTopTOintakeTopDone");
-      }),
-      new FollowPathCommand(follower, intakeTopTOintakeTopDone),
-      new WaitCommand(500),
-      new InstantCommand(() -> {
-        progressTracker.setCurrentChain(intakeTopDoneTOshoot);
-        progressTracker.setCurrentPathName("intakeTopDoneTOshoot");
-      }),
-      new FollowPathCommand(follower, intakeTopDoneTOshoot),
-      new WaitCommand(3000),
-      new InstantCommand(() -> {
-        progressTracker.setCurrentChain(shootTOintakeMiddle);
-        progressTracker.setCurrentPathName("shootTOintakeMiddle");
-      }),
-      new FollowPathCommand(follower, shootTOintakeMiddle),
-      new WaitCommand(500),
-      new InstantCommand(() -> {
-        progressTracker.setCurrentChain(intakeMiddleTOintakeMiddleDone);
-        progressTracker.setCurrentPathName("intakeMiddleTOintakeMiddleDone");
-      }),
-      new FollowPathCommand(follower, intakeMiddleTOintakeMiddleDone),
-      new InstantCommand(() -> {
-        progressTracker.setCurrentChain(intakeMiddleDoneTOshoot);
-        progressTracker.setCurrentPathName("intakeMiddleDoneTOshoot");
-      }),
-      new FollowPathCommand(follower, intakeMiddleDoneTOshoot),
-      new WaitCommand(3000),
-      new InstantCommand(() -> {
-        progressTracker.setCurrentChain(shootTOintakeBottom);
-        progressTracker.setCurrentPathName("shootTOintakeBottom");
-      }),
-      new FollowPathCommand(follower, shootTOintakeBottom),
-      new InstantCommand(() -> {
-        progressTracker.setCurrentChain(intakeBottomTOintakeBottomDone);
-        progressTracker.setCurrentPathName("intakeBottomTOintakeBottomDone");
-      }),
-      new FollowPathCommand(follower, intakeBottomTOintakeBottomDone),
-      new WaitCommand(500),
-      new InstantCommand(() -> {
-        progressTracker.setCurrentChain(intakeBottomDoneTOshoot);
-        progressTracker.setCurrentPathName("intakeBottomDoneTOshoot");
-      }),
-      new FollowPathCommand(follower, intakeBottomDoneTOshoot),
-      new WaitCommand(3000),
-      new InstantCommand(() -> {
-        progressTracker.setCurrentChain(shootTOgate);
-        progressTracker.setCurrentPathName("shootTOgate");
-      }),
-      new FollowPathCommand(follower, shootTOgate)
-    );
+        new InstantCommand(
+            () -> {
+              progressTracker.setCurrentChain(startPointTOshoot);
+              progressTracker.setCurrentPathName("startPointTOshoot");
+            }),
+        new FollowPathCommand(follower, startPointTOshoot),
+        new WaitCommand(3000),
+        new InstantCommand(
+            () -> {
+              progressTracker.setCurrentChain(shootTOintakeTop);
+              progressTracker.setCurrentPathName("shootTOintakeTop");
+            }),
+        new FollowPathCommand(follower, shootTOintakeTop),
+        new InstantCommand(
+            () -> {
+              progressTracker.setCurrentChain(intakeTopTOintakeTopDone);
+              progressTracker.setCurrentPathName("intakeTopTOintakeTopDone");
+            }),
+        new FollowPathCommand(follower, intakeTopTOintakeTopDone),
+        new WaitCommand(500),
+        new InstantCommand(
+            () -> {
+              progressTracker.setCurrentChain(intakeTopDoneTOshoot);
+              progressTracker.setCurrentPathName("intakeTopDoneTOshoot");
+            }),
+        new FollowPathCommand(follower, intakeTopDoneTOshoot),
+        new WaitCommand(3000),
+        new InstantCommand(
+            () -> {
+              progressTracker.setCurrentChain(shootTOintakeMiddle);
+              progressTracker.setCurrentPathName("shootTOintakeMiddle");
+            }),
+        new FollowPathCommand(follower, shootTOintakeMiddle),
+        new WaitCommand(500),
+        new InstantCommand(
+            () -> {
+              progressTracker.setCurrentChain(intakeMiddleTOintakeMiddleDone);
+              progressTracker.setCurrentPathName("intakeMiddleTOintakeMiddleDone");
+            }),
+        new FollowPathCommand(follower, intakeMiddleTOintakeMiddleDone),
+        new InstantCommand(
+            () -> {
+              progressTracker.setCurrentChain(intakeMiddleDoneTOshoot);
+              progressTracker.setCurrentPathName("intakeMiddleDoneTOshoot");
+            }),
+        new FollowPathCommand(follower, intakeMiddleDoneTOshoot),
+        new WaitCommand(3000),
+        new InstantCommand(
+            () -> {
+              progressTracker.setCurrentChain(shootTOintakeBottom);
+              progressTracker.setCurrentPathName("shootTOintakeBottom");
+            }),
+        new FollowPathCommand(follower, shootTOintakeBottom),
+        new InstantCommand(
+            () -> {
+              progressTracker.setCurrentChain(intakeBottomTOintakeBottomDone);
+              progressTracker.setCurrentPathName("intakeBottomTOintakeBottomDone");
+            }),
+        new FollowPathCommand(follower, intakeBottomTOintakeBottomDone),
+        new WaitCommand(500),
+        new InstantCommand(
+            () -> {
+              progressTracker.setCurrentChain(intakeBottomDoneTOshoot);
+              progressTracker.setCurrentPathName("intakeBottomDoneTOshoot");
+            }),
+        new FollowPathCommand(follower, intakeBottomDoneTOshoot),
+        new WaitCommand(3000),
+        new InstantCommand(
+            () -> {
+              progressTracker.setCurrentChain(shootTOgate);
+              progressTracker.setCurrentPathName("shootTOgate");
+            }),
+        new FollowPathCommand(follower, shootTOgate));
   }
 
   public void buildPaths() {
-    startPointTOshoot = follower
-      .pathBuilder()
-      .addPath(new BezierLine(startPoint, shoot))
-      .setLinearHeadingInterpolation(
-        startPoint.getHeading(),
-        shoot.getHeading()
-      )
-      .build();
+    startPointTOshoot =
+        follower
+            .pathBuilder()
+            .addPath(new BezierLine(startPoint, shoot))
+            .setLinearHeadingInterpolation(startPoint.getHeading(), shoot.getHeading())
+            .build();
 
-    shootTOintakeTop = follower
-      .pathBuilder()
-      .addPath(new BezierLine(shoot, intakeTop))
-      .setLinearHeadingInterpolation(shoot.getHeading(), intakeTop.getHeading())
-      .build();
+    shootTOintakeTop =
+        follower
+            .pathBuilder()
+            .addPath(new BezierLine(shoot, intakeTop))
+            .setLinearHeadingInterpolation(shoot.getHeading(), intakeTop.getHeading())
+            .build();
 
-    intakeTopTOintakeTopDone = follower
-      .pathBuilder()
-      .addPath(new BezierLine(intakeTop, intakeTopDone))
-      .setLinearHeadingInterpolation(
-        intakeTop.getHeading(),
-        intakeTopDone.getHeading()
-      )
-      .build();
+    intakeTopTOintakeTopDone =
+        follower
+            .pathBuilder()
+            .addPath(new BezierLine(intakeTop, intakeTopDone))
+            .setLinearHeadingInterpolation(intakeTop.getHeading(), intakeTopDone.getHeading())
+            .build();
 
-    intakeTopDoneTOshoot = follower
-      .pathBuilder()
-      .addPath(new BezierLine(intakeTopDone, shoot))
-      .setLinearHeadingInterpolation(
-        intakeTopDone.getHeading(),
-        shoot.getHeading()
-      )
-      .build();
+    intakeTopDoneTOshoot =
+        follower
+            .pathBuilder()
+            .addPath(new BezierLine(intakeTopDone, shoot))
+            .setLinearHeadingInterpolation(intakeTopDone.getHeading(), shoot.getHeading())
+            .build();
 
-    shootTOintakeMiddle = follower
-      .pathBuilder()
-      .addPath(new BezierLine(shoot, intakeMiddle))
-      .setLinearHeadingInterpolation(
-        shoot.getHeading(),
-        intakeMiddle.getHeading()
-      )
-      .build();
+    shootTOintakeMiddle =
+        follower
+            .pathBuilder()
+            .addPath(new BezierLine(shoot, intakeMiddle))
+            .setLinearHeadingInterpolation(shoot.getHeading(), intakeMiddle.getHeading())
+            .build();
 
-    intakeMiddleTOintakeMiddleDone = follower
-      .pathBuilder()
-      .addPath(new BezierLine(intakeMiddle, intakeMiddleDone))
-      .setLinearHeadingInterpolation(
-        intakeMiddle.getHeading(),
-        intakeMiddleDone.getHeading()
-      )
-      .build();
+    intakeMiddleTOintakeMiddleDone =
+        follower
+            .pathBuilder()
+            .addPath(new BezierLine(intakeMiddle, intakeMiddleDone))
+            .setLinearHeadingInterpolation(intakeMiddle.getHeading(), intakeMiddleDone.getHeading())
+            .build();
 
-    intakeMiddleDoneTOshoot = follower
-      .pathBuilder()
-      .addPath(new BezierLine(intakeMiddleDone, shoot))
-      .setLinearHeadingInterpolation(
-        intakeMiddleDone.getHeading(),
-        shoot.getHeading()
-      )
-      .build();
+    intakeMiddleDoneTOshoot =
+        follower
+            .pathBuilder()
+            .addPath(new BezierLine(intakeMiddleDone, shoot))
+            .setLinearHeadingInterpolation(intakeMiddleDone.getHeading(), shoot.getHeading())
+            .build();
 
-    shootTOintakeBottom = follower
-      .pathBuilder()
-      .addPath(new BezierLine(shoot, intakeBottom))
-      .setLinearHeadingInterpolation(
-        shoot.getHeading(),
-        intakeBottom.getHeading()
-      )
-      .build();
+    shootTOintakeBottom =
+        follower
+            .pathBuilder()
+            .addPath(new BezierLine(shoot, intakeBottom))
+            .setLinearHeadingInterpolation(shoot.getHeading(), intakeBottom.getHeading())
+            .build();
 
-    intakeBottomTOintakeBottomDone = follower
-      .pathBuilder()
-      .addPath(new BezierLine(intakeBottom, intakeBottomDone))
-      .setLinearHeadingInterpolation(
-        intakeBottom.getHeading(),
-        intakeBottomDone.getHeading()
-      )
-      .build();
+    intakeBottomTOintakeBottomDone =
+        follower
+            .pathBuilder()
+            .addPath(new BezierLine(intakeBottom, intakeBottomDone))
+            .setLinearHeadingInterpolation(intakeBottom.getHeading(), intakeBottomDone.getHeading())
+            .build();
 
-    intakeBottomDoneTOshoot = follower
-      .pathBuilder()
-      .addPath(new BezierLine(intakeBottomDone, shoot))
-      .setLinearHeadingInterpolation(
-        intakeBottomDone.getHeading(),
-        shoot.getHeading()
-      )
-      .build();
+    intakeBottomDoneTOshoot =
+        follower
+            .pathBuilder()
+            .addPath(new BezierLine(intakeBottomDone, shoot))
+            .setLinearHeadingInterpolation(intakeBottomDone.getHeading(), shoot.getHeading())
+            .build();
 
-    shootTOgate = follower
-      .pathBuilder()
-      .addPath(new BezierLine(shoot, gate))
-      .setLinearHeadingInterpolation(shoot.getHeading(), gate.getHeading())
-      .build();
+    shootTOgate =
+        follower
+            .pathBuilder()
+            .addPath(new BezierLine(shoot, gate))
+            .setLinearHeadingInterpolation(shoot.getHeading(), gate.getHeading())
+            .build();
   }
 }
