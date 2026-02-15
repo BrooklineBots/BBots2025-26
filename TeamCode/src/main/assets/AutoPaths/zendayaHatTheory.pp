@@ -1,8 +1,8 @@
 {
   "version": 1,
   "startPoint": {
-    "x": 23.712210216272556,
-    "y": 128.54910706898545,
+    "x": 22.56826568265683,
+    "y": 121.35793357933579,
     "heading": "linear",
     "startDeg": 90,
     "endDeg": 180,
@@ -10,227 +10,78 @@
   },
   "lines": [
     {
-      "id": "line-pijgryzx2tb",
-      "name": "shoot (1)",
+      "id": "line-ogq85cisbbb",
+      "name": "shootPreload",
       "endPoint": {
-        "x": 48.04428044280444,
-        "y": 95.80004612546121,
+        "x": 50.907749077490784,
+        "y": 92.45756457564576,
+        "heading": "linear",
+        "startDeg": 90,
+        "endDeg": 45
+      },
+      "controlPoints": [],
+      "color": "#58CCA5",
+      "eventMarkers": [],
+      "locked": false,
+      "waitBeforeMs": 0,
+      "waitAfterMs": 0,
+      "waitBeforeName": "",
+      "waitAfterName": ""
+    },
+    {
+      "id": "mlnwef0j-pe3vr2",
+      "name": "intakeTop",
+      "endPoint": {
+        "x": 50.907749077490784,
+        "y": 85.380073800738,
         "heading": "linear",
         "reverse": false,
         "startDeg": 142,
-        "endDeg": 135
-      },
-      "controlPoints": [],
-      "color": "#B9867B",
-      "locked": false,
-      "eventMarkers": [],
-      "waitBeforeMs": 0,
-      "waitAfterMs": 0,
-      "waitBeforeName": "",
-      "waitAfterName": "",
-      "_linkedName": "shoot"
-    },
-    {
-      "id": "line-3ssd9lmdmrp",
-      "name": "intakeTop",
-      "endPoint": {
-        "x": 48.044,
-        "y": 83.255,
-        "heading": "linear",
-        "reverse": false,
-        "startDeg": 135,
         "endDeg": 180
       },
       "controlPoints": [],
-      "color": "#C777C9",
-      "locked": false,
-      "eventMarkers": [],
+      "color": "#DBD9CA",
       "waitBeforeMs": 0,
       "waitAfterMs": 0,
       "waitBeforeName": "",
       "waitAfterName": "",
-      "_linkedName": "intakeTop"
+      "eventMarkers": []
     },
     {
-      "id": "mlbjwat1-pcbvid",
-      "name": "intakeTopDone",
+      "id": "mlnwf26u-wiznrb",
+      "name": "topDone",
       "endPoint": {
-        "x": 18.374439461883405,
-        "y": 83.255,
+        "x": 14.243542435424352,
+        "y": 85.380073800738,
+        "heading": "tangential",
+        "reverse": false
+      },
+      "controlPoints": [],
+      "color": "#868D67",
+      "waitBeforeMs": 0,
+      "waitAfterMs": 0,
+      "waitBeforeName": "",
+      "waitAfterName": "",
+      "eventMarkers": []
+    },
+    {
+      "id": "mlnwflyi-ayfnmx",
+      "name": "shootTop",
+      "endPoint": {
+        "x": 50.907749077490784,
+        "y": 92.45756457564576,
         "heading": "linear",
         "reverse": false,
         "startDeg": 180,
-        "endDeg": 180
+        "endDeg": 45
       },
       "controlPoints": [],
-      "color": "#C5A9CB",
+      "color": "#5BBD96",
       "waitBeforeMs": 0,
       "waitAfterMs": 0,
       "waitBeforeName": "",
       "waitAfterName": "",
-      "eventMarkers": [],
-      "_linkedName": "intakeTopDone"
-    },
-    {
-      "id": "mlbjydjm-tclj45",
-      "name": "shoot (2)",
-      "endPoint": {
-        "x": 48.04428044280444,
-        "y": 95.80004612546121,
-        "heading": "linear",
-        "reverse": false,
-        "startDeg": 180,
-        "endDeg": 135
-      },
-      "controlPoints": [],
-      "color": "#68DB9A",
-      "waitBeforeMs": 0,
-      "waitAfterMs": 0,
-      "waitBeforeName": "",
-      "waitAfterName": "",
-      "eventMarkers": [],
-      "_linkedName": "shoot"
-    },
-    {
-      "id": "mlbjyhuo-xf3tg2",
-      "name": "intakeMiddle",
-      "endPoint": {
-        "x": 48.04428044280444,
-        "y": 59.88789237668162,
-        "heading": "linear",
-        "reverse": false,
-        "startDeg": 135,
-        "endDeg": 180
-      },
-      "controlPoints": [],
-      "color": "#A676B5",
-      "waitBeforeMs": 0,
-      "waitAfterMs": 0,
-      "waitBeforeName": "",
-      "waitAfterName": "",
-      "eventMarkers": [],
-      "_linkedName": "intakeMiddle"
-    },
-    {
-      "id": "mlbjz0ow-nan7yw",
-      "name": "intakeMiddleDone",
-      "endPoint": {
-        "x": 18.374439461883405,
-        "y": 59.88789237668162,
-        "heading": "linear",
-        "reverse": false,
-        "startDeg": 180,
-        "endDeg": 180
-      },
-      "controlPoints": [],
-      "color": "#A5B7A5",
-      "waitBeforeMs": 0,
-      "waitAfterMs": 0,
-      "waitBeforeName": "",
-      "waitAfterName": "",
-      "locked": false,
-      "eventMarkers": [],
-      "_linkedName": "intakeMiddleDone"
-    },
-    {
-      "id": "mlbk9ju9-2jz1wd",
-      "name": "shoot (3)",
-      "endPoint": {
-        "x": 48.04428044280444,
-        "y": 95.80004612546121,
-        "heading": "linear",
-        "reverse": false,
-        "startDeg": 180,
-        "endDeg": 135
-      },
-      "controlPoints": [],
-      "color": "#BBBC85",
-      "waitBeforeMs": 0,
-      "waitAfterMs": 0,
-      "waitBeforeName": "",
-      "waitAfterName": "",
-      "eventMarkers": [],
-      "_linkedName": "shoot"
-    },
-    {
-      "id": "mlbk9qcb-3089ee",
-      "name": "intakeBottom",
-      "endPoint": {
-        "x": 48.04428044280444,
-        "y": 37.0358744394619,
-        "heading": "linear",
-        "reverse": false,
-        "startDeg": 135,
-        "endDeg": 180
-      },
-      "controlPoints": [],
-      "color": "#558796",
-      "waitBeforeMs": 0,
-      "waitAfterMs": 0,
-      "waitBeforeName": "",
-      "waitAfterName": "",
-      "eventMarkers": [],
-      "_linkedName": "intakeBottom"
-    },
-    {
-      "id": "mlbkacy0-a4po3i",
-      "name": "intakeBottomDone",
-      "endPoint": {
-        "x": 15.432735426008966,
-        "y": 37.0358744394619,
-        "heading": "linear",
-        "reverse": false,
-        "startDeg": 180,
-        "endDeg": 180
-      },
-      "controlPoints": [],
-      "color": "#7DD957",
-      "waitBeforeMs": 0,
-      "waitAfterMs": 0,
-      "waitBeforeName": "",
-      "waitAfterName": "",
-      "eventMarkers": [],
-      "_linkedName": "intakeBottomDone"
-    },
-    {
-      "id": "mlbkb37x-wkgasi",
-      "name": "shoot (4)",
-      "endPoint": {
-        "x": 48.04428044280444,
-        "y": 95.80004612546121,
-        "heading": "linear",
-        "reverse": false,
-        "startDeg": 180,
-        "endDeg": 135
-      },
-      "controlPoints": [],
-      "color": "#5AC967",
-      "waitBeforeMs": 0,
-      "waitAfterMs": 0,
-      "waitBeforeName": "",
-      "waitAfterName": "",
-      "eventMarkers": [],
-      "_linkedName": "shoot"
-    },
-    {
-      "id": "mlbkbiw1-nbysbq",
-      "name": "gate",
-      "endPoint": {
-        "x": 18.374439461883405,
-        "y": 65.68161434977577,
-        "heading": "linear",
-        "reverse": false,
-        "startDeg": 135,
-        "endDeg": 180
-      },
-      "controlPoints": [],
-      "color": "#89B76A",
-      "waitBeforeMs": 0,
-      "waitAfterMs": 0,
-      "waitBeforeName": "",
-      "waitAfterName": "",
-      "eventMarkers": [],
-      "_linkedName": "gate"
+      "eventMarkers": []
     }
   ],
   "settings": {
@@ -1130,8 +981,8 @@
       }
     ],
     "recentFiles": [
-      "/Users/briellehwang/GitHub/BBots2025-26/TeamCode/src/main/assets/AutoPaths/bluePotato.pp",
       "/Users/briellehwang/GitHub/BBots2025-26/TeamCode/src/main/assets/AutoPaths/zendayaHatTheory.pp",
+      "/Users/briellehwang/GitHub/BBots2025-26/TeamCode/src/main/assets/AutoPaths/bluePotato.pp",
       "/Users/briellehwang/GitHub/BBots2025-26/TeamCode/src/main/assets/AutoPaths/reg.pp",
       "/Users/briellehwang/GitHub/BBots2025-26/TeamCode/src/main/assets/AutoPaths/elsa.pp",
       "/Users/briellehwang/GitHub/BBots2025-26/TeamCode/src/main/assets/AutoPaths/BlueTwelveV2FromLittleTri.pp"
@@ -1307,103 +1158,33 @@
   "sequence": [
     {
       "kind": "path",
-      "lineId": "line-pijgryzx2tb"
+      "lineId": "line-ogq85cisbbb"
     },
     {
       "kind": "wait",
-      "id": "mlbkh0ld-thco75",
-      "name": "outtakeWait (1)",
+      "id": "mlnwe56f-s8k6r0",
+      "name": "outtakePreload",
       "durationMs": 3000,
-      "locked": false,
-      "_linkedName": "outtakeWait"
+      "locked": false
     },
     {
       "kind": "path",
-      "lineId": "line-3ssd9lmdmrp"
+      "lineId": "mlnwef0j-pe3vr2"
     },
     {
       "kind": "path",
-      "lineId": "mlbjwat1-pcbvid"
+      "lineId": "mlnwf26u-wiznrb"
     },
     {
       "kind": "wait",
-      "id": "mlbke3cd-tt7h3l",
-      "name": "intakeWait (1)",
+      "id": "mlnwfgui-ndrm4m",
+      "name": "intakeTopWait",
       "durationMs": 500,
-      "locked": false,
-      "_linkedName": "intakeWait"
+      "locked": false
     },
     {
       "kind": "path",
-      "lineId": "mlbjydjm-tclj45"
-    },
-    {
-      "kind": "wait",
-      "id": "mlbkhfd0-jl4c4l",
-      "name": "outtakeWait (2)",
-      "durationMs": 3000,
-      "locked": false,
-      "_linkedName": "outtakeWait"
-    },
-    {
-      "kind": "path",
-      "lineId": "mlbjyhuo-xf3tg2"
-    },
-    {
-      "kind": "wait",
-      "id": "mlbkexft-q8dg60",
-      "name": "intakeWait (2)",
-      "durationMs": 500,
-      "locked": false,
-      "_linkedName": "intakeWait"
-    },
-    {
-      "kind": "path",
-      "lineId": "mlbjz0ow-nan7yw"
-    },
-    {
-      "kind": "path",
-      "lineId": "mlbk9ju9-2jz1wd"
-    },
-    {
-      "kind": "wait",
-      "id": "mlbkhl9h-1wqh6q",
-      "name": "outtakeWait (3)",
-      "durationMs": 3000,
-      "locked": false,
-      "_linkedName": "outtakeWait"
-    },
-    {
-      "kind": "path",
-      "lineId": "mlbk9qcb-3089ee"
-    },
-    {
-      "kind": "path",
-      "lineId": "mlbkacy0-a4po3i"
-    },
-    {
-      "kind": "wait",
-      "id": "mlbkg187-1brkly",
-      "name": "intakeWait (3)",
-      "durationMs": 500,
-      "locked": false,
-      "_linkedName": "intakeWait"
-    },
-    {
-      "kind": "path",
-      "lineId": "mlbkb37x-wkgasi"
-    },
-    {
-      "kind": "wait",
-      "id": "mlbkhql6-uh69n8",
-      "name": "outtakeWait (4)",
-      "durationMs": 3000,
-      "locked": false,
-      "_linkedName": "outtakeWait"
-    },
-    {
-      "kind": "path",
-      "lineId": "mlbkbiw1-nbysbq"
+      "lineId": "mlnwflyi-ayfnmx"
     }
   ],
   "shapes": [

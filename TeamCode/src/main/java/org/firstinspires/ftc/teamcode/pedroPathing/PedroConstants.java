@@ -14,7 +14,13 @@ import org.firstinspires.ftc.teamcode.Constants;
 
 public class PedroConstants {
   public static FollowerConstants followerConstants =
-      new FollowerConstants().mass(Constants.RobotConstants.ROBOT_MASS);
+      new FollowerConstants()
+          .mass(Constants.RobotConstants.ROBOT_MASS)
+          .forwardZeroPowerAcceleration(-28.368)
+          .lateralZeroPowerAcceleration(-54.4328)
+          .useSecondaryTranslationalPIDF(true)
+          .useSecondaryHeadingPIDF(true)
+          .useSecondaryDrivePIDF(true);
 
   public static PathConstraints pathConstraints = new PathConstraints(0.99, 100, 1, 1);
 
@@ -28,7 +34,9 @@ public class PedroConstants {
           .leftFrontMotorDirection(DcMotorSimple.Direction.REVERSE)
           .leftRearMotorDirection(DcMotorSimple.Direction.REVERSE)
           .rightFrontMotorDirection(DcMotorSimple.Direction.FORWARD)
-          .rightRearMotorDirection(DcMotorSimple.Direction.FORWARD);
+          .rightRearMotorDirection(DcMotorSimple.Direction.FORWARD)
+          .xVelocity(60.2638)
+          .yVelocity(54.37);
 
   public static PinpointConstants localizerConstants =
       new PinpointConstants()

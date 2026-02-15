@@ -26,6 +26,7 @@ import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifact;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifactFromObelisk;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.bluePotato;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.reg;
+import org.firstinspires.ftc.teamcode.Commands.AutoCommands.zendayaHatTheory;
 import org.firstinspires.ftc.teamcode.Commands.BombshellPushUpCommand;
 import org.firstinspires.ftc.teamcode.Commands.BombshellReverseCommand;
 import org.firstinspires.ftc.teamcode.Commands.DriveCommand;
@@ -79,7 +80,8 @@ public class RobotContainer {
     RedLeaveLittleTri,
     BlueLeaveBigTri,
     RedLeaveBigTri,
-    bluePotato;
+    bluePotato,
+    zendayaHatTheory;
   }
 
   private AutoMode currentAuto;
@@ -214,7 +216,10 @@ public class RobotContainer {
       } else if (selectedAutoMode == AutoMode.RedLeaveBigTri) {
         CommandScheduler.getInstance().schedule(new RedLeaveBigTri(autoDrive));
       } else if (selectedAutoMode == AutoMode.bluePotato) {
-        CommandScheduler.getInstance().schedule(new bluePotato(drive, hardwareMap, telemetry));
+        CommandScheduler.getInstance().schedule(new bluePotato(autoDrive, hardwareMap, telemetry));
+      } else if (selectedAutoMode == AutoMode.zendayaHatTheory) {
+        CommandScheduler.getInstance()
+            .schedule(new zendayaHatTheory(autoDrive, hardwareMap, telemetry));
       } else {
         telemetry.addLine("No auto was selected! There was likely an error.");
         telemetry.update();
