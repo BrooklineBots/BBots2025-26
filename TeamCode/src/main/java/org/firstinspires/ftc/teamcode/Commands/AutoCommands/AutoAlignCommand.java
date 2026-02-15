@@ -44,7 +44,7 @@ public class AutoAlignCommand extends CommandBase {
                 double pTerm = error * kP;
                 double dTerm = (dt > 0) ? ((error - lastError) / dt) * kD : 0;
 
-                // Clamp rotation to 40% power [12, 13]
+                // 40% power
                 rotation = Range.clip(pTerm + dTerm, -0.4, 0.4);
 
                 lastError = error;

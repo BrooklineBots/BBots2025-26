@@ -13,32 +13,24 @@ public class LimelightSub extends SubsystemBase {
     // Initialize the hardware using the official SDK class [1]
     limelight = hardwareMap.get(Limelight3A.class, "limelight");
 
-    // Use the correct method to set the pipeline (e.g., pipeline 1 for AprilTags)
-    // Note: .pipelineSwitch() does not exist in the official SDK [1]
-    limelight.pipelineSwitch(1);
+    // pipleine 0 is for apriltags, color is 11&10
+    limelight.pipelineSwitch(0);
 
-    // The Limelight starts automatically upon initialization;
-    // there is no .start() or .setPollRateHz() method [1]
   }
 
   @Override
   public void periodic() {
-    // Frequency is determined by the robot's loop speed and Limelight hardware [1-3]
+
     latestResult = limelight.getLatestResult();
   }
 
-  /**
-   * Checks if the camera currently has a valid target.
-   */
+
+
   public boolean hasTarget() {
     // Check if the result exists and if it contains a valid detection [1, 4]
     return latestResult != null && latestResult.isValid();
   }
 
-  /**
-   * Returns the horizontal offset (TX) to the target.
-   * This is used as the 'bearing' for auto-rotation logic [4-6].
-   */
   public double getTX() {
     return hasTarget() ? latestResult.getTx() : 0.0;
   }
@@ -52,10 +44,6 @@ public class LimelightSub extends SubsystemBase {
   }
 
 
-  /**
-   * Allows commands to switch between different pre-configured pipelines.
-   * For example: switching from AprilTag tracking to Color Blob tracking [9].
-   */
   public void setPipeline(int index) {
     limelight.pipelineSwitch(index);
   }
