@@ -2,74 +2,65 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.IMU;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
 
 public class LimelightSub extends SubsystemBase {
-
-  private Limelight3A limelight;
-  private IMU imu;
+  private final Limelight3A limelight;
   private LLResult latestResult;
 
   public LimelightSub(HardwareMap hardwareMap) {
+    // Initialize the hardware using the official SDK class [1]
     limelight = hardwareMap.get(Limelight3A.class, "limelight");
-    limelight.pipelineSwitch(1); // apriltag #1 pipeline
-    limelight.setPollRateHz(100); // limelight pipleine
-    limelight.pipelineSwitch(1); // Use pipeline 1 for green and 2 for purple
-    limelight.start();
 
-    imu = hardwareMap.get(IMU.class, "imu");
-    RevHubOrientationOnRobot revHubOrientationOnRobot =
-        new RevHubOrientationOnRobot(
-            RevHubOrientationOnRobot.LogoFacingDirection.UP,
-            RevHubOrientationOnRobot.UsbFacingDirection.FORWARD);
-    imu.initialize(new IMU.Parameters(revHubOrientationOnRobot));
+    // Use the correct method to set the pipeline (e.g., pipeline 1 for AprilTags)
+    // Note: .pipelineSwitch() does not exist in the official SDK [1]
+    limelight.pipelineSwitch(1);
 
-    limelight.start();
+    // The Limelight starts automatically upon initialization;
+    // there is no .start() or .setPollRateHz() method [1]
   }
 
   @Override
   public void periodic() {
+    // Frequency is determined by the robot's loop speed and Limelight hardware [1-3]
     latestResult = limelight.getLatestResult();
   }
 
-  public double getDistance() {
-    if (latestResult != null && latestResult.isValid()) {
-      return getDistanceFromTag(latestResult.getTa());
-    }
-    return -1;
-  }
-
-  public double getTx() {
-    if (latestResult != null && latestResult.isValid()) {
-      return latestResult.getTx();
-    }
-    return 0;
-  }
-
-  public double getTy() {
-    if (latestResult != null && latestResult.isValid()) {
-      return latestResult.getTy();
-    }
-    return 0;
-  }
-
-  public double getTa() {
-    if (latestResult != null && latestResult.isValid()) {
-      return latestResult.getTa();
-    }
-    return 0;
-  }
-
+  /**
+   * Checks if the camera currently has a valid target.
+   */
   public boolean hasTarget() {
+    // Check if the result exists and if it contains a valid detection [1, 4]
     return latestResult != null && latestResult.isValid();
   }
 
-  private double getDistanceFromTag(double ta) {
-    double scale = 400; // TODO: Calibrate this (once mounted on the robot)
-    double distance = (scale / ta);
-    return distance;
+  /**
+   * Returns the horizontal offset (TX) to the target.
+   * This is used as the 'bearing' for auto-rotation logic [4-6].
+   */
+  public double getTX() {
+    return hasTarget() ? latestResult.getTx() : 0.0;
+  }
+
+  public double getTA() {
+    return hasTarget() ? latestResult.getTa() : 0.0;
+  }
+
+  public double getTY() {
+    return hasTarget() ? latestResult.getTy() : 0.0;
+  }
+
+
+  /**
+   * Allows commands to switch between different pre-configured pipelines.
+   * For example: switching from AprilTag tracking to Color Blob tracking [9].
+   */
+  public void setPipeline(int index) {
+    limelight.pipelineSwitch(index);
+  }
+
+  public double getDistance() {
+    return hasTarget() ? latestResult.getTa() : (0.0);
   }
 }

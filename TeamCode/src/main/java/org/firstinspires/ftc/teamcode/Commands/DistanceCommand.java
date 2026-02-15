@@ -18,9 +18,9 @@ public class DistanceCommand extends CommandBase {
   @Override
   public void execute() {
     final double distance = limelight.getDistance();
-    final double tx = limelight.getTx();
-    final double ty = limelight.getTy();
-    final double ta = limelight.getTa();
+    final double tx = limelight.getTX();
+    final double ta = limelight.getTA();
+    final double ty = limelight.getTY();
 
     telemetry.addData("Has Target", limelight.hasTarget());
     telemetry.addData("Distance", "%.2f", distance);

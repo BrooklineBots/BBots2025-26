@@ -12,7 +12,11 @@ import com.seattlesolvers.solverslib.command.button.GamepadButton;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 import java.io.IOException;
+import java.util.function.DoubleFunction;
+import java.util.function.DoubleSupplier;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Commands.AutoCommands.AutoAlignCommand;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.AutoChooser;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.BlueLeaveBigTri;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.BlueLeaveLittleTri;
@@ -36,6 +40,7 @@ import org.firstinspires.ftc.teamcode.Commands.TransferToStorageCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.BombshellServo;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
+import org.firstinspires.ftc.teamcode.Subsystems.LimelightSub;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake;
 import org.firstinspires.ftc.teamcode.Subsystems.Storage;
 
@@ -47,6 +52,11 @@ public class RobotContainer {
   private Outtake outtake;
   private BombshellServo bombshellServo;
 
+  private LimelightSub vision;
+  private DoubleSupplier forward;
+  private DoubleSupplier strafe;
+
+
   private Storage storage;
 
   // Dependencies
@@ -56,7 +66,7 @@ public class RobotContainer {
   private final GamepadEx gamepad2;
   private final CommandOpMode JavaBot;
 
-  public enum gameMode {
+    public enum gameMode {
     Auto,
     TeleOp
   }
@@ -103,10 +113,15 @@ public class RobotContainer {
     outtake = new Outtake(hardwareMap, telemetry);
     storage = new Storage(hardwareMap);
     bombshellServo = new BombshellServo(hardwareMap, telemetry);
+    vision = new LimelightSub(hardwareMap);
+//    foward = new double;
+//    strafe = gamepad1::getLeftX;
+
     // Register subsystems with scheduler
     CommandScheduler.getInstance()
-        .registerSubsystem(drive, autoDrive, intake, storage, outtake, bombshellServo);
+        .registerSubsystem(drive, autoDrive, intake, storage, outtake, bombshellServo, vision);
   }
+
 
   public void configureTeleOp() {
     currentGameMode = gameMode.TeleOp;
@@ -141,6 +156,13 @@ public class RobotContainer {
         .whenHeld(new StoreArtifactsCommand(storage));
     new GamepadButton(gamepad1, GamepadKeys.Button.A).whenHeld(new IntakeCommand(intake));
     new GamepadButton(gamepad1, GamepadKeys.Button.Y).whenHeld(new ExpelIntakeCommand(intake));
+    new GamepadButton(gamepad2, GamepadKeys.Button.X)
+            .whenHeld(new AutoAlignCommand(
+                    drive,
+                    vision,
+                    () -> -gamepad2.getLeftY(),   // Forward
+                    () -> -gamepad2.getLeftX()    // Strafe
+            ));
 
     new GamepadButton(gamepad2, GamepadKeys.Button.X).whenActive(new OuttakeCommand(outtake));
     new GamepadButton(gamepad2, GamepadKeys.Button.Y)
@@ -150,6 +172,8 @@ public class RobotContainer {
         .whenHeld(new BombshellPushUpCommand(bombshellServo));
     new GamepadButton(gamepad2, GamepadKeys.Button.LEFT_BUMPER)
         .whenHeld(new BombshellReverseCommand(bombshellServo));
+
+
     //    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP)
     //        .whenPressed(
     //            new SequentialCommandGroup(
