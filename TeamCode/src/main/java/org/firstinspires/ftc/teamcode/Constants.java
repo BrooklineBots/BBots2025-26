@@ -21,7 +21,7 @@ public class Constants {
   public static class IntakeConstants {
     public static final String INTAKE_ID = "intakeMotor";
 
-    public static final double INTAKE_VELOCITY = 900;
+    public static final double INTAKE_VELOCITY = 1000;
     public static final double EXPEL_VELOCITY = 700;
     public static final double INTAKE_MAX_VELOCITY = 900; // in RPM, 312
   }
@@ -38,14 +38,6 @@ public class Constants {
     public static final double OUTTAKE_MOVEMENT_SPEED = 1200;
   }
 
-  public static class StorageConstants {
-    public static final String STORAGE_MOTOR_ID = "storageMotor";
-
-    public static final double STORAGE_VELOCITY = 1800;
-    public static final double STORAGE_EXPEL_VELOCITY = 1900;
-    public static final double STORAGE_MAX_VELOCITY = 1900;
-  }
-
   public static class BombshellServoConstants {
     public static final String BOMBSHELL_SERVO_ID = "bombshellServo";
     public static final long secondsToPush = 817;
@@ -55,9 +47,9 @@ public class Constants {
     public static final String PINBALL_RIGHT_ID = "pinballRight";
     public static final String PINBALL_LEFT_ID = "pinballLeft";
 
-    public static final double rightClosed = 0;
+    public static final double rightClosed = 0.6;
     public static final double rightOpen = 1;
-    public static final double leftClosed = 0;
-    public static final double leftOpen = 1;
+    public static final double leftClosed = 1;
+    public static final double leftOpen = 0.5;
   }
 }

@@ -29,17 +29,12 @@ import org.firstinspires.ftc.teamcode.Commands.AutoCommands.reg;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.zendayaHatTheory;
 import org.firstinspires.ftc.teamcode.Commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.Commands.ExpelIntakeCommand;
-import org.firstinspires.ftc.teamcode.Commands.ExpelStorageAndIntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.OuttakeCommand;
-import org.firstinspires.ftc.teamcode.Commands.StoreArtifactsCommand;
-import org.firstinspires.ftc.teamcode.Commands.TransferToStorageCommand;
-import org.firstinspires.ftc.teamcode.Subsystems.BombshellServo;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake;
 import org.firstinspires.ftc.teamcode.Subsystems.PinballServos;
-import org.firstinspires.ftc.teamcode.Subsystems.Storage;
 
 public class RobotContainer {
   // Subsystems
@@ -47,11 +42,8 @@ public class RobotContainer {
   private Drivetrain autoDrive;
   private Intake intake;
   private Outtake outtake;
-  private BombshellServo bombshellServo;
   private PinpointLocalizer pinpoint;
   private PinballServos pinballs;
-
-  private Storage storage;
 
   // Dependencies
   private final HardwareMap hardwareMap;
@@ -108,12 +100,9 @@ public class RobotContainer {
     drive = new Drivetrain(hardwareMap, telemetry, currentGameMode, pinpoint);
     autoDrive = new Drivetrain(hardwareMap, telemetry, currentGameMode, pinpoint);
     outtake = new Outtake(hardwareMap, telemetry);
-    storage = new Storage(hardwareMap);
-    bombshellServo = new BombshellServo(hardwareMap, telemetry);
-    pinballs = new PinballServos(hardwareMap);
+    pinballs = new PinballServos(hardwareMap, telemetry);
     // Register subsystems with scheduler
-    CommandScheduler.getInstance()
-        .registerSubsystem(drive, autoDrive, intake, storage, outtake, bombshellServo, pinballs);
+    CommandScheduler.getInstance().registerSubsystem(drive, autoDrive, intake, outtake, pinballs);
   }
 
   public void configureTeleOp() {
@@ -137,16 +126,6 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     // Gamepad 1 buttons
-    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP)
-        .whenHeld(new TransferToStorageCommand(intake, storage));
-    new GamepadButton(gamepad1, GamepadKeys.Button.B)
-        .whenActive(new InstantCommand(() -> intake.stop(), intake));
-    new GamepadButton(gamepad1, GamepadKeys.Button.B)
-        .whenActive(new InstantCommand(() -> storage.stop(), storage));
-    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_DOWN)
-        .whenHeld(new ExpelStorageAndIntakeCommand(intake, storage));
-    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_RIGHT)
-        .whenHeld(new StoreArtifactsCommand(storage));
     new GamepadButton(gamepad1, GamepadKeys.Button.A).whenHeld(new IntakeCommand(intake));
     new GamepadButton(gamepad1, GamepadKeys.Button.Y).whenHeld(new ExpelIntakeCommand(intake));
 
@@ -201,8 +180,7 @@ public class RobotContainer {
       } else if (selectedAutoMode == AutoMode.reg) {
         CommandScheduler.getInstance().schedule(new reg(autoDrive, hardwareMap));
       } else if (selectedAutoMode == AutoMode.BlueTwelveArtifact) {
-        CommandScheduler.getInstance()
-            .schedule(new BlueTwelveArtifact(autoDrive, intake, storage, outtake));
+        CommandScheduler.getInstance().schedule(new BlueTwelveArtifact(autoDrive, intake, outtake));
       } else if (selectedAutoMode == AutoMode.RedTwelveArtifact) {
         CommandScheduler.getInstance().schedule(new RedTwelveArtifact(autoDrive, intake));
       } else if (selectedAutoMode == AutoMode.BlueTwelveArtifactFromObelisk) {
