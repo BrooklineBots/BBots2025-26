@@ -1,8 +1,8 @@
 {
   "version": 1,
   "startPoint": {
-    "x": 23.712210216272556,
-    "y": 128.54910706898545,
+    "x": 22.383796932139713,
+    "y": 121.24283400625482,
     "heading": "linear",
     "startDeg": 90,
     "endDeg": 180,
@@ -17,13 +17,20 @@
         "y": 95.80004612546121,
         "heading": "linear",
         "reverse": false,
-        "startDeg": 142,
+        "startDeg": 90,
         "endDeg": 135
       },
       "controlPoints": [],
       "color": "#B9867B",
       "locked": false,
-      "eventMarkers": [],
+      "eventMarkers": [
+        {
+          "id": "event-1771186656003-r9ccee87o",
+          "name": "ShootCenter",
+          "position": 0,
+          "lineIndex": 0
+        }
+      ],
       "waitBeforeMs": 0,
       "waitAfterMs": 0,
       "waitBeforeName": "",
@@ -44,7 +51,20 @@
       "controlPoints": [],
       "color": "#C777C9",
       "locked": false,
-      "eventMarkers": [],
+      "eventMarkers": [
+        {
+          "id": "event-1771186303540-90ljps6wq",
+          "name": "IntakeOn",
+          "position": 0.9500000000000002,
+          "lineIndex": 1
+        },
+        {
+          "id": "event-1771186510453-80q2o3inn",
+          "name": "PinballClose",
+          "position": 0.9700000000000002,
+          "lineIndex": 1
+        }
+      ],
       "waitBeforeMs": 0,
       "waitAfterMs": 0,
       "waitBeforeName": "",
@@ -88,7 +108,14 @@
       "waitAfterMs": 0,
       "waitBeforeName": "",
       "waitAfterName": "",
-      "eventMarkers": [],
+      "eventMarkers": [
+        {
+          "id": "event-1771186311900-nwpw6ho8h",
+          "name": "IntakeOff",
+          "position": 0.08999999999999986,
+          "lineIndex": 3
+        }
+      ],
       "_linkedName": "shoot"
     },
     {
@@ -149,7 +176,14 @@
       "waitAfterMs": 0,
       "waitBeforeName": "",
       "waitAfterName": "",
-      "eventMarkers": [],
+      "eventMarkers": [
+        {
+          "id": "event-1771186403253-4ho9680df",
+          "name": "IntakeOff",
+          "position": 0.08999999999999986,
+          "lineIndex": 6
+        }
+      ],
       "_linkedName": "shoot"
     },
     {
@@ -169,7 +203,14 @@
       "waitAfterMs": 0,
       "waitBeforeName": "",
       "waitAfterName": "",
-      "eventMarkers": [],
+      "eventMarkers": [
+        {
+          "id": "event-1771186568686-81ufl0661",
+          "name": "PinballClose",
+          "position": 0.3100000000000005,
+          "lineIndex": 7
+        }
+      ],
       "_linkedName": "intakeBottom"
     },
     {
@@ -189,7 +230,14 @@
       "waitAfterMs": 0,
       "waitBeforeName": "",
       "waitAfterName": "",
-      "eventMarkers": [],
+      "eventMarkers": [
+        {
+          "id": "event-1771186414456-pr0lszyl5",
+          "name": "IntakeOn",
+          "position": 0.02999999999999936,
+          "lineIndex": 8
+        }
+      ],
       "_linkedName": "intakeBottomDone"
     },
     {
@@ -209,7 +257,14 @@
       "waitAfterMs": 0,
       "waitBeforeName": "",
       "waitAfterName": "",
-      "eventMarkers": [],
+      "eventMarkers": [
+        {
+          "id": "event-1771186425585-284wgue0a",
+          "name": "IntakeOff",
+          "position": 0.08999999999999986,
+          "lineIndex": 9
+        }
+      ],
       "_linkedName": "shoot"
     },
     {
@@ -229,7 +284,14 @@
       "waitAfterMs": 0,
       "waitBeforeName": "",
       "waitAfterName": "",
-      "eventMarkers": [],
+      "eventMarkers": [
+        {
+          "id": "event-1771186599085-h6uxgsbjk",
+          "name": "PinballClose",
+          "position": 0.6700000000000017,
+          "lineIndex": 10
+        }
+      ],
       "_linkedName": "gate"
     }
   ],
@@ -1315,7 +1377,15 @@
       "name": "outtakeWait (1)",
       "durationMs": 3000,
       "locked": false,
-      "_linkedName": "outtakeWait"
+      "_linkedName": "outtakeWait",
+      "eventMarkers": [
+        {
+          "id": "event-1771186470623-01x6ty15o",
+          "name": "PinballOpen",
+          "position": 0.3400000000000001,
+          "waitId": "mlbkh0ld-thco75"
+        }
+      ]
     },
     {
       "kind": "path",
@@ -1331,7 +1401,8 @@
       "name": "intakeWait (1)",
       "durationMs": 500,
       "locked": false,
-      "_linkedName": "intakeWait"
+      "_linkedName": "intakeWait",
+      "eventMarkers": []
     },
     {
       "kind": "path",
@@ -1343,7 +1414,15 @@
       "name": "outtakeWait (2)",
       "durationMs": 3000,
       "locked": false,
-      "_linkedName": "outtakeWait"
+      "_linkedName": "outtakeWait",
+      "eventMarkers": [
+        {
+          "id": "event-1771186527698-8a4ue7b9b",
+          "name": "PinballOpen",
+          "position": 0.28000000000000025,
+          "waitId": "mlbkhfd0-jl4c4l"
+        }
+      ]
     },
     {
       "kind": "path",
@@ -1355,7 +1434,21 @@
       "name": "intakeWait (2)",
       "durationMs": 500,
       "locked": false,
-      "_linkedName": "intakeWait"
+      "_linkedName": "intakeWait",
+      "eventMarkers": [
+        {
+          "id": "event-1771186392299-e1fyxgebn",
+          "name": "IntakeOn",
+          "position": 0.0600000000000005,
+          "waitId": "mlbkexft-q8dg60"
+        },
+        {
+          "id": "event-1771186540618-7riv122lc",
+          "name": "PinballClose",
+          "position": 0.09999999999999964,
+          "waitId": "mlbkexft-q8dg60"
+        }
+      ]
     },
     {
       "kind": "path",
@@ -1371,7 +1464,15 @@
       "name": "outtakeWait (3)",
       "durationMs": 3000,
       "locked": false,
-      "_linkedName": "outtakeWait"
+      "_linkedName": "outtakeWait",
+      "eventMarkers": [
+        {
+          "id": "event-1771186553329-iopm88kan",
+          "name": "PinballOpen",
+          "position": 0.0600000000000005,
+          "waitId": "mlbkhl9h-1wqh6q"
+        }
+      ]
     },
     {
       "kind": "path",
@@ -1387,7 +1488,8 @@
       "name": "intakeWait (3)",
       "durationMs": 500,
       "locked": false,
-      "_linkedName": "intakeWait"
+      "_linkedName": "intakeWait",
+      "eventMarkers": []
     },
     {
       "kind": "path",
@@ -1399,7 +1501,15 @@
       "name": "outtakeWait (4)",
       "durationMs": 3000,
       "locked": false,
-      "_linkedName": "outtakeWait"
+      "_linkedName": "outtakeWait",
+      "eventMarkers": [
+        {
+          "id": "event-1771186581300-1smce9t84",
+          "name": "PinballOpen",
+          "position": 0.07000000000000028,
+          "waitId": "mlbkhql6-uh69n8"
+        }
+      ]
     },
     {
       "kind": "path",

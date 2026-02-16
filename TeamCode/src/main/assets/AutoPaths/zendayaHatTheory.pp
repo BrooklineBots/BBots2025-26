@@ -15,9 +15,10 @@
       "endPoint": {
         "x": 50.907749077490784,
         "y": 92.45756457564576,
-        "heading": "linear",
+        "heading": "tangential",
         "startDeg": 90,
-        "endDeg": 45
+        "endDeg": -135,
+        "reverse": true
       },
       "controlPoints": [],
       "color": "#58CCA5",
@@ -29,54 +30,16 @@
       "waitAfterName": ""
     },
     {
-      "id": "mlnwef0j-pe3vr2",
-      "name": "intakeTop",
-      "endPoint": {
-        "x": 50.907749077490784,
-        "y": 85.380073800738,
-        "heading": "linear",
-        "reverse": false,
-        "startDeg": 142,
-        "endDeg": 180
-      },
-      "controlPoints": [],
-      "color": "#DBD9CA",
-      "waitBeforeMs": 0,
-      "waitAfterMs": 0,
-      "waitBeforeName": "",
-      "waitAfterName": "",
-      "eventMarkers": []
-    },
-    {
       "id": "mlnwf26u-wiznrb",
       "name": "topDone",
       "endPoint": {
-        "x": 14.243542435424352,
-        "y": 85.380073800738,
+        "x": 14.022140221402212,
+        "y": 92.45756457564576,
         "heading": "tangential",
         "reverse": false
       },
       "controlPoints": [],
       "color": "#868D67",
-      "waitBeforeMs": 0,
-      "waitAfterMs": 0,
-      "waitBeforeName": "",
-      "waitAfterName": "",
-      "eventMarkers": []
-    },
-    {
-      "id": "mlnwflyi-ayfnmx",
-      "name": "shootTop",
-      "endPoint": {
-        "x": 50.907749077490784,
-        "y": 92.45756457564576,
-        "heading": "linear",
-        "reverse": false,
-        "startDeg": 180,
-        "endDeg": 45
-      },
-      "controlPoints": [],
-      "color": "#5BBD96",
       "waitBeforeMs": 0,
       "waitAfterMs": 0,
       "waitBeforeName": "",
@@ -1169,10 +1132,6 @@
     },
     {
       "kind": "path",
-      "lineId": "mlnwef0j-pe3vr2"
-    },
-    {
-      "kind": "path",
       "lineId": "mlnwf26u-wiznrb"
     },
     {
@@ -1180,11 +1139,8 @@
       "id": "mlnwfgui-ndrm4m",
       "name": "intakeTopWait",
       "durationMs": 500,
-      "locked": false
-    },
-    {
-      "kind": "path",
-      "lineId": "mlnwflyi-ayfnmx"
+      "locked": false,
+      "eventMarkers": []
     }
   ],
   "shapes": [

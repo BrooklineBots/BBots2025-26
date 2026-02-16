@@ -226,6 +226,10 @@ public class RobotContainer {
         "ShootCenter",
         new SequentialCommandGroup(new OuttakeCommand(outtake), new WaitCommand(3000)),
         "Outtakes artifacts");
+    NamedCommands.registerCommand(
+        "PinballOpen", new InstantCommand(() -> pinballs.open()), "Open pinball flaps");
+    NamedCommands.registerCommand(
+        "PinballClose", new InstantCommand(() -> pinballs.close()), "Close pinball flaps");
 
     NamedCommands.listAllCommands(telemetry);
   }

@@ -21,9 +21,9 @@ public class Constants {
   public static class IntakeConstants {
     public static final String INTAKE_ID = "intakeMotor";
 
-    public static final double INTAKE_VELOCITY = 1000;
-    public static final double EXPEL_VELOCITY = 700;
-    public static final double INTAKE_MAX_VELOCITY = 900; // in RPM, 312
+    public static final double INTAKE_VELOCITY = 1500;
+    public static final double EXPEL_VELOCITY = 1500;
+    public static final double INTAKE_MAX_VELOCITY = 1500; // in RPM, 312
   }
 
   public static class OuttakeConstants {
@@ -35,7 +35,7 @@ public class Constants {
     public static final String OUTTAKE_ID = "outtakeMotor";
 
     public static final double OUTTAKE_MAX_VELOCITY = rpmToRadPerSec(12000);
-    public static final double OUTTAKE_MOVEMENT_SPEED = 1200;
+    public static final double OUTTAKE_MOVEMENT_SPEED = 1500;
   }
 
   public static class BombshellServoConstants {

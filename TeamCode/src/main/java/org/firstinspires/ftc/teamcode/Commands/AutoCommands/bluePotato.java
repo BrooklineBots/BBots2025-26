@@ -18,8 +18,10 @@ import com.pedropathingplus.PedroPathReader;
 import com.pedropathingplus.pathing.ProgressTracker;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.InstantCommand;
+import com.seattlesolvers.solverslib.command.ParallelRaceGroup;
 import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitCommand;
+import com.seattlesolvers.solverslib.command.WaitUntilCommand;
 import com.seattlesolvers.solverslib.pedroCommand.FollowPathCommand;
 import java.io.IOException;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -81,15 +83,42 @@ public class bluePotato extends SequentialCommandGroup {
             () -> {
               progressTracker.setCurrentChain(startPointTOshoot);
               progressTracker.setCurrentPathName("startPointTOshoot");
+              progressTracker.registerEvent("ShootCenter", 0.000);
             }),
-        new FollowPathCommand(follower, startPointTOshoot),
-        new WaitCommand(3000),
+        new ParallelRaceGroup(
+            new FollowPathCommand(follower, startPointTOshoot),
+            new SequentialCommandGroup(
+                new WaitUntilCommand(() -> progressTracker.shouldTriggerEvent("ShootCenter")),
+                new InstantCommand(
+                    () -> {
+                      progressTracker.executeEvent("ShootCenter");
+                    }))),
+        new ParallelRaceGroup(
+            new WaitCommand(3000),
+            new SequentialCommandGroup(
+                new WaitCommand(1020),
+                new InstantCommand(() -> progressTracker.executeEvent("PinballOpen")),
+                new WaitCommand(1980))),
         new InstantCommand(
             () -> {
               progressTracker.setCurrentChain(shootTOintakeTop);
               progressTracker.setCurrentPathName("shootTOintakeTop");
+              progressTracker.registerEvent("IntakeOn", 0.950);
+              progressTracker.registerEvent("PinballClose", 0.970);
             }),
-        new FollowPathCommand(follower, shootTOintakeTop),
+        new ParallelRaceGroup(
+            new FollowPathCommand(follower, shootTOintakeTop),
+            new SequentialCommandGroup(
+                new WaitUntilCommand(() -> progressTracker.shouldTriggerEvent("IntakeOn")),
+                new InstantCommand(
+                    () -> {
+                      progressTracker.executeEvent("IntakeOn");
+                    }),
+                new WaitUntilCommand(() -> progressTracker.shouldTriggerEvent("PinballClose")),
+                new InstantCommand(
+                    () -> {
+                      progressTracker.executeEvent("PinballClose");
+                    }))),
         new InstantCommand(
             () -> {
               progressTracker.setCurrentChain(intakeTopTOintakeTopDone);
@@ -101,16 +130,36 @@ public class bluePotato extends SequentialCommandGroup {
             () -> {
               progressTracker.setCurrentChain(intakeTopDoneTOshoot);
               progressTracker.setCurrentPathName("intakeTopDoneTOshoot");
+              progressTracker.registerEvent("IntakeOff", 0.090);
             }),
-        new FollowPathCommand(follower, intakeTopDoneTOshoot),
-        new WaitCommand(3000),
+        new ParallelRaceGroup(
+            new FollowPathCommand(follower, intakeTopDoneTOshoot),
+            new SequentialCommandGroup(
+                new WaitUntilCommand(() -> progressTracker.shouldTriggerEvent("IntakeOff")),
+                new InstantCommand(
+                    () -> {
+                      progressTracker.executeEvent("IntakeOff");
+                    }))),
+        new ParallelRaceGroup(
+            new WaitCommand(3000),
+            new SequentialCommandGroup(
+                new WaitCommand(840),
+                new InstantCommand(() -> progressTracker.executeEvent("PinballOpen")),
+                new WaitCommand(2160))),
         new InstantCommand(
             () -> {
               progressTracker.setCurrentChain(shootTOintakeMiddle);
               progressTracker.setCurrentPathName("shootTOintakeMiddle");
             }),
         new FollowPathCommand(follower, shootTOintakeMiddle),
-        new WaitCommand(500),
+        new ParallelRaceGroup(
+            new WaitCommand(500),
+            new SequentialCommandGroup(
+                new WaitCommand(30),
+                new InstantCommand(() -> progressTracker.executeEvent("IntakeOn")),
+                new WaitCommand(20),
+                new InstantCommand(() -> progressTracker.executeEvent("PinballClose")),
+                new WaitCommand(450))),
         new InstantCommand(
             () -> {
               progressTracker.setCurrentChain(intakeMiddleTOintakeMiddleDone);
@@ -121,35 +170,85 @@ public class bluePotato extends SequentialCommandGroup {
             () -> {
               progressTracker.setCurrentChain(intakeMiddleDoneTOshoot);
               progressTracker.setCurrentPathName("intakeMiddleDoneTOshoot");
+              progressTracker.registerEvent("IntakeOff", 0.090);
             }),
-        new FollowPathCommand(follower, intakeMiddleDoneTOshoot),
-        new WaitCommand(3000),
+        new ParallelRaceGroup(
+            new FollowPathCommand(follower, intakeMiddleDoneTOshoot),
+            new SequentialCommandGroup(
+                new WaitUntilCommand(() -> progressTracker.shouldTriggerEvent("IntakeOff")),
+                new InstantCommand(
+                    () -> {
+                      progressTracker.executeEvent("IntakeOff");
+                    }))),
+        new ParallelRaceGroup(
+            new WaitCommand(3000),
+            new SequentialCommandGroup(
+                new WaitCommand(180),
+                new InstantCommand(() -> progressTracker.executeEvent("PinballOpen")),
+                new WaitCommand(2820))),
         new InstantCommand(
             () -> {
               progressTracker.setCurrentChain(shootTOintakeBottom);
               progressTracker.setCurrentPathName("shootTOintakeBottom");
+              progressTracker.registerEvent("PinballClose", 0.310);
             }),
-        new FollowPathCommand(follower, shootTOintakeBottom),
+        new ParallelRaceGroup(
+            new FollowPathCommand(follower, shootTOintakeBottom),
+            new SequentialCommandGroup(
+                new WaitUntilCommand(() -> progressTracker.shouldTriggerEvent("PinballClose")),
+                new InstantCommand(
+                    () -> {
+                      progressTracker.executeEvent("PinballClose");
+                    }))),
         new InstantCommand(
             () -> {
               progressTracker.setCurrentChain(intakeBottomTOintakeBottomDone);
               progressTracker.setCurrentPathName("intakeBottomTOintakeBottomDone");
+              progressTracker.registerEvent("IntakeOn", 0.030);
             }),
-        new FollowPathCommand(follower, intakeBottomTOintakeBottomDone),
+        new ParallelRaceGroup(
+            new FollowPathCommand(follower, intakeBottomTOintakeBottomDone),
+            new SequentialCommandGroup(
+                new WaitUntilCommand(() -> progressTracker.shouldTriggerEvent("IntakeOn")),
+                new InstantCommand(
+                    () -> {
+                      progressTracker.executeEvent("IntakeOn");
+                    }))),
         new WaitCommand(500),
         new InstantCommand(
             () -> {
               progressTracker.setCurrentChain(intakeBottomDoneTOshoot);
               progressTracker.setCurrentPathName("intakeBottomDoneTOshoot");
+              progressTracker.registerEvent("IntakeOff", 0.090);
             }),
-        new FollowPathCommand(follower, intakeBottomDoneTOshoot),
-        new WaitCommand(3000),
+        new ParallelRaceGroup(
+            new FollowPathCommand(follower, intakeBottomDoneTOshoot),
+            new SequentialCommandGroup(
+                new WaitUntilCommand(() -> progressTracker.shouldTriggerEvent("IntakeOff")),
+                new InstantCommand(
+                    () -> {
+                      progressTracker.executeEvent("IntakeOff");
+                    }))),
+        new ParallelRaceGroup(
+            new WaitCommand(3000),
+            new SequentialCommandGroup(
+                new WaitCommand(210),
+                new InstantCommand(() -> progressTracker.executeEvent("PinballOpen")),
+                new WaitCommand(2790))),
         new InstantCommand(
             () -> {
               progressTracker.setCurrentChain(shootTOgate);
               progressTracker.setCurrentPathName("shootTOgate");
+              progressTracker.registerEvent("PinballClose", 0.670);
             }),
-        new FollowPathCommand(follower, shootTOgate));
+        new ParallelRaceGroup(
+            new FollowPathCommand(follower, shootTOgate),
+            new SequentialCommandGroup(
+                new WaitUntilCommand(() -> progressTracker.shouldTriggerEvent("PinballClose")),
+                new InstantCommand(
+                    () -> {
+                      progressTracker.executeEvent("PinballClose");
+                    }))));
   }
 
   public void buildPaths() {

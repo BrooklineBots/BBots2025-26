@@ -33,15 +33,11 @@ public class zendayaHatTheory extends SequentialCommandGroup {
   // Poses
   private Pose startPoint;
   private Pose shootPreload;
-  private Pose intakeTop;
   private Pose topDone;
-  private Pose shootTop;
 
   // Path chains
   private PathChain startPointTOshootPreload;
-  private PathChain shootPreloadTOintakeTop;
-  private PathChain intakeTopTOtopDone;
-  private PathChain topDoneTOshootTop;
+  private PathChain shootPreloadTOtopDone;
 
   public zendayaHatTheory(final Drivetrain drive, HardwareMap hw, Telemetry telemetry)
       throws IOException {
@@ -53,9 +49,7 @@ public class zendayaHatTheory extends SequentialCommandGroup {
     // Load poses
     startPoint = pp.get("startPoint");
     shootPreload = pp.get("shootPreload");
-    intakeTop = pp.get("intakeTop");
     topDone = pp.get("topDone");
-    shootTop = pp.get("shootTop");
 
     follower.setStartingPose(startPoint);
 
@@ -71,23 +65,11 @@ public class zendayaHatTheory extends SequentialCommandGroup {
         new WaitCommand(3000),
         new InstantCommand(
             () -> {
-              progressTracker.setCurrentChain(shootPreloadTOintakeTop);
-              progressTracker.setCurrentPathName("shootPreloadTOintakeTop");
+              progressTracker.setCurrentChain(shootPreloadTOtopDone);
+              progressTracker.setCurrentPathName("shootPreloadTOtopDone");
             }),
-        new FollowPathCommand(follower, shootPreloadTOintakeTop),
-        new InstantCommand(
-            () -> {
-              progressTracker.setCurrentChain(intakeTopTOtopDone);
-              progressTracker.setCurrentPathName("intakeTopTOtopDone");
-            }),
-        new FollowPathCommand(follower, intakeTopTOtopDone),
-        new WaitCommand(500),
-        new InstantCommand(
-            () -> {
-              progressTracker.setCurrentChain(topDoneTOshootTop);
-              progressTracker.setCurrentPathName("topDoneTOshootTop");
-            }),
-        new FollowPathCommand(follower, topDoneTOshootTop));
+        new FollowPathCommand(follower, shootPreloadTOtopDone),
+        new WaitCommand(500));
   }
 
   public void buildPaths() {
@@ -95,28 +77,15 @@ public class zendayaHatTheory extends SequentialCommandGroup {
         follower
             .pathBuilder()
             .addPath(new BezierLine(startPoint, shootPreload))
-            .setLinearHeadingInterpolation(startPoint.getHeading(), shootPreload.getHeading())
-            .build();
-
-    shootPreloadTOintakeTop =
-        follower
-            .pathBuilder()
-            .addPath(new BezierLine(shootPreload, intakeTop))
-            .setLinearHeadingInterpolation(shootPreload.getHeading(), intakeTop.getHeading())
-            .build();
-
-    intakeTopTOtopDone =
-        follower
-            .pathBuilder()
-            .addPath(new BezierLine(intakeTop, topDone))
             .setTangentHeadingInterpolation()
+            .setReversed()
             .build();
 
-    topDoneTOshootTop =
+    shootPreloadTOtopDone =
         follower
             .pathBuilder()
-            .addPath(new BezierLine(topDone, shootTop))
-            .setLinearHeadingInterpolation(topDone.getHeading(), shootTop.getHeading())
+            .addPath(new BezierLine(shootPreload, topDone))
+            .setTangentHeadingInterpolation()
             .build();
   }
 }
