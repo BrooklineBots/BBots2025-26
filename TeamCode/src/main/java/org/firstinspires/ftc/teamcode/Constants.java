@@ -21,7 +21,7 @@ public class Constants {
   public static class IntakeConstants {
     public static final String INTAKE_ID = "intakeMotor";
 
-    public static final double INTAKE_VELOCITY = 1500;
+    public static final double INTAKE_VELOCITY = 1300;
     public static final double EXPEL_VELOCITY = 1500;
     public static final double INTAKE_MAX_VELOCITY = 1500; // in RPM, 312
   }
