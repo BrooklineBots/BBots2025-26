@@ -16,35 +16,29 @@ import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
 import com.pedropathingplus.pathing.ProgressTracker;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.seattlesolvers.solverslib.command.InstantCommand;
 import com.seattlesolvers.solverslib.command.ParallelRaceGroup;
 import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitCommand;
-import com.seattlesolvers.solverslib.command.WaitUntilCommand;
-import com.seattlesolvers.solverslib.pedroCommand.FollowPathCommand;
 import java.io.IOException;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
-public class zendayaHatTheory extends SequentialCommandGroup {
+public class CommandTests extends SequentialCommandGroup {
 
   private final Follower follower;
   private final ProgressTracker progressTracker;
-
   private final Intake intake;
 
   // Poses
   private Pose startPoint;
-  private Pose shootPreload;
-  private Pose topDone;
+  private Pose point1;
 
   // Path chains
-  private PathChain startPointTOshootPreload;
-  private PathChain shootPreloadTOtopDone;
+  private PathChain startPointTOpoint1;
 
-  public zendayaHatTheory(
+  public CommandTests(
       final Drivetrain drive, final Intake intake, HardwareMap hw, Telemetry telemetry)
       throws IOException {
     this.follower = drive.getFollower();
@@ -52,50 +46,23 @@ public class zendayaHatTheory extends SequentialCommandGroup {
     this.intake = intake;
 
     // Load poses
-    startPoint = new Pose(17.476, 120.694, Math.toRadians(140));
-    shootPreload = new Pose(42.572, 97.458, Math.toRadians(165));
-    topDone = new Pose(14.022, 92.458, Math.toRadians(180));
+    startPoint = new Pose(56.000, 8.000, Math.toRadians(90));
+    point1 = new Pose(56.000, 8.000, Math.toRadians(-90));
 
     follower.setStartingPose(startPoint);
 
     buildPaths();
 
     addCommands(
-        new InstantCommand(
-            () -> {
-              progressTracker.setCurrentChain(startPointTOshootPreload);
-              progressTracker.setCurrentPathName("startPointTOshootPreload");
-              progressTracker.registerEvent("ShootCenter", 0.000);
-              progressTracker.registerEvent("IntakeOn", 0.0);
-            }),
-        new ParallelRaceGroup(
-            new FollowPathCommand(follower, startPointTOshootPreload),
-            new SequentialCommandGroup(
-                new WaitUntilCommand(() -> progressTracker.shouldTriggerEvent("ShootCenter")),
-                new InstantCommand(
-                    () -> {
-                      progressTracker.executeEvent("ShootCenter");
-                    }))),
-        new WaitCommand(5000),
-        new ParallelRaceGroup(new WaitCommand(3000), new IntakeCommand(intake).withTimeout(3000)),
-        new InstantCommand(() -> intake.stop(), intake),
-        new FollowPathCommand(follower, shootPreloadTOtopDone));
+        new ParallelRaceGroup(new WaitCommand(1000), new IntakeCommand(intake).withTimeout(1500)));
   }
 
   public void buildPaths() {
-    startPointTOshootPreload =
+    startPointTOpoint1 =
         follower
             .pathBuilder()
-            .addPath(new BezierLine(startPoint, shootPreload))
-            .setTangentHeadingInterpolation()
-            .setReversed()
-            .build();
-
-    shootPreloadTOtopDone =
-        follower
-            .pathBuilder()
-            .addPath(new BezierLine(shootPreload, topDone))
-            .setTangentHeadingInterpolation()
+            .addPath(new BezierLine(startPoint, point1))
+            .setLinearHeadingInterpolation(Math.toRadians(-90), Math.toRadians(-90))
             .build();
   }
 }
