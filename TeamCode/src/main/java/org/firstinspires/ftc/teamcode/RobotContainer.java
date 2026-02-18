@@ -201,7 +201,7 @@ public class RobotContainer {
         CommandScheduler.getInstance().schedule(new bluePotato(autoDrive, hardwareMap, telemetry));
       } else if (selectedAutoMode == AutoMode.zendayaHatTheory) {
         CommandScheduler.getInstance()
-            .schedule(new zendayaHatTheory(autoDrive, intake, hardwareMap, telemetry));
+            .schedule(new zendayaHatTheory(autoDrive, intake, outtake, hardwareMap, telemetry));
       } else if (selectedAutoMode == AutoMode.CommandTests) {
         CommandScheduler.getInstance()
             .schedule(new CommandTests(autoDrive, intake, hardwareMap, telemetry));

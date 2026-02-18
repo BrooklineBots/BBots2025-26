@@ -27,6 +27,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
+import org.firstinspires.ftc.teamcode.Subsystems.Outtake;
 
 public class zendayaHatTheory extends SequentialCommandGroup {
 
@@ -34,6 +35,7 @@ public class zendayaHatTheory extends SequentialCommandGroup {
   private final ProgressTracker progressTracker;
 
   private final Intake intake;
+  private final Outtake outtake;
 
   // Poses
   private Pose startPoint;
@@ -45,7 +47,11 @@ public class zendayaHatTheory extends SequentialCommandGroup {
   private PathChain shootPreloadTOtopDone;
 
   public zendayaHatTheory(
-      final Drivetrain drive, final Intake intake, HardwareMap hw, Telemetry telemetry)
+      final Drivetrain drive,
+      final Intake intake,
+      final Outtake outtake,
+      HardwareMap hw,
+      Telemetry telemetry)
       throws IOException {
     this.follower = drive.getFollower();
     this.progressTracker = new ProgressTracker(follower, telemetry);
@@ -54,7 +60,7 @@ public class zendayaHatTheory extends SequentialCommandGroup {
     // Load poses
     startPoint = new Pose(17.476, 120.694, Math.toRadians(140));
     shootPreload = new Pose(42.572, 97.458, Math.toRadians(165));
-    topDone = new Pose(14.022, 92.458, Math.toRadians(180));
+    topDone = new Pose(14.022, 85.458, Math.toRadians(180));
 
     follower.setStartingPose(startPoint);
 
@@ -68,18 +74,35 @@ public class zendayaHatTheory extends SequentialCommandGroup {
               progressTracker.registerEvent("ShootCenter", 0.000);
               progressTracker.registerEvent("IntakeOn", 0.0);
             }),
-        new ParallelRaceGroup(
-            new FollowPathCommand(follower, startPointTOshootPreload),
-            new SequentialCommandGroup(
-                new WaitUntilCommand(() -> progressTracker.shouldTriggerEvent("ShootCenter")),
-                new InstantCommand(
-                    () -> {
-                      progressTracker.executeEvent("ShootCenter");
-                    }))),
+        outtake(),
         new WaitCommand(5000),
-        new ParallelRaceGroup(new WaitCommand(3000), new IntakeCommand(intake).withTimeout(3000)),
-        new InstantCommand(() -> intake.stop(), intake),
+        intakeOut(),
+        stopIntake(),
         new FollowPathCommand(follower, shootPreloadTOtopDone));
+  }
+
+  public ParallelRaceGroup intakeOut() {
+    return new ParallelRaceGroup(
+        new WaitCommand(3000), new IntakeCommand(intake).withTimeout(3000));
+  }
+
+  public InstantCommand stopIntake() {
+    return new InstantCommand(() -> intake.stop(), intake);
+  }
+
+  public ParallelRaceGroup outtake() {
+    return new ParallelRaceGroup(
+        new FollowPathCommand(follower, startPointTOshootPreload),
+        new SequentialCommandGroup(
+            new WaitUntilCommand(() -> progressTracker.shouldTriggerEvent("ShootCenter")),
+            new InstantCommand(
+                () -> {
+                  progressTracker.executeEvent("ShootCenter");
+                })));
+  }
+
+  public InstantCommand stopOuttake() {
+    return new InstantCommand(() -> outtake.stop(), outtake);
   }
 
   public void buildPaths() {
