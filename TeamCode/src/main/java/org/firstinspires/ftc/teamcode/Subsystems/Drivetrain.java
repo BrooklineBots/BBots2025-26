@@ -128,8 +128,7 @@ public class Drivetrain extends SubsystemBase {
 
   public void driveFieldCentric(final double forward, final double strafe, final double rotate) {
 
-    drive.driveFieldCentric(
-        strafe, forward, rotate, Math.toDegrees(pinpoint.getPose().getHeading()), false);
+    drive.driveFieldCentric(strafe, forward, rotate, revIMU.getRotation2d().getDegrees(), false);
   }
 
   public Follower getFollower() {
