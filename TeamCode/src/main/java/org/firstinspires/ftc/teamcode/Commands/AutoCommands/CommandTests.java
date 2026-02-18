@@ -21,7 +21,7 @@ import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitCommand;
 import java.io.IOException;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
+import org.firstinspires.ftc.teamcode.Commands.IntakeOutCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
@@ -54,7 +54,8 @@ public class CommandTests extends SequentialCommandGroup {
     buildPaths();
 
     addCommands(
-        new ParallelRaceGroup(new WaitCommand(1000), new IntakeCommand(intake).withTimeout(1500)));
+        new ParallelRaceGroup(
+            new WaitCommand(1000), new IntakeOutCommand(intake).withTimeout(1500)));
   }
 
   public void buildPaths() {

@@ -18,8 +18,8 @@
       "id": "line-ogq85cisbbb",
       "name": "shootPreload",
       "endPoint": {
-        "x": 51.57195571955721,
-        "y": 92.45756457564576,
+        "x": 42,
+        "y": 97,
         "heading": "tangential",
         "startDeg": 90,
         "endDeg": -135,
@@ -42,11 +42,27 @@
       "waitAfterName": ""
     },
     {
+      "id": "mlra8lxv-45ytzk",
+      "name": "topStart",
+      "endPoint": {
+        "x": 38.06273062730627,
+        "y": 83.03321033210332,
+        "heading": "tangential",
+        "reverse": false
+      },
+      "controlPoints": [],
+      "color": "#CA7BBC",
+      "waitBeforeMs": 0,
+      "waitAfterMs": 0,
+      "waitBeforeName": "",
+      "waitAfterName": ""
+    },
+    {
       "id": "mlnwf26u-wiznrb",
       "name": "topDone",
       "endPoint": {
-        "x": 14.022140221402212,
-        "y": 92.45756457564576,
+        "x": 14.243542435424352,
+        "y": 90.46494464944651,
         "heading": "tangential",
         "reverse": false
       },
@@ -85,6 +101,10 @@
           "waitId": "mlnwe56f-s8k6r0"
         }
       ]
+    },
+    {
+      "kind": "path",
+      "lineId": "mlra8lxv-45ytzk"
     },
     {
       "kind": "path",

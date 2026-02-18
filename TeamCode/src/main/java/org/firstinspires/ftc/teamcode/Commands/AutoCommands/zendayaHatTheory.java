@@ -25,6 +25,7 @@ import com.seattlesolvers.solverslib.pedroCommand.FollowPathCommand;
 import java.io.IOException;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
+import org.firstinspires.ftc.teamcode.Commands.IntakeOutCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake;
@@ -56,10 +57,11 @@ public class zendayaHatTheory extends SequentialCommandGroup {
     this.follower = drive.getFollower();
     this.progressTracker = new ProgressTracker(follower, telemetry);
     this.intake = intake;
+    this.outtake = outtake;
 
     // Load poses
     startPoint = new Pose(17.476, 120.694, Math.toRadians(140));
-    shootPreload = new Pose(42.572, 97.458, Math.toRadians(165));
+    shootPreload = new Pose(42.572, 97.458, Math.toRadians(150));
     topDone = new Pose(14.022, 85.458, Math.toRadians(180));
 
     follower.setStartingPose(startPoint);
@@ -82,6 +84,11 @@ public class zendayaHatTheory extends SequentialCommandGroup {
   }
 
   public ParallelRaceGroup intakeOut() {
+    return new ParallelRaceGroup(
+        new WaitCommand(3000), new IntakeOutCommand(intake).withTimeout(3000));
+  }
+
+  public ParallelRaceGroup intake() {
     return new ParallelRaceGroup(
         new WaitCommand(3000), new IntakeCommand(intake).withTimeout(3000));
   }
@@ -110,7 +117,7 @@ public class zendayaHatTheory extends SequentialCommandGroup {
         follower
             .pathBuilder()
             .addPath(new BezierLine(startPoint, shootPreload))
-            .setTangentHeadingInterpolation()
+            .setLinearHeadingInterpolation(startPoint.getHeading(), shootPreload.getHeading())
             .setReversed()
             .build();
 

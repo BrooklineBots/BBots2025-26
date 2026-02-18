@@ -10,7 +10,7 @@ import com.seattlesolvers.solverslib.command.ParallelCommandGroup;
 import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.pedroCommand.FollowPathCommand;
-import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
+import org.firstinspires.ftc.teamcode.Commands.IntakeOutCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 
@@ -105,7 +105,7 @@ public class RedTwelveArtifact extends SequentialCommandGroup {
 
   private ParallelCommandGroup intakeWhileRunning(final PathChain path) {
     return new ParallelCommandGroup(
-        new FollowPathCommand(follower, path), new IntakeCommand(intakeWheel).withTimeout(1500));
+        new FollowPathCommand(follower, path), new IntakeOutCommand(intakeWheel).withTimeout(1500));
   }
 
   public void buildPaths() {

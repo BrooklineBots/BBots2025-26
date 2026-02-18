@@ -33,6 +33,11 @@ public class Intake extends SubsystemBase {
     setVelocity(Constants.IntakeConstants.INTAKE_VELOCITY);
   }
 
+  public void intakeOut() {
+    intakeMotor.setInverted(true);
+    setVelocity(Constants.IntakeConstants.INTAKE_OUT_VELOCITY);
+  }
+
   public void expel() {
     intakeMotor.setInverted(false);
     setVelocity(Constants.IntakeConstants.EXPEL_VELOCITY);

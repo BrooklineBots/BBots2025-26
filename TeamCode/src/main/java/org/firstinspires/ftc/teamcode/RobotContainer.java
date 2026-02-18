@@ -14,6 +14,7 @@ import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 import java.io.IOException;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.AutoChooser;
+import org.firstinspires.ftc.teamcode.Commands.AutoCommands.B12;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.BlueLeaveBigTri;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.BlueLeaveLittleTri;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.BlueTwelveArtifact;
@@ -29,6 +30,7 @@ import org.firstinspires.ftc.teamcode.Commands.AutoCommands.zendayaHatTheory;
 import org.firstinspires.ftc.teamcode.Commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.Commands.ExpelIntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
+import org.firstinspires.ftc.teamcode.Commands.IntakeOutCommand;
 import org.firstinspires.ftc.teamcode.Commands.OuttakeCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
@@ -72,7 +74,8 @@ public class RobotContainer {
     RedLeaveBigTri,
     bluePotato,
     zendayaHatTheory,
-    CommandTests;
+    CommandTests,
+    B12;
   }
 
   private AutoMode currentAuto;
@@ -128,6 +131,7 @@ public class RobotContainer {
     // Gamepad 1 buttons
     new GamepadButton(gamepad1, GamepadKeys.Button.A).whenHeld(new IntakeCommand(intake));
     new GamepadButton(gamepad1, GamepadKeys.Button.Y).whenHeld(new ExpelIntakeCommand(intake));
+    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP).whenHeld(new IntakeOutCommand(intake));
 
     new GamepadButton(gamepad2, GamepadKeys.Button.Y)
         .whenActive(new InstantCommand(() -> outtake.stop(), outtake));
@@ -205,6 +209,9 @@ public class RobotContainer {
       } else if (selectedAutoMode == AutoMode.CommandTests) {
         CommandScheduler.getInstance()
             .schedule(new CommandTests(autoDrive, intake, hardwareMap, telemetry));
+      } else if (selectedAutoMode == AutoMode.B12) {
+        CommandScheduler.getInstance()
+            .schedule(new B12(autoDrive, outtake, intake, hardwareMap, telemetry));
       } else {
         telemetry.addLine("No auto was selected! There was likely an error.");
         telemetry.update();
