@@ -31,8 +31,11 @@ import org.firstinspires.ftc.teamcode.Commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.Commands.ExpelIntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.IntakeOutCommand;
+import org.firstinspires.ftc.teamcode.Commands.LowerEndgameCommand;
 import org.firstinspires.ftc.teamcode.Commands.OuttakeCommand;
+import org.firstinspires.ftc.teamcode.Commands.RaiseEndgameCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
+import org.firstinspires.ftc.teamcode.Subsystems.Endgame;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake;
 import org.firstinspires.ftc.teamcode.Subsystems.PinballServos;
@@ -45,6 +48,8 @@ public class RobotContainer {
   private Outtake outtake;
   private PinpointLocalizer pinpoint;
   private PinballServos pinballs;
+
+  private Endgame endgame;
 
   // Dependencies
   private final HardwareMap hardwareMap;
@@ -104,6 +109,7 @@ public class RobotContainer {
     autoDrive = new Drivetrain(hardwareMap, telemetry, currentGameMode, pinpoint);
     outtake = new Outtake(hardwareMap, telemetry);
     pinballs = new PinballServos(hardwareMap, telemetry);
+    endgame = new Endgame(hardwareMap);
     // Register subsystems with scheduler
     CommandScheduler.getInstance().registerSubsystem(drive, autoDrive, intake, outtake, pinballs);
   }
@@ -140,6 +146,8 @@ public class RobotContainer {
         .whenActive(new InstantCommand(() -> pinballs.open()));
     new GamepadButton(gamepad2, GamepadKeys.Button.X)
         .whenActive(new InstantCommand(() -> pinballs.close()));
+    new GamepadButton(gamepad2, GamepadKeys.Button.DPAD_UP).whenHeld(new RaiseEndgameCommand(endgame));
+      new GamepadButton(gamepad2, GamepadKeys.Button.DPAD_DOWN).whenHeld(new LowerEndgameCommand(endgame));
 
     //    new GamepadButton(gamepad2, GamepadKeys.Button.RIGHT_BUMPER)
     //        .whenHeld(new BombshellPushUpCommand(bombshellServo));
