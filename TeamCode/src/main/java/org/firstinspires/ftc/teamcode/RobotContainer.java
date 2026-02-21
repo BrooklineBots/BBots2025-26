@@ -146,8 +146,12 @@ public class RobotContainer {
         .whenActive(new InstantCommand(() -> pinballs.open()));
     new GamepadButton(gamepad2, GamepadKeys.Button.X)
         .whenActive(new InstantCommand(() -> pinballs.close()));
-    new GamepadButton(gamepad2, GamepadKeys.Button.DPAD_UP).whenHeld(new RaiseEndgameCommand(endgame));
-      new GamepadButton(gamepad2, GamepadKeys.Button.DPAD_DOWN).whenHeld(new LowerEndgameCommand(endgame));
+    new GamepadButton(gamepad2, GamepadKeys.Button.DPAD_UP)
+        .whenHeld(new RaiseEndgameCommand(endgame));
+    new GamepadButton(gamepad2, GamepadKeys.Button.DPAD_DOWN)
+        .whenHeld(new LowerEndgameCommand(endgame));
+    // hailey add: new GamepadButton(gamepad2, etc etc).whenHeld(new
+    // RaiseEndgameCommand(endgame).withTimeout(Constants.EndgameConstants.ENDGAME_TIME));
 
     //    new GamepadButton(gamepad2, GamepadKeys.Button.RIGHT_BUMPER)
     //        .whenHeld(new BombshellPushUpCommand(bombshellServo));

@@ -53,10 +53,13 @@ public class Constants {
     public static final double leftClosed = 0.55;
     public static final double leftOpen = 1;
   }
-  public static class EndgameConstants {
-      public static final String RIGHT_ENDGAME_ID = "rightEndgameMotor";
-      public static final String LEFT_ENDGAME_ID = "leftEndgameMotor";
 
-      public static final double ENDGAME_VELOCITY = 500;
+  public static class EndgameConstants {
+    public static final String RIGHT_ENDGAME_ID = "rightEndgameMotor";
+    public static final String LEFT_ENDGAME_ID = "leftEndgameMotor";
+
+    public static final long ENDGAME_TIME =
+        1000; // TODO: change; (milliseconds it takes to move up)
+    public static final double ENDGAME_VELOCITY = 500;
   }
 }
