@@ -15,6 +15,7 @@ import java.io.IOException;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.AutoChooser;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.B12;
+import org.firstinspires.ftc.teamcode.Commands.AutoCommands.B3;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.BlueLeaveBigTri;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.BlueLeaveLittleTri;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.BlueTwelveArtifact;
@@ -203,7 +204,7 @@ public class RobotContainer {
             .schedule(new R3(autoDrive, outtake, intake, hardwareMap, telemetry));
       } else if (selectedAutoMode == AutoMode.B3) {
         CommandScheduler.getInstance()
-            .schedule(new R3(autoDrive, outtake, intake, hardwareMap, telemetry));
+            .schedule(new B3(autoDrive, outtake, intake, hardwareMap, telemetry));
       } else {
         telemetry.addLine("No auto was selected! There was likely an error.");
         telemetry.update();
