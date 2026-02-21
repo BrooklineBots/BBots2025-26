@@ -17,6 +17,8 @@ public class PinballServos extends SubsystemBase {
     pinballRight = new ServoEx(hwMap, Constants.PinballServosConstants.PINBALL_RIGHT_ID);
     pinballLeft = new ServoEx(hwMap, Constants.PinballServosConstants.PINBALL_LEFT_ID);
 
+    pinballRight.setInverted(true);
+    pinballLeft.setInverted(true);
     this.telemetry = telemetry;
   }
 

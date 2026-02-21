@@ -21,10 +21,10 @@ public class Constants {
   public static class IntakeConstants {
     public static final String INTAKE_ID = "intakeMotor";
 
-    public static final double INTAKE_OUT_VELOCITY = 6000;
+    public static final double INTAKE_OUT_VELOCITY = 7000;
     public static final double INTAKE_VELOCITY = 1500;
     public static final double EXPEL_VELOCITY = 1500;
-    public static final double INTAKE_MAX_VELOCITY = 6000; // in RPM, 312
+    public static final double INTAKE_MAX_VELOCITY = 7000; // in RPM, 312
   }
 
   public static class OuttakeConstants {
@@ -48,10 +48,10 @@ public class Constants {
     public static final String PINBALL_RIGHT_ID = "pinballRight";
     public static final String PINBALL_LEFT_ID = "pinballLeft";
 
-    public static final double rightClosed = 0.6;
-    public static final double rightOpen = 1;
-    public static final double leftClosed = 1;
-    public static final double leftOpen = 0.5;
+    public static final double rightClosed = 1;
+    public static final double rightOpen = 0.5;
+    public static final double leftClosed = 0.55;
+    public static final double leftOpen = 1;
   }
   public static class EndgameConstants {
       public static final String RIGHT_ENDGAME_ID = "rightEndgameMotor";
