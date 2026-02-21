@@ -111,7 +111,8 @@ public class RobotContainer {
     pinballs = new PinballServos(hardwareMap, telemetry);
     endgame = new Endgame(hardwareMap);
     // Register subsystems with scheduler
-    CommandScheduler.getInstance().registerSubsystem(drive, autoDrive, intake, outtake, pinballs);
+    CommandScheduler.getInstance()
+        .registerSubsystem(drive, autoDrive, intake, outtake, pinballs, endgame);
   }
 
   public void configureTeleOp() {
@@ -139,6 +140,7 @@ public class RobotContainer {
     new GamepadButton(gamepad1, GamepadKeys.Button.Y).whenHeld(new ExpelIntakeCommand(intake));
     new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP).whenHeld(new IntakeOutCommand(intake));
 
+    // gamepad2
     new GamepadButton(gamepad2, GamepadKeys.Button.Y)
         .whenActive(new InstantCommand(() -> outtake.stop(), outtake));
     new GamepadButton(gamepad2, GamepadKeys.Button.A).whenActive(new OuttakeCommand(outtake));
@@ -152,37 +154,6 @@ public class RobotContainer {
         .whenHeld(new LowerEndgameCommand(endgame));
     // hailey add: new GamepadButton(gamepad2, etc etc).whenHeld(new
     // RaiseEndgameCommand(endgame).withTimeout(Constants.EndgameConstants.ENDGAME_TIME));
-
-    //    new GamepadButton(gamepad2, GamepadKeys.Button.RIGHT_BUMPER)
-    //        .whenHeld(new BombshellPushUpCommand(bombshellServo));
-    //    new GamepadButton(gamepad2, GamepadKeys.Button.LEFT_BUMPER)
-    //        .whenHeld(new BombshellReverseCommand(bombshellServo));
-    //    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP)
-    //        .whenPressed(
-    //            new SequentialCommandGroup(
-    //                new InstantCommand(() -> drive.setSpeeds(1, 0, 0, 0)),
-    //                new WaitCommand(2000),
-    //                new InstantCommand(() -> drive.setSpeeds(0, 0, 0, 0))));
-    //    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_DOWN)
-    //        .whenPressed(
-    //            new SequentialCommandGroup(
-    //                new InstantCommand(() -> drive.setSpeeds(0, 1, 0, 0)),
-    //                new WaitCommand(2000),
-    //                new InstantCommand(() -> drive.setSpeeds(0, 0, 0, 0))));
-    //    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_RIGHT)
-    //        .whenPressed(
-    //            new SequentialCommandGroup(
-    //                new InstantCommand(() -> drive.setSpeeds(0, 0, 1, 0)),
-    //                new WaitCommand(2000),
-    //                new InstantCommand(() -> drive.setSpeeds(0, 0, 0, 0))));
-    //    new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_LEFT)
-    //        .whenPressed(
-    //            new SequentialCommandGroup(
-    //                new InstantCommand(() -> drive.setSpeeds(0, 0, 0, 1)),
-    //                new WaitCommand(2000),
-    //                new InstantCommand(() -> drive.setSpeeds(0, 0, 0, 0))));
-
-    // Gamepad 2 buttons
 
   }
 
