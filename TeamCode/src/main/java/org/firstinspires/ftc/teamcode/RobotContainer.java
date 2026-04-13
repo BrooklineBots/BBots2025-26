@@ -140,7 +140,7 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     // Gamepad 1 buttons
-    new GamepadButton(gamepad1, GamepadKeys.Button.A).whenHeld(new IntakeCommand(intake));
+    new GamepadButton(gamepad1, GamepadKeys.Button.B).whenHeld(new IntakeCommand(intake));
     new GamepadButton(gamepad1, GamepadKeys.Button.Y).whenHeld(new ExpelIntakeCommand(intake));
     new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP).whenHeld(new IntakeOutCommand(intake));
 
