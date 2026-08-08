@@ -39,6 +39,7 @@ import org.firstinspires.ftc.teamcode.Commands.RaiseEndgameCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Endgame;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
+import org.firstinspires.ftc.teamcode.Subsystems.LimelightSub;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake;
 import org.firstinspires.ftc.teamcode.Subsystems.PinballServos;
 
@@ -52,6 +53,7 @@ public class RobotContainer {
   private PinballServos pinballs;
 
   private Endgame endgame;
+  private LimelightSub limelight;
 
   // Dependencies
   private final HardwareMap hardwareMap;
@@ -114,6 +116,7 @@ public class RobotContainer {
     outtake = new Outtake(hardwareMap, telemetry);
     pinballs = new PinballServos(hardwareMap, telemetry);
     endgame = new Endgame(hardwareMap);
+    limelight = new LimelightSub(hardwareMap);
     // Register subsystems with scheduler
     CommandScheduler.getInstance()
         .registerSubsystem(drive, autoDrive, intake, outtake, pinballs, endgame);
@@ -239,6 +242,34 @@ public class RobotContainer {
     // telemetry`
     // telemetry.addData("Currently shooting", outtake.getPower());
     //    telemetry.update();
+
+// Hailey Test
+    telemetry.addData("TX",limelight.getTx() );
+    if (gamepad1.getButton(GamepadKeys.Button.A)) {
+        double tolerance = 4.0;
+        if (!limelight.hasTarget()) {
+            telemetry.addData("Target Result", "No target found");
+        } else if (limelight.getTx() < -tolerance){
+            drive.driveFieldCentric(0, 0, 0.25);
+            telemetry.addData("Target Result", "to robot's left");
+        }else if (limelight.getTx() > tolerance){
+            drive.driveFieldCentric(0, 0, -0.25);
+            telemetry.addData("Target Result", "to robot's right");
+        } else{
+            telemetry.addData("Target Result", "spot on");
+            drive.driveFieldCentric(0, 0, 0);
+        }
+    }
+    telemetry.update();
+//      telemetry.addData("th","is");
+////      if (limelight.hasTarget()) {
+////          telemetry.addData("TX", limelight.getTx());
+////      }else{
+////          telemetry.addData("TX", "Not Found");
+////      }
+//      telemetry.update();
+
+
 
     if (currentGameMode == gameMode.TeleOp) {
       gamepad1.readButtons();
