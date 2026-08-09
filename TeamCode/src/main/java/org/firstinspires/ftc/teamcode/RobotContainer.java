@@ -250,14 +250,14 @@ public class RobotContainer {
         if (!limelight.hasTarget()) {
             telemetry.addData("Target Result", "No target found");
         } else if (limelight.getTx() < -tolerance){
-            drive.driveFieldCentric(0, 0, 0.25);
+            drive.driveRobotCentric(0, 0.25, 0);
             telemetry.addData("Target Result", "to robot's left");
         }else if (limelight.getTx() > tolerance){
-            drive.driveFieldCentric(0, 0, -0.25);
+            drive.driveRobotCentric(0, -0.25, 0);
             telemetry.addData("Target Result", "to robot's right");
         } else{
             telemetry.addData("Target Result", "spot on");
-            drive.driveFieldCentric(0, 0, 0);
+            drive.driveRobotCentric(0, 0, 0);
         }
     }
     telemetry.update();
