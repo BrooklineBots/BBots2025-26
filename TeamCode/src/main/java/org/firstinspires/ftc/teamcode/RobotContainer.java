@@ -14,7 +14,6 @@ import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 import java.io.IOException;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.AutoAlignCommand;
-import org.firstinspires.ftc.teamcode.Commands.AutoStrafeCommand;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.AutoChooser;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.B12;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.B3;
@@ -31,6 +30,7 @@ import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifactFro
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.bluePotato;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.reg;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.zendayaHatTheory;
+import org.firstinspires.ftc.teamcode.Commands.AutoStrafeCommand;
 import org.firstinspires.ftc.teamcode.Commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.Commands.ExpelIntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
@@ -146,10 +146,14 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Gamepad 1 buttons
     new GamepadButton(gamepad1, GamepadKeys.Button.B).whenHeld(new IntakeCommand(intake));
-    new GamepadButton(gamepad1, GamepadKeys.Button.A).toggleWhenActive(new AutoStrafeCommand(drive, limelight, telemetry));
-    new GamepadButton(gamepad1, GamepadKeys.Button.X).toggleWhenActive(new AutoAlignCommand(drive, limelight, telemetry ));
+    new GamepadButton(gamepad1, GamepadKeys.Button.A)
+        .toggleWhenActive(new AutoStrafeCommand(drive, limelight, telemetry));
+    new GamepadButton(gamepad1, GamepadKeys.Button.X)
+        .toggleWhenActive(new AutoAlignCommand(drive, limelight, telemetry));
     new GamepadButton(gamepad1, GamepadKeys.Button.Y).whenHeld(new ExpelIntakeCommand(intake));
     new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP).whenHeld(new IntakeOutCommand(intake));
+    new GamepadButton(gamepad1, GamepadKeys.Button.LEFT_BUMPER)
+        .whenHeld(new AutoAlignCommand(drive, limelight, telemetry));
 
     // gamepad2
     new GamepadButton(gamepad2, GamepadKeys.Button.Y)
@@ -243,37 +247,6 @@ public class RobotContainer {
   }
 
   public void run() {
-    // telemetry`
-    // telemetry.addData("Currently shooting", outtake.getPower());
-    //    telemetry.update();
-
-// Hailey Test
-//    telemetry.addData("TX",limelight.getTx() );
-//    if (gamepad1.getButton(GamepadKeys.Button.A)) {
-//        double tolerance = 4.0;
-//        if (!limelight.hasTarget()) {
-//            telemetry.addData("Target Result", "No target found");
-//        } else if (limelight.getTx() < -tolerance){
-//            drive.driveRobotCentric(0, 0.25, 0);
-//            telemetry.addData("Target Result", "to robot's left");
-//        }else if (limelight.getTx() > tolerance){
-//            drive.driveRobotCentric(0, -0.25, 0);
-//            telemetry.addData("Target Result", "to robot's right");
-//        } else{
-//            telemetry.addData("Target Result", "spot on");
-//            drive.driveRobotCentric(0, 0, 0);
-//        }
-//    }
-//    telemetry.update();
-//      telemetry.addData("th","is");
-////      if (limelight.hasTarget()) {
-////          telemetry.addData("TX", limelight.getTx());
-////      }else{
-////          telemetry.addData("TX", "Not Found");
-////      }
-//      telemetry.update();
-
-
 
     if (currentGameMode == gameMode.TeleOp) {
       gamepad1.readButtons();

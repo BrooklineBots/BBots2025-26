@@ -2,11 +2,8 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.IMU;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
-import com.seattlesolvers.solverslib.hardware.RevIMU;
 
 public class LimelightSub extends SubsystemBase {
 
@@ -15,9 +12,9 @@ public class LimelightSub extends SubsystemBase {
 
   public LimelightSub(HardwareMap hardwareMap) {
     limelight = hardwareMap.get(Limelight3A.class, "limelight");
-    //limelight.pipelineSwitch(1); // apriltag #1 pipeline
+    // limelight.pipelineSwitch(1); // apriltag #1 pipeline
     limelight.setPollRateHz(100); // limelight pipleine
-    limelight.pipelineSwitch(7);// Use pipeline 1 for green and 2 for purple
+    limelight.pipelineSwitch(9); // Use pipeline 1 for green and 2 for purple
     limelight.start();
   }
 
