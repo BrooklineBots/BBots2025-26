@@ -14,6 +14,7 @@ import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 import java.io.IOException;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.AutoAlignCommand;
+import org.firstinspires.ftc.teamcode.Commands.AutoStrafeCommand;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.AutoChooser;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.B12;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.B3;
@@ -145,7 +146,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Gamepad 1 buttons
     new GamepadButton(gamepad1, GamepadKeys.Button.B).whenHeld(new IntakeCommand(intake));
-    new GamepadButton(gamepad1, GamepadKeys.Button.A).toggleWhenActive(new AutoAlignCommand(drive, limelight, telemetry));
+    new GamepadButton(gamepad1, GamepadKeys.Button.A).toggleWhenActive(new AutoStrafeCommand(drive, limelight, telemetry));
+    new GamepadButton(gamepad1, GamepadKeys.Button.X).toggleWhenActive(new AutoAlignCommand(drive, limelight, telemetry ));
     new GamepadButton(gamepad1, GamepadKeys.Button.Y).whenHeld(new ExpelIntakeCommand(intake));
     new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP).whenHeld(new IntakeOutCommand(intake));
 
