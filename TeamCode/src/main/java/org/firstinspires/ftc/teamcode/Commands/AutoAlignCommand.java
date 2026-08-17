@@ -12,20 +12,19 @@ public class AutoAlignCommand extends CommandBase {
   private final LimelightSub limelight;
   private final Drivetrain drive;
   private final Telemetry telemetry;
-  private final PIDController pid;
+  private final PIDController pid = new PIDController(0.012, 0.0, 0.0001);
 
   public AutoAlignCommand(Drivetrain drive, LimelightSub limelight, Telemetry telemetry) {
     this.limelight = limelight;
     this.drive = drive;
     this.telemetry = telemetry;
-    this.pid = new PIDController(0.002, 0.0, 0.0001);
-    this.pid.setTolerance(0.4);
-    addRequirements(limelight);
+    addRequirements(limelight, drive);
   }
 
   @Override
   public void initialize() {
     pid.reset();
+    pid.setTolerance(0.0);
     pid.setSetPoint(0);
   }
 
@@ -45,7 +44,6 @@ public class AutoAlignCommand extends CommandBase {
       telemetry.addData("At Setpoint", pid.atSetPoint());
 
     } else {
-      drive.stopMotors();
       telemetry.addData("Align State", "Searching for Target...");
     }
     telemetry.update();
