@@ -69,6 +69,12 @@ public class RobotContainer {
     TeleOp
   }
 
+  public enum alliance {
+      Red,
+      Blue
+  }
+  private alliance currentAlliance = alliance.Blue;
+
   private gameMode currentGameMode = null;
 
   public enum AutoMode { // Enum of all valid autonomous modes
@@ -147,7 +153,7 @@ public class RobotContainer {
     // Gamepad 1 buttons
     new GamepadButton(gamepad1, GamepadKeys.Button.B).whenHeld(new IntakeCommand(intake));
     new GamepadButton(gamepad1, GamepadKeys.Button.A).toggleWhenActive(new AutoStrafeCommand(drive, limelight, telemetry));
-    new GamepadButton(gamepad1, GamepadKeys.Button.X).toggleWhenActive(new AutoAlignCommand(drive, limelight, telemetry ));
+    new GamepadButton(gamepad1, GamepadKeys.Button.LEFT_BUMPER).toggleWhenActive(new AutoAlignCommand(drive, limelight, telemetry ));
     new GamepadButton(gamepad1, GamepadKeys.Button.Y).whenHeld(new ExpelIntakeCommand(intake));
     new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP).whenHeld(new IntakeOutCommand(intake));
 
@@ -163,8 +169,7 @@ public class RobotContainer {
         .whenHeld(new RaiseEndgameCommand(endgame));
     new GamepadButton(gamepad2, GamepadKeys.Button.DPAD_DOWN)
         .whenHeld(new LowerEndgameCommand(endgame));
-    // hailey add: new GamepadButton(gamepad2, etc etc).whenHeld(new
-    // RaiseEndgameCommand(endgame).withTimeout(Constants.EndgameConstants.ENDGAME_TIME));
+    new GamepadButton(gamepad2, GamepadKeys.Button.START).toggleWhenActive((currentAlliance == alliance.Blue) ? (currentAlliance = alliance.Red) : (currentAlliance = alliance.Blue));
 
   }
 

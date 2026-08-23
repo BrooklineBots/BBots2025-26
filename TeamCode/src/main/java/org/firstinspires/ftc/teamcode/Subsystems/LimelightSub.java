@@ -12,12 +12,17 @@ public class LimelightSub extends SubsystemBase {
 
   private Limelight3A limelight;
   private LLResult latestResult;
+  public enum Pipeline{
+      OBELISK,
+      REDGOAL,
+      BLUEGOAL,
+      COLOR
+  }
 
   public LimelightSub(HardwareMap hardwareMap) {
     limelight = hardwareMap.get(Limelight3A.class, "limelight");
-    //limelight.pipelineSwitch(1); // apriltag #1 pipeline
     limelight.setPollRateHz(100); // limelight pipleine
-    limelight.pipelineSwitch(7);// Use pipeline 1 for green and 2 for purple
+    switchPipeline(Pipeline.OBELISK);
     limelight.start();
   }
 
@@ -56,6 +61,37 @@ public class LimelightSub extends SubsystemBase {
 
   public boolean hasTarget() {
     return latestResult != null && latestResult.isValid();
+  }
+
+  public Pipeline getPipeline(){
+      switch (limelight.getStatus().getPipelineIndex()) {
+          case 9:
+              return Pipeline.BLUEGOAL;
+          case 8:
+              return Pipeline.REDGOAL;
+          case 7:
+              return Pipeline.OBELISK;
+          case 6:
+             return  Pipeline.COLOR;
+          default:
+              return Pipeline.BLUEGOAL;
+      }
+  }
+
+  public void switchPipeline(Pipeline pipeline){
+      int n = 0;
+
+      switch (pipeline) {
+          case BLUEGOAL:
+              n = 9;
+          case REDGOAL:
+              n = 8;
+          case OBELISK:
+              n = 7;
+          case COLOR:
+              n = 6;
+      }
+      limelight.pipelineSwitch(n);
   }
 
   private double getDistanceFromTag(double ta) {

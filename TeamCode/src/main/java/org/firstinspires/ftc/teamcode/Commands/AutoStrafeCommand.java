@@ -17,6 +17,7 @@ public class AutoStrafeCommand extends CommandBase {
         this.drive = drive;
         this.telemetry = telemetry;
         addRequirements(limelight);
+        limelight.switchPipeline(LimelightSub.Pipeline.BLUEGOAL);
     }
 
     @Override
