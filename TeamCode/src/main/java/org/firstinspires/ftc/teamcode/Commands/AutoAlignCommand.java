@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.util.Range;
 import com.seattlesolvers.solverslib.command.CommandBase;
 import com.seattlesolvers.solverslib.controller.PIDController;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.LimelightSub;
 
@@ -15,12 +16,22 @@ public class AutoAlignCommand extends CommandBase {
   private final Drivetrain drive;
   private final Telemetry telemetry;
   private final PIDController pid = new PIDController(0.012, 0.0, 0.0001);
+  private LimelightSub.Pipeline initialPipeline;
 
-  public AutoAlignCommand(Drivetrain drive, LimelightSub limelight, Telemetry telemetry) {
+  public AutoAlignCommand(Drivetrain drive, LimelightSub limelight, Telemetry telemetry, RobotContainer.alliance alliance) {
     this.limelight = limelight;
     this.drive = drive;
     this.telemetry = telemetry;
     addRequirements(limelight, drive);
+    initialPipeline = limelight.getPipeline();
+    switch(alliance){
+        case Blue:
+            limelight.switchPipeline(LimelightSub.Pipeline.BLUEGOAL);
+        case Red:
+            limelight.switchPipeline(LimelightSub.Pipeline.REDGOAL);
+        default:
+            limelight.switchPipeline(LimelightSub.Pipeline.BLUEGOAL);
+  }
   }
 
   @Override

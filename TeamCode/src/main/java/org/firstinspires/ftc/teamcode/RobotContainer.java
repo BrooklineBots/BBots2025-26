@@ -115,6 +115,9 @@ public class RobotContainer {
   public CommandOpMode getJavaBot() {
     return JavaBot;
   }
+  public alliance getCurrentAlliance(){
+      return currentAlliance;
+  }
 
   public void initializeSubsystems() {
     pinpoint = new PinpointLocalizer(hardwareMap, new PinpointConstants());
@@ -152,7 +155,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Gamepad 1 buttons
     new GamepadButton(gamepad1, GamepadKeys.Button.B).whenHeld(new IntakeCommand(intake));
-    new GamepadButton(gamepad1, GamepadKeys.Button.A).toggleWhenActive(new AutoStrafeCommand(drive, limelight, telemetry));
+    new GamepadButton(gamepad1, GamepadKeys.Button.A).toggleWhenActive(new AutoStrafeCommand(drive, limelight, telemetry, currentAlliance));
     new GamepadButton(gamepad1, GamepadKeys.Button.LEFT_BUMPER).toggleWhenActive(new AutoAlignCommand(drive, limelight, telemetry ));
     new GamepadButton(gamepad1, GamepadKeys.Button.Y).whenHeld(new ExpelIntakeCommand(intake));
     new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP).whenHeld(new IntakeOutCommand(intake));
@@ -169,7 +172,11 @@ public class RobotContainer {
         .whenHeld(new RaiseEndgameCommand(endgame));
     new GamepadButton(gamepad2, GamepadKeys.Button.DPAD_DOWN)
         .whenHeld(new LowerEndgameCommand(endgame));
-    new GamepadButton(gamepad2, GamepadKeys.Button.START).toggleWhenActive((currentAlliance == alliance.Blue) ? (currentAlliance = alliance.Red) : (currentAlliance = alliance.Blue));
+    new GamepadButton(gamepad2, GamepadKeys.Button.START)
+        .toggleWhenActive(new InstantCommand(()->
+            {currentAlliance = (currentAlliance == alliance.Blue) ? (alliance.Red) : (alliance.Blue);}
+        )
+    );
 
   }
 

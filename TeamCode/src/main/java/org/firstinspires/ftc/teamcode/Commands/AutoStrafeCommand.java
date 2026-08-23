@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Commands;
 
 import com.seattlesolvers.solverslib.command.CommandBase;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.LimelightSub;
 
@@ -9,12 +10,22 @@ public class AutoStrafeCommand extends CommandBase {
   private final LimelightSub limelight;
   private final Drivetrain drive;
   private final Telemetry telemetry;
+  private LimelightSub.Pipeline initialPipeline;
 
-  public AutoStrafeCommand(Drivetrain drive, LimelightSub limelight, Telemetry telemetry) {
+  public AutoStrafeCommand(Drivetrain drive, LimelightSub limelight, Telemetry telemetry, RobotContainer.alliance alliance) {
     this.limelight = limelight;
     this.drive = drive;
     this.telemetry = telemetry;
     addRequirements(limelight);
+    initialPipeline = limelight.getPipeline();
+    switch(alliance){
+        case Blue:
+            limelight.switchPipeline(LimelightSub.Pipeline.BLUEGOAL);
+        case Red:
+            limelight.switchPipeline(LimelightSub.Pipeline.REDGOAL);
+        default:
+            limelight.switchPipeline(LimelightSub.Pipeline.BLUEGOAL);
+    }
   }
 
   @Override
@@ -39,5 +50,6 @@ public class AutoStrafeCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     drive.stopMotors();
+    limelight.switchPipeline(initialPipeline);
   }
 }
