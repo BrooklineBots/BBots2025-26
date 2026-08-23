@@ -14,7 +14,6 @@ import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 import java.io.IOException;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.AutoAlignCommand;
-import org.firstinspires.ftc.teamcode.Commands.AutoStrafeCommand;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.AutoChooser;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.B12;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.B3;
@@ -31,6 +30,7 @@ import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifactFro
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.bluePotato;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.reg;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.zendayaHatTheory;
+import org.firstinspires.ftc.teamcode.Commands.AutoStrafeCommand;
 import org.firstinspires.ftc.teamcode.Commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.Commands.ExpelIntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
@@ -135,7 +135,7 @@ public class RobotContainer {
     initializeSubsystems();
 
     // Default commands
-    drive.setDefaultCommand(new DriveCommand(drive, gamepad1));
+    drive.setDefaultCommand(new DriveCommand(drive, gamepad1, limelight, telemetry));
     // Button bindings
     configureButtonBindings();
   }
@@ -248,37 +248,6 @@ public class RobotContainer {
   }
 
   public void run() {
-    // telemetry`
-    // telemetry.addData("Currently shooting", outtake.getPower());
-    //    telemetry.update();
-
-// Hailey Test
-//    telemetry.addData("TX",limelight.getTx() );
-//    if (gamepad1.getButton(GamepadKeys.Button.A)) {
-//        double tolerance = 4.0;
-//        if (!limelight.hasTarget()) {
-//            telemetry.addData("Target Result", "No target found");
-//        } else if (limelight.getTx() < -tolerance){
-//            drive.driveRobotCentric(0, 0.25, 0);
-//            telemetry.addData("Target Result", "to robot's left");
-//        }else if (limelight.getTx() > tolerance){
-//            drive.driveRobotCentric(0, -0.25, 0);
-//            telemetry.addData("Target Result", "to robot's right");
-//        } else{
-//            telemetry.addData("Target Result", "spot on");
-//            drive.driveRobotCentric(0, 0, 0);
-//        }
-//    }
-//    telemetry.update();
-//      telemetry.addData("th","is");
-////      if (limelight.hasTarget()) {
-////          telemetry.addData("TX", limelight.getTx());
-////      }else{
-////          telemetry.addData("TX", "Not Found");
-////      }
-//      telemetry.update();
-
-
 
     if (currentGameMode == gameMode.TeleOp) {
       gamepad1.readButtons();
