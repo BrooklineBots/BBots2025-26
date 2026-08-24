@@ -13,7 +13,6 @@ import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 import java.io.IOException;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.Commands.AutoAlignCommand;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.AutoChooser;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.B12;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.B3;
@@ -70,9 +69,10 @@ public class RobotContainer {
   }
 
   public enum alliance {
-      Red,
-      Blue
+    Red,
+    Blue
   }
+
   private alliance currentAlliance = alliance.Blue;
 
   private gameMode currentGameMode = null;
@@ -115,8 +115,9 @@ public class RobotContainer {
   public CommandOpMode getJavaBot() {
     return JavaBot;
   }
-  public alliance getCurrentAlliance(){
-      return currentAlliance;
+
+  public alliance getCurrentAlliance() {
+    return currentAlliance;
   }
 
   public void initializeSubsystems() {
@@ -138,7 +139,8 @@ public class RobotContainer {
     initializeSubsystems();
 
     // Default commands
-    drive.setDefaultCommand(new DriveCommand(drive, gamepad1, limelight, telemetry));
+    drive.setDefaultCommand(
+        new DriveCommand(drive, gamepad1, limelight, telemetry, currentAlliance));
     // Button bindings
     configureButtonBindings();
   }
@@ -155,8 +157,10 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Gamepad 1 buttons
     new GamepadButton(gamepad1, GamepadKeys.Button.B).whenHeld(new IntakeCommand(intake));
-    new GamepadButton(gamepad1, GamepadKeys.Button.A).toggleWhenActive(new AutoStrafeCommand(drive, limelight, telemetry, currentAlliance));
-    new GamepadButton(gamepad1, GamepadKeys.Button.LEFT_BUMPER).toggleWhenActive(new AutoAlignCommand(drive, limelight, telemetry ));
+    new GamepadButton(gamepad1, GamepadKeys.Button.A)
+        .toggleWhenActive(new AutoStrafeCommand(drive, limelight, telemetry, currentAlliance));
+    // new GamepadButton(gamepad1, GamepadKeys.Button.LEFT_BUMPER)
+    // .toggleWhenActive(new (drive, limelight, telemetry, currentAlliance));
     new GamepadButton(gamepad1, GamepadKeys.Button.Y).whenHeld(new ExpelIntakeCommand(intake));
     new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP).whenHeld(new IntakeOutCommand(intake));
 
@@ -173,11 +177,12 @@ public class RobotContainer {
     new GamepadButton(gamepad2, GamepadKeys.Button.DPAD_DOWN)
         .whenHeld(new LowerEndgameCommand(endgame));
     new GamepadButton(gamepad2, GamepadKeys.Button.START)
-        .toggleWhenActive(new InstantCommand(()->
-            {currentAlliance = (currentAlliance == alliance.Blue) ? (alliance.Red) : (alliance.Blue);}
-        )
-    );
-
+        .toggleWhenActive(
+            new InstantCommand(
+                () -> {
+                  currentAlliance =
+                      (currentAlliance == alliance.Blue) ? (alliance.Red) : (alliance.Blue);
+                }));
   }
 
   public void scheduleAutoCommands(final AutoMode selectedAutoMode) {

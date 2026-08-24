@@ -12,19 +12,23 @@ public class AutoStrafeCommand extends CommandBase {
   private final Telemetry telemetry;
   private LimelightSub.Pipeline initialPipeline;
 
-  public AutoStrafeCommand(Drivetrain drive, LimelightSub limelight, Telemetry telemetry, RobotContainer.alliance alliance) {
+  public AutoStrafeCommand(
+      Drivetrain drive,
+      LimelightSub limelight,
+      Telemetry telemetry,
+      RobotContainer.alliance alliance) {
     this.limelight = limelight;
     this.drive = drive;
     this.telemetry = telemetry;
     addRequirements(limelight);
     initialPipeline = limelight.getPipeline();
-    switch(alliance){
-        case Blue:
-            limelight.switchPipeline(LimelightSub.Pipeline.BLUEGOAL);
-        case Red:
-            limelight.switchPipeline(LimelightSub.Pipeline.REDGOAL);
-        default:
-            limelight.switchPipeline(LimelightSub.Pipeline.BLUEGOAL);
+    switch (alliance) {
+      case Blue:
+        limelight.switchPipeline(LimelightSub.Pipeline.BLUEGOAL);
+      case Red:
+        limelight.switchPipeline(LimelightSub.Pipeline.REDGOAL);
+      default:
+        limelight.switchPipeline(LimelightSub.Pipeline.BLUEGOAL);
     }
   }
 

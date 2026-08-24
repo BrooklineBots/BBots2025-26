@@ -14,10 +14,11 @@ public class DriveCommand extends CommandBase {
   private final GamepadEx gamepad;
   private final LimelightSub limelight;
   private final Telemetry telemetry;
-  private final PIDController pid = new PIDController(0.012, 0.0, 0.0001);
+  private final PIDController pid = new PIDController(0.01, 0.0, 0.000);
 
   private final double tolerance = 0.1; // Tolerance for joystick input
   private double turnOutput = 0.0;
+  private LimelightSub.Pipeline initialPipeline;
 
   public DriveCommand(
       final Drivetrain drive,
@@ -36,6 +37,17 @@ public class DriveCommand extends CommandBase {
     pid.reset();
     pid.setTolerance(0.0);
     pid.setSetPoint(0);
+    initialPipeline = limelight.getPipeline();
+    //        switch (alliance) {
+    //          case Blue:
+    //            limelight.switchPipeline(LimelightSub.Pipeline.BLUEGOAL);
+    //            break;
+    //          case Red:
+    //            limelight.switchPipeline(LimelightSub.Pipeline.REDGOAL);
+    //            break;
+    //          default:
+    //            limelight.switchPipeline(LimelightSub.Pipeline.BLUEGOAL);
+    //        }
   }
 
   @Override

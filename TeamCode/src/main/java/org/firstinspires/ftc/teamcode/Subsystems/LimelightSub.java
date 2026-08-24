@@ -9,11 +9,12 @@ public class LimelightSub extends SubsystemBase {
 
   private Limelight3A limelight;
   private LLResult latestResult;
-  public enum Pipeline{
-      OBELISK,
-      REDGOAL,
-      BLUEGOAL,
-      COLOR
+
+  public enum Pipeline {
+    OBELISK,
+    REDGOAL,
+    BLUEGOAL,
+    COLOR
   }
 
   public LimelightSub(HardwareMap hardwareMap) {
@@ -60,35 +61,39 @@ public class LimelightSub extends SubsystemBase {
     return latestResult != null && latestResult.isValid();
   }
 
-  public Pipeline getPipeline(){
-      switch (limelight.getStatus().getPipelineIndex()) {
-          case 9:
-              return Pipeline.BLUEGOAL;
-          case 8:
-              return Pipeline.REDGOAL;
-          case 7:
-              return Pipeline.OBELISK;
-          case 6:
-             return  Pipeline.COLOR;
-          default:
-              return Pipeline.BLUEGOAL;
-      }
+  public Pipeline getPipeline() {
+    switch (limelight.getStatus().getPipelineIndex()) {
+      case 9:
+        return Pipeline.BLUEGOAL;
+      case 8:
+        return Pipeline.REDGOAL;
+      case 7:
+        return Pipeline.OBELISK;
+      case 6:
+        return Pipeline.COLOR;
+      default:
+        return Pipeline.BLUEGOAL;
+    }
   }
 
-  public void switchPipeline(Pipeline pipeline){
-      int n = 0;
+  public void switchPipeline(Pipeline pipeline) {
+    int n = 0;
 
-      switch (pipeline) {
-          case BLUEGOAL:
-              n = 9;
-          case REDGOAL:
-              n = 8;
-          case OBELISK:
-              n = 7;
-          case COLOR:
-              n = 6;
-      }
-      limelight.pipelineSwitch(n);
+    switch (pipeline) {
+      case BLUEGOAL:
+        n = 9;
+        break;
+      case REDGOAL:
+        n = 8;
+        break;
+      case OBELISK:
+        n = 7;
+        break;
+      case COLOR:
+        n = 6;
+        break;
+    }
+    limelight.pipelineSwitch(n);
   }
 
   private double getDistanceFromTag(double ta) {
