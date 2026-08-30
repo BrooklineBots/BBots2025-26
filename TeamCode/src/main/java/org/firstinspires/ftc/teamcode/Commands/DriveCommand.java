@@ -53,21 +53,21 @@ public class DriveCommand extends CommandBase {
   @Override
   public void execute() {
     double rotation = 0.0;
-    if (limelight.hasTarget()) {
-      double currentTx = limelight.getTx();
-
-      turnOutput = pid.calculate(currentTx);
-      // turnOutput = Range.clip(turnOutput, -0.4, 0.4);
-
-      telemetry.addData("Align State", "Target Found");
-      telemetry.addData("Limelight Tx", currentTx);
-      telemetry.addData("PID Output", turnOutput);
-      telemetry.addData("At Setpoint", pid.atSetPoint());
-
-    } else {
-      telemetry.addData("Align State", "Searching for Target...");
-    }
-    telemetry.update();
+//    if (limelight.hasTarget()) {
+//      double currentTx = limelight.getTx();
+//
+//      turnOutput = pid.calculate(currentTx);
+//      // turnOutput = Range.clip(turnOutput, -0.4, 0.4);
+//
+//      telemetry.addData("Align State", "Target Found");
+//      telemetry.addData("Limelight Tx", currentTx);
+//      telemetry.addData("PID Output", turnOutput);
+//      telemetry.addData("At Setpoint", pid.atSetPoint());
+//
+////    } else {
+////      telemetry.addData("Align State", "Searching for Target...");
+//    }
+//    telemetry.update();
 
     if (gamepad.getButton(GamepadKeys.Button.LEFT_BUMPER)
         && Utils.isWithinTolerance(0, gamepad.getRightX(), tolerance)) {

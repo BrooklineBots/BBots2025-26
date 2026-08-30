@@ -37,6 +37,7 @@ import org.firstinspires.ftc.teamcode.Commands.IntakeOutCommand;
 import org.firstinspires.ftc.teamcode.Commands.LowerEndgameCommand;
 import org.firstinspires.ftc.teamcode.Commands.OuttakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.RaiseEndgameCommand;
+import org.firstinspires.ftc.teamcode.Commands.TrackYellowBallCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Endgame;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
@@ -94,7 +95,7 @@ public class RobotContainer {
     CommandTests,
     B12,
     R3,
-    B3;
+    B3
   }
 
   private AutoMode currentAuto;
@@ -140,7 +141,7 @@ public class RobotContainer {
 
     // Default commands
     drive.setDefaultCommand(
-        new DriveCommand(drive, gamepad1, limelight, telemetry, currentAlliance));
+        new DriveCommand(drive, gamepad1, limelight, telemetry));
     // Button bindings
     configureButtonBindings();
   }
@@ -163,6 +164,7 @@ public class RobotContainer {
     // .toggleWhenActive(new (drive, limelight, telemetry, currentAlliance));
     new GamepadButton(gamepad1, GamepadKeys.Button.Y).whenHeld(new ExpelIntakeCommand(intake));
     new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP).whenHeld(new IntakeOutCommand(intake));
+    new GamepadButton(gamepad1, GamepadKeys.Button.BACK).toggleWhenActive(new TrackYellowBallCommand(drive, limelight, telemetry));
 
     // gamepad2
     new GamepadButton(gamepad2, GamepadKeys.Button.Y)
