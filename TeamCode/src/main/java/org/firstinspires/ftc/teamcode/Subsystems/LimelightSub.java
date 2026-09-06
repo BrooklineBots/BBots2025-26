@@ -4,6 +4,7 @@ import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
+import org.firstinspires.ftc.teamcode.Constants;
 
 public class LimelightSub extends SubsystemBase {
 
@@ -96,9 +97,13 @@ public class LimelightSub extends SubsystemBase {
     limelight.pipelineSwitch(n);
   }
 
-  private double getDistanceFromTag(double ta) {
-    double scale = 400; // TODO: Calibrate this (once mounted on the robot)
-    double distance = (scale / ta);
-    return distance;
+  private double getDistanceFromTag() {
+    return (Constants.LimelightConstants.aprilTagHeight
+            - Constants.LimelightConstants.limelightHeight)
+        / Math.tan(Constants.LimelightConstants.limelightAngle);
+  }
+
+  public double getOuttakeSpeed() {
+    // add in calculations based on the treemap
   }
 }

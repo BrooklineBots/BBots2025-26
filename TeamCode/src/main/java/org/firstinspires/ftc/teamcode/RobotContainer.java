@@ -140,8 +140,7 @@ public class RobotContainer {
     initializeSubsystems();
 
     // Default commands
-    drive.setDefaultCommand(
-        new DriveCommand(drive, gamepad1, limelight, telemetry));
+    drive.setDefaultCommand(new DriveCommand(drive, gamepad1, limelight, telemetry));
     // Button bindings
     configureButtonBindings();
   }
@@ -164,7 +163,8 @@ public class RobotContainer {
     // .toggleWhenActive(new (drive, limelight, telemetry, currentAlliance));
     new GamepadButton(gamepad1, GamepadKeys.Button.Y).whenHeld(new ExpelIntakeCommand(intake));
     new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP).whenHeld(new IntakeOutCommand(intake));
-    new GamepadButton(gamepad1, GamepadKeys.Button.BACK).toggleWhenActive(new TrackYellowBallCommand(drive, limelight, telemetry));
+    new GamepadButton(gamepad1, GamepadKeys.Button.BACK)
+        .toggleWhenActive(new TrackYellowBallCommand(drive, limelight, telemetry));
 
     // gamepad2
     new GamepadButton(gamepad2, GamepadKeys.Button.Y)

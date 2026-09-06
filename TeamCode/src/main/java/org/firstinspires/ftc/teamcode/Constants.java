@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import java.util.TreeMap;
+
 public class Constants {
 
   public static class RobotConstants {
@@ -61,5 +63,14 @@ public class Constants {
     public static final long ENDGAME_TIME =
         1000; // TODO: change; (milliseconds it takes to move up)
     public static final double ENDGAME_VELOCITY = 500;
+  }
+
+  public static class LimelightConstants {
+    // DISTANCE CONSTANTS:
+
+    public static final double aprilTagHeight = 73.66;
+    public static final double limelightHeight = 21.5;
+    public static final double limelightAngle = 36.8; // Degrees
+    public static final TreeMap<Integer, Integer> esdeemap = new TreeMap<>();
   }
 }
