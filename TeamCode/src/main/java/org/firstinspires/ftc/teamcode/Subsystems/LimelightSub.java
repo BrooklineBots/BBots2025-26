@@ -5,11 +5,14 @@ import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
 import org.firstinspires.ftc.teamcode.Constants;
+import org.firstinspires.ftc.teamcode.Utils.LinearInterpolationMap;
 
 public class LimelightSub extends SubsystemBase {
 
-  private Limelight3A limelight;
+  private final Limelight3A limelight;
   private LLResult latestResult;
+  private final LinearInterpolationMap distanceToSpeed =
+      Constants.LimelightConstants.distanceToVeed;
 
   public enum Pipeline {
     OBELISK,
@@ -28,13 +31,6 @@ public class LimelightSub extends SubsystemBase {
   @Override
   public void periodic() {
     latestResult = limelight.getLatestResult();
-  }
-
-  public double getDistance() {
-    if (latestResult != null && latestResult.isValid()) {
-      return getDistanceFromTag(latestResult.getTa());
-    }
-    return -1;
   }
 
   public double getTx() {
@@ -97,13 +93,15 @@ public class LimelightSub extends SubsystemBase {
     limelight.pipelineSwitch(n);
   }
 
-  private double getDistanceFromTag() {
-    return (Constants.LimelightConstants.aprilTagHeight
-            - Constants.LimelightConstants.limelightHeight)
-        / Math.tan(Constants.LimelightConstants.limelightAngle);
+  public double getDistanceFromTag() {
+    double distance =
+        (Constants.LimelightConstants.aprilTagHeight - Constants.LimelightConstants.limelightHeight)
+            / Math.tan(limelight.getLatestResult().getTy()+ Constants.LimelightConstants.limelightAngle);
+    return distance;
   }
 
   public double getOuttakeSpeed() {
     // add in calculations based on the treemap
+    return distanceToSpeed.interpolate(getDistanceFromTag());
   }
 }

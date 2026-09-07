@@ -17,7 +17,7 @@ public class DistanceCommand extends CommandBase {
 
   @Override
   public void execute() {
-    final double distance = limelight.getDistance();
+    final double distance = limelight.getDistanceFromTag();
     final double tx = limelight.getTx();
     final double ty = limelight.getTy();
     final double ta = limelight.getTa();

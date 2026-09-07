@@ -262,12 +262,21 @@ public class RobotContainer {
   }
 
   public void run() {
+    try {
+      telemetry.addData("Distance", limelight.getDistanceFromTag());
+    } catch (Error e) {
+        telemetry.addLine("Distance failed");
+
+    }
+
+      telemetry.update();
 
     if (currentGameMode == gameMode.TeleOp) {
       gamepad1.readButtons();
       gamepad2.readButtons();
     }
     if (currentGameMode == gameMode.Auto) {
+
       //      telemetry.addData("Pos x", autoDrive.getFollower().getPose().getX());
       //      telemetry.addData("Pos y", autoDrive.getFollower().getPose().getY());
       //      telemetry.addData("Heading: ", autoDrive.getFollower().getPose().getHeading());
