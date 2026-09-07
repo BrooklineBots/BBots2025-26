@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
+import java.util.Map;
+import java.util.TreeMap;
+import org.firstinspires.ftc.teamcode.Utils.LinearInterpolationMap;
+
 public class Constants {
 
   public static class RobotConstants {
@@ -61,5 +65,15 @@ public class Constants {
     public static final long ENDGAME_TIME =
         1000; // TODO: change; (milliseconds it takes to move up)
     public static final double ENDGAME_VELOCITY = 500;
+  }
+
+  public static class LimelightConstants {
+    // DISTANCE CONSTANTS:
+
+    public static final double aprilTagHeight = 73.66;
+    public static final double limelightHeight = 21.5;
+    public static final double limelightAngle = 36.8; // Degrees
+    public static final LinearInterpolationMap distanceToVeed =
+        new LinearInterpolationMap(new TreeMap<>(Map.of(8.0, 159, 12.0, 800, 20.0, 2000)));
   }
 }

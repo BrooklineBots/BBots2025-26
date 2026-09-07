@@ -29,6 +29,7 @@ import org.firstinspires.ftc.teamcode.Commands.AutoCommands.RedTwelveArtifactFro
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.bluePotato;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.reg;
 import org.firstinspires.ftc.teamcode.Commands.AutoCommands.zendayaHatTheory;
+import org.firstinspires.ftc.teamcode.Commands.AutoStrafeCommand;
 import org.firstinspires.ftc.teamcode.Commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.Commands.ExpelIntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
@@ -36,9 +37,11 @@ import org.firstinspires.ftc.teamcode.Commands.IntakeOutCommand;
 import org.firstinspires.ftc.teamcode.Commands.LowerEndgameCommand;
 import org.firstinspires.ftc.teamcode.Commands.OuttakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.RaiseEndgameCommand;
+import org.firstinspires.ftc.teamcode.Commands.TrackYellowBallCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Endgame;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
+import org.firstinspires.ftc.teamcode.Subsystems.LimelightSub;
 import org.firstinspires.ftc.teamcode.Subsystems.Outtake;
 import org.firstinspires.ftc.teamcode.Subsystems.PinballServos;
 
@@ -52,6 +55,7 @@ public class RobotContainer {
   private PinballServos pinballs;
 
   private Endgame endgame;
+  private LimelightSub limelight;
 
   // Dependencies
   private final HardwareMap hardwareMap;
@@ -64,6 +68,13 @@ public class RobotContainer {
     Auto,
     TeleOp
   }
+
+  public enum alliance {
+    Red,
+    Blue
+  }
+
+  private alliance currentAlliance = alliance.Blue;
 
   private gameMode currentGameMode = null;
 
@@ -84,7 +95,7 @@ public class RobotContainer {
     CommandTests,
     B12,
     R3,
-    B3;
+    B3
   }
 
   private AutoMode currentAuto;
@@ -106,6 +117,10 @@ public class RobotContainer {
     return JavaBot;
   }
 
+  public alliance getCurrentAlliance() {
+    return currentAlliance;
+  }
+
   public void initializeSubsystems() {
     pinpoint = new PinpointLocalizer(hardwareMap, new PinpointConstants());
     intake = new Intake(hardwareMap);
@@ -114,6 +129,7 @@ public class RobotContainer {
     outtake = new Outtake(hardwareMap, telemetry);
     pinballs = new PinballServos(hardwareMap, telemetry);
     endgame = new Endgame(hardwareMap);
+    limelight = new LimelightSub(hardwareMap);
     // Register subsystems with scheduler
     CommandScheduler.getInstance()
         .registerSubsystem(drive, autoDrive, intake, outtake, pinballs, endgame);
@@ -124,7 +140,7 @@ public class RobotContainer {
     initializeSubsystems();
 
     // Default commands
-    drive.setDefaultCommand(new DriveCommand(drive, gamepad1));
+    drive.setDefaultCommand(new DriveCommand(drive, gamepad1, limelight, telemetry));
     // Button bindings
     configureButtonBindings();
   }
@@ -141,8 +157,14 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Gamepad 1 buttons
     new GamepadButton(gamepad1, GamepadKeys.Button.B).whenHeld(new IntakeCommand(intake));
+    new GamepadButton(gamepad1, GamepadKeys.Button.A)
+        .toggleWhenActive(new AutoStrafeCommand(drive, limelight, telemetry, currentAlliance));
+    // new GamepadButton(gamepad1, GamepadKeys.Button.LEFT_BUMPER)
+    // .toggleWhenActive(new (drive, limelight, telemetry, currentAlliance));
     new GamepadButton(gamepad1, GamepadKeys.Button.Y).whenHeld(new ExpelIntakeCommand(intake));
     new GamepadButton(gamepad1, GamepadKeys.Button.DPAD_UP).whenHeld(new IntakeOutCommand(intake));
+    new GamepadButton(gamepad1, GamepadKeys.Button.BACK)
+        .toggleWhenActive(new TrackYellowBallCommand(drive, limelight, telemetry));
 
     // gamepad2
     new GamepadButton(gamepad2, GamepadKeys.Button.Y)
@@ -156,9 +178,13 @@ public class RobotContainer {
         .whenHeld(new RaiseEndgameCommand(endgame));
     new GamepadButton(gamepad2, GamepadKeys.Button.DPAD_DOWN)
         .whenHeld(new LowerEndgameCommand(endgame));
-    // hailey add: new GamepadButton(gamepad2, etc etc).whenHeld(new
-    // RaiseEndgameCommand(endgame).withTimeout(Constants.EndgameConstants.ENDGAME_TIME));
-
+    new GamepadButton(gamepad2, GamepadKeys.Button.START)
+        .toggleWhenActive(
+            new InstantCommand(
+                () -> {
+                  currentAlliance =
+                      (currentAlliance == alliance.Blue) ? (alliance.Red) : (alliance.Blue);
+                }));
   }
 
   public void scheduleAutoCommands(final AutoMode selectedAutoMode) {
@@ -236,15 +262,21 @@ public class RobotContainer {
   }
 
   public void run() {
-    // telemetry`
-    // telemetry.addData("Currently shooting", outtake.getPower());
-    //    telemetry.update();
+    try {
+      telemetry.addData("Distance", limelight.getDistanceFromTag());
+    } catch (Error e) {
+        telemetry.addLine("Distance failed");
+
+    }
+
+      telemetry.update();
 
     if (currentGameMode == gameMode.TeleOp) {
       gamepad1.readButtons();
       gamepad2.readButtons();
     }
     if (currentGameMode == gameMode.Auto) {
+
       //      telemetry.addData("Pos x", autoDrive.getFollower().getPose().getX());
       //      telemetry.addData("Pos y", autoDrive.getFollower().getPose().getY());
       //      telemetry.addData("Heading: ", autoDrive.getFollower().getPose().getHeading());

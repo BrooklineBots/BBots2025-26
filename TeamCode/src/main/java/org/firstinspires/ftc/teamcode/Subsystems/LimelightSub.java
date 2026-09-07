@@ -2,44 +2,35 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.IMU;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
+import org.firstinspires.ftc.teamcode.Constants;
+import org.firstinspires.ftc.teamcode.Utils.LinearInterpolationMap;
 
 public class LimelightSub extends SubsystemBase {
 
-  private Limelight3A limelight;
-  private IMU imu;
+  private final Limelight3A limelight;
   private LLResult latestResult;
+  private final LinearInterpolationMap distanceToSpeed =
+      Constants.LimelightConstants.distanceToVeed;
+
+  public enum Pipeline {
+    OBELISK,
+    REDGOAL,
+    BLUEGOAL,
+    COLOR
+  }
 
   public LimelightSub(HardwareMap hardwareMap) {
     limelight = hardwareMap.get(Limelight3A.class, "limelight");
-    limelight.pipelineSwitch(1); // apriltag #1 pipeline
     limelight.setPollRateHz(100); // limelight pipleine
-    limelight.pipelineSwitch(1); // Use pipeline 1 for green and 2 for purple
-    limelight.start();
-
-    imu = hardwareMap.get(IMU.class, "imu");
-    RevHubOrientationOnRobot revHubOrientationOnRobot =
-        new RevHubOrientationOnRobot(
-            RevHubOrientationOnRobot.LogoFacingDirection.UP,
-            RevHubOrientationOnRobot.UsbFacingDirection.FORWARD);
-    imu.initialize(new IMU.Parameters(revHubOrientationOnRobot));
-
+    switchPipeline(Pipeline.OBELISK);
     limelight.start();
   }
 
   @Override
   public void periodic() {
     latestResult = limelight.getLatestResult();
-  }
-
-  public double getDistance() {
-    if (latestResult != null && latestResult.isValid()) {
-      return getDistanceFromTag(latestResult.getTa());
-    }
-    return -1;
   }
 
   public double getTx() {
@@ -67,9 +58,50 @@ public class LimelightSub extends SubsystemBase {
     return latestResult != null && latestResult.isValid();
   }
 
-  private double getDistanceFromTag(double ta) {
-    double scale = 400; // TODO: Calibrate this (once mounted on the robot)
-    double distance = (scale / ta);
+  public Pipeline getPipeline() {
+    switch (limelight.getStatus().getPipelineIndex()) {
+      case 9:
+        return Pipeline.BLUEGOAL;
+      case 8:
+        return Pipeline.REDGOAL;
+      case 7:
+        return Pipeline.OBELISK;
+      case 6:
+        return Pipeline.COLOR;
+      default:
+        return Pipeline.BLUEGOAL;
+    }
+  }
+
+  public void switchPipeline(Pipeline pipeline) {
+    int n = 0;
+
+    switch (pipeline) {
+      case BLUEGOAL:
+        n = 9;
+        break;
+      case REDGOAL:
+        n = 8;
+        break;
+      case OBELISK:
+        n = 7;
+        break;
+      case COLOR:
+        n = 6;
+        break;
+    }
+    limelight.pipelineSwitch(n);
+  }
+
+  public double getDistanceFromTag() {
+    double distance =
+        (Constants.LimelightConstants.aprilTagHeight - Constants.LimelightConstants.limelightHeight)
+            / Math.tan(limelight.getLatestResult().getTy()+ Constants.LimelightConstants.limelightAngle);
     return distance;
+  }
+
+  public double getOuttakeSpeed() {
+    // add in calculations based on the treemap
+    return distanceToSpeed.interpolate(getDistanceFromTag());
   }
 }
